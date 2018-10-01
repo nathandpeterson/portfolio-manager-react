@@ -3,7 +3,7 @@ import {
   PHOTOS_UPLOADED,
   DELETE_UPLOADED_PHOTO,
   UPDATE_UPLOADED_PHOTO,
-} from '../utils/Constants';
+} from '../utils/Constants'
 
 export const photosFetched = photos => ({
   type: PHOTOS_FETCHED,

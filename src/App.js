@@ -5,29 +5,45 @@ import { fetchPhotos } from './utils/CloudinaryService'
 import { photosFetched } from './actions'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 import './App.css'
-import cloud_name from './config/config'
+import config from './config/config'
+import {Row, Col, Input} from 'react-materialize'
 
 
 const PhotoListContainer = () => {
- return <div>Photo List container</div>
+ return <Image publicId="computer-min.jpg" width='100%' >
+
+ </Image>
 }
 
 const PhotosUploaderContainer = () => {
   return <div> Uploads Container </div>
 }
 
-class App extends Component {
+const Manager = () => {
 
-  componentDidMount() {
-    fetchPhotos(cloud_name).then(this.props.onPhotosFetched);
-  }
+  return (
+    <div>
+      Manager
+      <Row>
+        <Col s={12}>
+          <Input  label='UPLOAD' 
+                  id='file-picker' 
+                  type='file'
+                  placeholder='Choose A File'
+                  onChange={(e) => console.log(e.target.value)} />
+        </Col>
+  
+      </Row>
+      
+    </div>
+  )
+}
+
+class App extends Component {
 
   render() {
     return (
-      <CloudinaryContext
-                cloudName={cloud_name}
-                uploadPreset={this.props.uploadPreset}
-            >
+      <CloudinaryContext cloudName={config.cloud_name}>
         <div>Henry Proust
 
         </div>
@@ -43,6 +59,7 @@ class App extends Component {
                               path="/photos/new"
                               component={PhotosUploaderContainer}
                           />
+                          <Route exact path="/manage" component={Manager} />
                           <Redirect from="/" to="/photos" />
                       </Switch>
 
@@ -52,4 +69,4 @@ class App extends Component {
   }
 }
 
-export default connect(null,{ onPhotosFetched: photosFetched })(App);
+export default App

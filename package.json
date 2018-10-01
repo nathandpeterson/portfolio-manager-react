@@ -8,6 +8,7 @@
     "npm": "^6.4.1",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-materialize": "^2.4.6",
     "react-overdrive": "0.0.10",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",

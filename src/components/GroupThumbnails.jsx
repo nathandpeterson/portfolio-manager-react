@@ -5,7 +5,8 @@ import {Link} from 'react-router-dom'
 
 const photoArray = [
   {id: 1, key: 'rawls/rawls-001'}, 
-  {id: 2, key: 'rawls/rawls-002'}
+  {id: 2, key: 'rawls/rawls-002'},
+  {id: 3, key: "test-upload/cb12pqhuhx9bpafa0dwp"}
 ]
 
 class GroupThumbnails extends Component {

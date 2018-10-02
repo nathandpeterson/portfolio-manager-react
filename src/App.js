@@ -5,12 +5,19 @@ import { fetchPhotos } from './utils/CloudinaryService'
 import { photosFetched } from './actions'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 import './App.css'
-import config from './config/config'
-import {Row, Col, Input} from 'react-materialize'
+import {cloud_name, upload_preset} from './config/config'
+import {Row, Col, Input, Button} from 'react-materialize'
 import GroupThumbnails from './components/GroupThumbnails'
 import PhotoCard from './components/PhotoCard'
 
 const photoArray = [{key: 'rawls/rawls-001'}, {key: 'rawls/rawls-002'}]
+
+const uploadWidget = () => {
+  window.cloudinary.openUploadWidget({ cloud_name, upload_preset},
+      function(error, result) {
+          console.log(result);
+      });
+}
 
 const PhotosUploaderContainer = () => {
   return <div> Uploads Container </div>
@@ -31,6 +38,17 @@ const Manager = ( ) => {
         </Col>
   
       </Row>
+      <Row>
+        <Col sm={12}>
+            <Button floating 
+                    large 
+                    className='grey' 
+                    waves='light' 
+                    icon='add'
+                    id="upload_widget_opener"
+                    onClick={uploadWidget} />
+        </Col>
+      </Row>
       
     </div>
   )
@@ -38,12 +56,12 @@ const Manager = ( ) => {
 
 class App extends Component {
   async componentDidMount() {
-    const result = await fetchPhotos(config.cloud_name)
+    const result = await fetchPhotos(cloud_name)
   }
 
   render() {
     return (
-      <CloudinaryContext cloudName={config.cloud_name}>
+      <CloudinaryContext cloudName={cloud_name}>
         <div style={{display:'flex', justifyContent: 'center'}}>
           Rawls
         </div>

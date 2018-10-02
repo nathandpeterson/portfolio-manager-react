@@ -1,4 +1,3 @@
-export default {
-  cloud_name: 'ndpimg',
-  upload_preset: 'UUUUUUUU'
-}
+
+export const cloud_name = 'ndpimg'
+export const upload_preset = 'kzzmdscm'

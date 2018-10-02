@@ -7,19 +7,16 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 import './App.css'
 import config from './config/config'
 import {Row, Col, Input} from 'react-materialize'
+import GroupThumbnails from './components/GroupThumbnails'
+import PhotoCard from './components/PhotoCard'
 
-
-const PhotoListContainer = () => {
- return <Image publicId="computer-min.jpg" width='100%' >
-
- </Image>
-}
+const photoArray = [{key: 'rawls/rawls-001'}, {key: 'rawls/rawls-002'}]
 
 const PhotosUploaderContainer = () => {
   return <div> Uploads Container </div>
 }
 
-const Manager = () => {
+const Manager = ( ) => {
 
   return (
     <div>
@@ -40,19 +37,27 @@ const Manager = () => {
 }
 
 class App extends Component {
+  async componentDidMount() {
+    const result = await fetchPhotos(config.cloud_name)
+  }
 
   render() {
     return (
       <CloudinaryContext cloudName={config.cloud_name}>
-        <div>Henry Proust
-
+        <div style={{display:'flex', justifyContent: 'center'}}>
+          Rawls
         </div>
         <BrowserRouter>
           <Switch className="router">
                           <Route
                               exact
                               path="/photos"
-                              component={PhotoListContainer}
+                              component={GroupThumbnails}
+                          />
+                          <Route
+                              exact
+                              path="/photos/:id"
+                              component={PhotoCard}
                           />
                           <Route
                               exact

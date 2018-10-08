@@ -9,6 +9,7 @@ import {cloud_name, upload_preset} from './config/config'
 import {Row, Col, Input, Button} from 'react-materialize'
 import GroupThumbnails from './components/GroupThumbnails'
 import PhotoCard from './components/PhotoCard'
+import Nav from './components/Nav'
 
 const photoArray = [{key: 'rawls/rawls-001'}, {key: 'rawls/rawls-002'}]
 
@@ -63,7 +64,7 @@ class App extends Component {
     return (
       <CloudinaryContext cloudName={cloud_name}>
         <div style={{display:'flex', justifyContent: 'center'}}>
-          Rawls
+            <Nav />
         </div>
         <BrowserRouter>
           <Switch className="router">

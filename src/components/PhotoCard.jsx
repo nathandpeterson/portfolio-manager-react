@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import Overdrive from 'react-overdrive'
 import { Image } from 'cloudinary-react'
+import {connect} from 'react-redux'
 
 const photoArray = [
   {id: 1, key: 'rawls/rawls-001'}, 
@@ -10,17 +11,19 @@ const photoArray = [
 class PhotoCard extends Component {
 
   render(){
-    console.log('this,props', this.props)
+    console.log('this pros', this.props)
+    const {key} = this.props.selectedPhoto
     return (
-      <div>
-          <Overdrive id='rawls/rawls-001'>
-            <Image width='100%' publicId='rawls/rawls-001'></Image>
+      <div key={key}>
+          <Overdrive id={key}>
+            <Image width='100%' publicId={key}></Image>
           </Overdrive>
       </div>
     )
   }
 }
 
+const mapStateToProps = (state) => ({selectedPhoto: state.selectedPhoto})
 
 
-export default PhotoCard
+export default connect(mapStateToProps)(PhotoCard)

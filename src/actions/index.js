@@ -3,6 +3,7 @@ import {
   PHOTOS_UPLOADED,
   DELETE_UPLOADED_PHOTO,
   UPDATE_UPLOADED_PHOTO,
+  SET_SELECTED_PHOTO
 } from '../utils/Constants'
 
 export const photosFetched = photos => ({
@@ -24,3 +25,7 @@ export const deleteUploadedPhoto = publicId => ({
   type: DELETE_UPLOADED_PHOTO,
   publicId: publicId,
 });
+
+export const setSelectedPhoto = photoData => {
+  type: SET_SELECTED_PHOTO
+}

@@ -33,9 +33,9 @@ class App extends Component {
                           <Route
                               exact
                               path="/photos/new"
-                              component={PhotosUploaderContainer}
+                              component={AddPhoto}
                           />
-                          <Route exact path="/manage" component={AddPhoto} />
+                      
                           <Redirect from="/" to="/photos" />
                       </Switch>
 

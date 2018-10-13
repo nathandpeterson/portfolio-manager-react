@@ -21,7 +21,7 @@ export const fetchPhotos = cloudName => {
   // for demonstration purposes only
   // *************************************************************************
   const options = {
-      cloudName: cloudName,
+      cloudName,
       format: 'json',
       type: 'list',
       version: Math.ceil(new Date().getTime() / 1000),

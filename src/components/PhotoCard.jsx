@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import Overdrive from 'react-overdrive'
 import { Image } from 'cloudinary-react'
+import Nav from './Nav'
 
 const photoArray = [
   {id: 1, key: 'rawls/rawls-001'}, 
@@ -30,6 +31,7 @@ class PhotoCard extends Component {
 
     return (
       <div key={photoData.key}>
+          <Nav />
           <Overdrive id={photoData.key}>
             <Image id={id} width='100%' publicId={photoData.key}></Image>
           </Overdrive>

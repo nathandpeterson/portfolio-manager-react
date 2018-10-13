@@ -2,7 +2,11 @@ import React, { Component } from 'react'
 import { Row, Col, Input, Button } from 'react-materialize'
 import Nav from './Nav'
 import { Image } from 'react-materialize'
-import { openUploadWidget } from '../utils/CloudinaryService'
+import Dropzone from 'react-dropzone'
+import { cloud_name, upload_preset } from '../config/config'
+import axios from 'axios'
+const API_KEY = '2323231'
+
 
 class AlbumForm extends Component {
 
@@ -16,10 +20,28 @@ class AlbumForm extends Component {
     }
   }
 
-  handleUpload = (e) => {
-    if(e) {
-      console.log('file', e.target.value)
-    }
+  handleDrop = (files) => {
+    const uploads = files.map(file => {
+
+      const upload = {
+        file,
+        tags: this.state.album_name,
+        upload_preset,
+        api_key: API_KEY
+      }
+
+      return axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
+        upload, {headers: { "X-Requested-With": "XMLHttpRequest" }})
+      .then(response => {
+          const {data} = response;
+          const fileURL = data.secure_url // You should store this URL for future references in your app
+          console.log(data);
+        })
+    })
+    
+    axios.all(uploads).then(() => {
+      // ... perform after upload is successful operation
+    });
   }
 
   renderThumbnail = (photo) => {
@@ -54,10 +76,14 @@ class AlbumForm extends Component {
         <Row>
           <Col s={4}/>
           <Col s={6}>
-              <Input        waves='light'
-                            label='Add Photo'
-                            type='file'
-                            onChange={(e) => this.handleUpload(e)} />            
+          <Dropzone 
+              onDrop={this.handleDrop} 
+              multiple 
+              accept="image/*"
+              // style={{"width" : "100%", "height" : "20%", "border" : "1px solid black"}} 
+            >
+              <p>Drop your files or click here to upload</p>
+            </Dropzone>         
           </Col>
         </Row>
         <Row>
@@ -67,7 +93,7 @@ class AlbumForm extends Component {
                       className='#80deea cyan lighten-1' 
                       waves='light'
                       id="upload_widget_opener"
-                      onClick={() => openUploadWidget()}>
+                      onClick={() => console.log('seave')}>
                   SAVE
               </Button>
           </Col>

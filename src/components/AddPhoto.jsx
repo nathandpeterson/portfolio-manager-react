@@ -29,8 +29,6 @@ class AddPhoto extends Component {
                     id="upload_widget_opener"
                     onClick={this.uploadWidget} />
       </div>
-            
-       
     </div>
     )
   }

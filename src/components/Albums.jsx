@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import Nav from './Nav'
-import {albums} from '../data/fixtures'
+import { albums } from '../data/fixtures'
 import { Image } from 'cloudinary-react'
+import { Button } from 'react-materialize'
+import { withRouter } from 'react-router-dom'
 
 class Albums extends Component {
 
@@ -25,9 +27,18 @@ class Albums extends Component {
         <div className='album-flex-container'>
           {albums.map(this.renderAlbum)}
         </div>
+        <Button     large
+                    floating
+                    tooltip='Add a new album'
+                    tooltipOptions={{'position':'right'}}
+                    className='#80deea cyan lighten-3' 
+                    waves='light' 
+                    icon='add'
+                    id="upload_widget_opener"
+                    onClick={() => this.props.history.push('/albums/new')} />
       </div>
     )
   }
 }
 
-export default Albums
+export default withRouter(Albums)

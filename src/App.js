@@ -9,6 +9,7 @@ import GroupThumbnails from './components/GroupThumbnails'
 import PhotoCard from './components/PhotoCard'
 import AddPhoto from './components/AddPhoto'
 import Albums from './components/Albums'
+import AlbumForm from './components/AlbumForm'
 
 class App extends Component {
   async componentDidMount() {
@@ -21,10 +22,15 @@ class App extends Component {
       <CloudinaryContext cloudName={cloud_name}>
         <BrowserRouter>
           <Switch className="router">
-          <Route
+            <Route
                 exact
                 path="/albums"
                 component={Albums} />
+            <Route
+                exact
+                path="/albums/new"
+                component={AlbumForm}
+              />
             <Route
                 exact
                 path="/photos"

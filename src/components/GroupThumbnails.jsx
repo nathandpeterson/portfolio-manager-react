@@ -2,8 +2,6 @@ import React, {Component} from 'react'
 import { Image } from 'cloudinary-react'
 import Overdrive from 'react-overdrive'
 import {Link} from 'react-router-dom'
-import {setSelectedPhoto} from '../actions'
-import {connect} from 'react-redux'
 
 const photoArray = [
   {id: 1, key: 'rawls/rawls-001'}, 
@@ -25,7 +23,7 @@ class GroupThumbnails extends Component {
         {photoArray.map(({ key, id }) => (
           <div key={key} style={{ padding: '1rem'  }}>
             <Overdrive id={key}>
-              <Link to={`/photos/${id}`} onClick={(e) => this.props.setSelectedPhoto({key, id})}>
+              <Link to={`/photos/${id}`} >
                 <Image publicId={key} width='150px' />
               </Link>
             </Overdrive>
@@ -37,4 +35,4 @@ class GroupThumbnails extends Component {
   }
 }
 
-export default connect(null, {setSelectedPhoto})(GroupThumbnails)
+export default GroupThumbnails

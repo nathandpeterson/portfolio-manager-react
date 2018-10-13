@@ -5,11 +5,13 @@ import registerServiceWorker from './registerServiceWorker'
 import { createStore, combineReducers } from 'redux'
 import PhotosListReducer from './reducers/PhotosListReducer';
 import UploadedPhotosReducer from './reducers/UploadedPhotosReducer';
+import SelectedPhotoReducer from './reducers/SelectedPhotoReducer'
 import { Provider } from 'react-redux'
 
 const rootReducer = combineReducers({
   photos: PhotosListReducer,
-  uploadedPhotos: UploadedPhotosReducer
+  uploadedPhotos: UploadedPhotosReducer,
+  selectedPhoto: SelectedPhotoReducer
 })
 
 const store = createStore(rootReducer)

@@ -18,6 +18,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('process', process.ENV)
     return (
       <CloudinaryContext cloudName={cloud_name}>
         <BrowserRouter>

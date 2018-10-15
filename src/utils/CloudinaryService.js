@@ -1,4 +1,5 @@
-import { Cloudinary as CoreCloudinary, Util } from 'cloudinary-core';
+import { Cloudinary as CoreCloudinary, Util } from 'cloudinary-core'
+import axios from 'axios'
 
 export const url = (publicId, options) => {
     const scOptions = Util.withSnakeCaseKeys(options);
@@ -27,7 +28,7 @@ export const fetchPhotos = cloudName => {
       version: Math.ceil(new Date().getTime() / 1000),
   }
 
-  const urlPath = url('myphotoalbum', options);
+  const urlPath = url('rawls', options);
 
   return fetch(urlPath)
       .then(res => res.text())

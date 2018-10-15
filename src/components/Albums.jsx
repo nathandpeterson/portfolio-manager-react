@@ -30,7 +30,6 @@ class Albums extends Component {
         <Button     large
                     floating
                     tooltip='Add a new album'
-                    tooltipOptions={{'position':'right'}}
                     className='#80deea cyan lighten-3' 
                     waves='light' 
                     icon='add'

@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import { CloudinaryContext, Image } from 'cloudinary-react'
+import { CloudinaryContext } from 'cloudinary-react'
 import { fetchPhotos } from './utils/CloudinaryService'
-import { photosFetched } from './actions'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 import './App.css'
 import { cloud_name } from './config/config'
-import GroupThumbnails from './components/GroupThumbnails'
+import GroupThumbnails from './components/Album'
 import PhotoCard from './components/PhotoCard'
 import AddPhoto from './components/AddPhoto'
 import Albums from './components/Albums'
+import Album from './components/Album'
 import AlbumForm from './components/AlbumForm'
 
 class App extends Component {
@@ -18,7 +18,7 @@ class App extends Component {
   }
 
   render() {
-    console.log('process', process.ENV)
+  
     return (
       <CloudinaryContext cloudName={cloud_name}>
         <BrowserRouter>
@@ -27,6 +27,10 @@ class App extends Component {
                 exact
                 path="/albums"
                 component={Albums} />
+             <Route
+                exact
+                path="/albums/:id"
+                component={Album} />
             <Route
                 exact
                 path="/albums/new"

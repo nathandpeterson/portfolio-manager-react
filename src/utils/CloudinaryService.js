@@ -1,9 +1,12 @@
 import { Cloudinary as CoreCloudinary, Util } from 'cloudinary-core'
-import axios from 'axios'
+// import axios from 'axios'
+// import { cloud_name } from '../config/config';
+// const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/';
 
 export const url = (publicId, options) => {
     const scOptions = Util.withSnakeCaseKeys(options);
     const cl = CoreCloudinary.new();
+    
     return cl.url(publicId, scOptions);
 }
 

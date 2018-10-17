@@ -4,7 +4,6 @@ const selectedPhoto = (photoData={}, action) => {
   switch (action) {
     case SET_SELECTED_PHOTO:
       return photoData
-      break
     default:
       return {}
   }

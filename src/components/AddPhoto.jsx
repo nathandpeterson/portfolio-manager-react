@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Row, Col } from 'react-materialize'
+import { Button } from 'react-materialize'
 import {cloud_name, upload_preset} from '../config/config'
 import Nav from './Nav'
 

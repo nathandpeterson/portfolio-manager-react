@@ -5,7 +5,6 @@ import { Image } from 'react-materialize'
 import Dropzone from 'react-dropzone'
 import { cloud_name, upload_preset } from '../config/config'
 import axios from 'axios'
-const API_KEY = '2323231'
 
 
 class AlbumForm extends Component {
@@ -26,20 +25,20 @@ class AlbumForm extends Component {
       const upload = {
         file,
         tags: this.state.album_name,
-        upload_preset,
-        api_key: API_KEY
+        upload_preset
       }
 
       return axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
         upload, {headers: { "X-Requested-With": "XMLHttpRequest" }})
       .then(response => {
           const {data} = response;
-          const fileURL = data.secure_url // You should store this URL for future references in your app
+          // const fileURL = data.secure_url // You should store this URL for future references in your app
           console.log(data);
         })
     })
     
-    axios.all(uploads).then(() => {
+    return axios.all(uploads).then((returnAll) => {
+      console.log('returnAll', returnAll)
       // ... perform after upload is successful operation
     });
   }

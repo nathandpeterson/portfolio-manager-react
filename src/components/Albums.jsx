@@ -2,17 +2,20 @@ import React, {Component} from 'react'
 import Nav from './Nav'
 import { albums } from '../data/fixtures'
 import { Image } from 'cloudinary-react'
-import { Button } from 'react-materialize'
-import { withRouter } from 'react-router-dom'
+import { Button, Modal, Icon } from 'react-materialize'
+import { withRouter, Link } from 'react-router-dom'
+import Login from './Login'
 
 class Albums extends Component {
 
   renderAlbum = ({id, album_name, key_image_id}) => {
     return (
-      <div key={`album-${id}`} className='album-card'>
-        <Image publicId={key_image_id} width='150px'/>
-        {album_name}
-      </div>
+      <Link to={`/albums/${id}`}>
+        <div key={`album-${id}`} className='album-card'>
+          <Image publicId={key_image_id} width='150px'/>
+          {album_name}
+        </div>
+      </Link>   
     )
   }
 
@@ -29,12 +32,16 @@ class Albums extends Component {
         </div>
         <Button     large
                     floating
-                    tooltip='Add a new album'
                     className='#80deea cyan lighten-3' 
                     waves='light' 
                     icon='add'
                     id="upload_widget_opener"
                     onClick={() => this.props.history.push('/albums/new')} />
+        <Modal header='login-modal'
+                trigger={
+                <Button><Icon>person</Icon></Button>}>
+            <Login />
+        </Modal>
       </div>
     )
   }

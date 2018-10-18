@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
-import { Row, Input, Icon, Button } from 'react-materialize'
+import { Row, Input, Icon, Button, Toast } from 'react-materialize'
+import axios from 'axios'
 
 class Login extends Component {
 
@@ -8,17 +9,47 @@ class Login extends Component {
 
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      error: ''
     }
   }
 
-  handleLogin = () => {
-    console.log('this state', this.state)
+  setToken = (data) => {
+    const {token} = data
+    localStorage.setItem('token', token)
+  }
+
+  handleLogin = async () => {
+    const {email, password} = this.state
+    if(!email || !password) {
+      this.showError()
+      return
+    }
+    try {
+      const { data } = await axios.post(`http://localhost:4000/api/login`, {email, password})
+      this.setToken(data)
+    } catch(err){
+      this.setState({error: 'Something went wrong'})
+    }
+  }
+
+  showError(){
+    setTimeout(() => {
+      this.setState({error: ''})
+    }, 1500)
+    return (
+      <Row>
+        <div className='flex-center'>
+          Something went wrong
+        </div>
+      </Row>
+    )
   }
 
   render(){
 
     return (
+      this.state.error ? this.showError() : 
       <Fragment>
         <Row>
           <Input 

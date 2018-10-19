@@ -2,7 +2,10 @@ import React, {Component} from 'react'
 import { Image } from 'cloudinary-react'
 import Nav from './Nav'
 import Overdrive from 'react-overdrive'
-import {Link} from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
+import { fetchOneAlbum } from '../actions'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 const photoArray = [
   {id: 1, key: 'rawls/rawls-001'}, 
@@ -12,13 +15,10 @@ const photoArray = [
 
 class Album extends Component {
 
-  constructor(){
-    super()
-    
-    this.state = {
-      images: []
-    }
-  }
+  // componentDidMount(){
+  //   const { id } = this.props.match.params
+  //   fetchOneAlbum(id)
+  // }
 
   render() {
     return (
@@ -49,4 +49,12 @@ class Album extends Component {
   }
 }
 
-export default Album
+const mapStateToProps = state => {
+  return { album: state.albums }
+}
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({fetchOneAlbum}, dispatch)
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Album))

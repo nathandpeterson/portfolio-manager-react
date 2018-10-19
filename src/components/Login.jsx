@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { Row, Input, Icon, Button } from 'react-materialize'
 import axios from 'axios'
 
@@ -59,7 +59,7 @@ class Login extends Component {
 
     return (
       this.state.error ? this.showError() : 
-      <Fragment>
+      <div>
         <Row>
           <Input 
                 s={6} 
@@ -84,7 +84,7 @@ class Login extends Component {
             <Button onClick={this.handleLogin}>SUBMIT</Button>
           </div>
         </Row>
-      </Fragment>
+      </div>
     )
   }
 }

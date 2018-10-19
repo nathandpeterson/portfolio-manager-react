@@ -1,17 +1,30 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Modal, Button, Icon } from 'react-materialize'
 import Login from './Login'
+import Nav from './Nav'
 
 class InitiateLogin extends Component {
 
   render(){
 
   return (
-    <Modal header='login-modal'
+    <Fragment>
+      <Nav />
+      <br />
+      <Modal header='Login in to manage photos'
                 trigger={
-                <Button><Icon>person</Icon></Button>}>
+                <div className='flex-center'>
+                  <Button>
+                    LOG IN
+                  </Button>
+                </div>
+                }
+        >
             <Login />
-    </Modal>
+        </Modal>
+
+    </Fragment>
+    
   )
   }
 }

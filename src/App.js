@@ -9,6 +9,7 @@ import AddPhoto from './components/AddPhoto'
 import Albums from './components/Albums'
 import Album from './components/Album'
 import AlbumForm from './components/AlbumForm'
+import InitiateLogin from './components/InitiateLogin';
 
 class App extends Component {
 
@@ -18,6 +19,9 @@ class App extends Component {
       <CloudinaryContext cloudName={cloud_name}>
         <BrowserRouter>
           <Switch className="router">
+            <Route exact 
+                  path='/login' 
+                  component={InitiateLogin}/>
             <Route
                 exact
                 path="/albums/new"
@@ -25,13 +29,12 @@ class App extends Component {
               />
             <Route
                 exact
-                path="/albums"
-                component={Albums} />
-             <Route
-                exact
                 path="/albums/:id"
                 component={Album} />
-           
+            <Route
+                exact
+                path="/albums"
+                component={Albums} />           
             <Route
                 exact
                 path="/photos"

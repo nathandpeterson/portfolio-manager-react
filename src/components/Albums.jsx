@@ -1,12 +1,18 @@
 import React, {Component} from 'react'
 import Nav from './Nav'
-import { albums } from '../data/fixtures'
+// import { albums } from '../data/fixtures'
 import { Image } from 'cloudinary-react'
 import { Button } from 'react-materialize'
 import { withRouter, Link } from 'react-router-dom'
-import InitiateLogin from './InitiateLogin'
+import { fetchAlbums } from '../actions'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 class Albums extends Component {
+
+  async componentDidMount(){
+    const result = await fetchAlbums()
+  }
 
   renderAlbum = ({id, album_name, key_image_id}) => {
     return (
@@ -30,7 +36,7 @@ class Albums extends Component {
   )
 
   render(){
-    console.log('this.pros', this.props.token)
+    const { albums } = this.props
     return (
       <div>
         <Nav />
@@ -43,11 +49,20 @@ class Albums extends Component {
         </div>
         {localStorage.getItem('token') ? 
           this.renderAddAlbumButton() :
-          <InitiateLogin/> }        
+          '' }        
       </div>
     )
   }
 }
 
+function mapStateToProps(state){
+  return {
+    albums: state.albums
+  }
+}
 
-export default withRouter(Albums)
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({fetchAlbums}, dispatch)
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Albums))

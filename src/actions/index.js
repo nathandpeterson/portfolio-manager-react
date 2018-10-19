@@ -1,44 +1,51 @@
+import axios from 'axios'
+
 import {
-  PHOTOS_FETCHED,
-  PHOTOS_UPLOADED,
-  DELETE_UPLOADED_PHOTO,
-  UPDATE_UPLOADED_PHOTO,
+  FETCH_ALBUMS,
+  FETCH_ONE_ALBUM,
   SET_SELECTED_PHOTO,
   UPLOAD_IMAGE_NAME
 } from '../utils/Constants'
-import axios from 'axios'
 
-export const photosFetched = photos => ({
-  type: PHOTOS_FETCHED,
-  photos: photos,
-});
+const SERVER = process.env.SERVER || 'http://localhost:4000/api'
 
-export const photosUploaded = photos => ({
-  type: PHOTOS_UPLOADED,
-  photos: photos,
-});
-
-export const updateUploadedPhoto = uploadedPhoto => ({
-  type: UPDATE_UPLOADED_PHOTO,
-  uploadedPhoto: uploadedPhoto,
-});
-
-export const deleteUploadedPhoto = publicId => ({
-  type: DELETE_UPLOADED_PHOTO,
-  publicId: publicId,
-});
 
 export const setSelectedPhoto = photoData => {
-  type: SET_SELECTED_PHOTO
+  return {
+    type: SET_SELECTED_PHOTO,
+    photoData
+  }
 }
 
 export const uploadImageName = cloudinaryResponse => {
   console.log('imageName', cloudinaryResponse)
   return async (dispatch) => {
-    const { data } = await axios.post(`http://localhost:4000/api/images`, {cloudinaryResponse})
+    const { data } = await axios.post(`${SERVER}/images`, {cloudinaryResponse})
     dispatch({
       type: UPLOAD_IMAGE_NAME,
       payload : data
+    })
+  }
+}
+
+export const fetchAlbums = () => {
+  return async (dispatch) => {
+    const { data } = await axios.get(`${SERVER}/albums`)
+    dispatch({
+      type: FETCH_ALBUMS,
+      payload: data
+    })
+  }
+}
+
+export const fetchOneAlbum = (albumId) => {
+  console.log('album ID', albumId)
+  return async (dispatch) => {
+    const { data } = await axios.get(`${SERVER}/albums/${albumId}`)
+    console.log('data', data)
+    dispatch({
+      type: FETCH_ONE_ALBUM,
+      payload: data
     })
   }
 }

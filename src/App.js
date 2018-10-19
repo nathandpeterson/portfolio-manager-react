@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { CloudinaryContext } from 'cloudinary-react'
-import { fetchPhotos } from './utils/CloudinaryService'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 import './App.css'
 import { cloud_name } from './config/config'
@@ -12,10 +11,6 @@ import Album from './components/Album'
 import AlbumForm from './components/AlbumForm'
 
 class App extends Component {
-  async componentDidMount() {
-    const result = await fetchPhotos(cloud_name)
-    console.log('result', result)
-  }
 
   render() {
   
@@ -25,17 +20,18 @@ class App extends Component {
           <Switch className="router">
             <Route
                 exact
+                path="/albums/new"
+                component={AlbumForm}
+              />
+            <Route
+                exact
                 path="/albums"
                 component={Albums} />
              <Route
                 exact
                 path="/albums/:id"
                 component={Album} />
-            <Route
-                exact
-                path="/albums/new"
-                component={AlbumForm}
-              />
+           
             <Route
                 exact
                 path="/photos"

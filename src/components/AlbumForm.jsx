@@ -4,7 +4,9 @@ import Nav from './Nav'
 import { Image } from 'react-materialize'
 import Dropzone from 'react-dropzone'
 import { cloud_name, upload_preset } from '../config/config'
-import axios from 'axios'
+import { uploadWidget } from '../data/utilities'
+import { uploadImageName } from '../actions'
+import { connect } from 'react-redux'
 
 
 class AlbumForm extends Component {
@@ -19,29 +21,29 @@ class AlbumForm extends Component {
     }
   }
 
-  handleDrop = (files) => {
-    const uploads = files.map(file => {
+  // handleDrop = (files) => {
+  //   const uploads = files.map(file => {
 
-      const upload = {
-        file,
-        tags: this.state.album_name,
-        upload_preset
-      }
+  //     const upload = {
+  //       file,
+  //       tags: this.state.album_name,
+  //       upload_preset
+  //     }
 
-      return axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
-        upload, {headers: { "X-Requested-With": "XMLHttpRequest" }})
-      .then(response => {
-          const {data} = response;
-          // const fileURL = data.secure_url // You should store this URL for future references in your app
-          console.log(data);
-        })
-    })
+  //     return axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
+  //       upload, {headers: { "X-Requested-With": "XMLHttpRequest" }})
+  //     .then(response => {
+  //         const {data} = response;
+  //         // const fileURL = data.secure_url // You should store this URL for future references in your app
+  //         console.log(data);
+  //       })
+  //   })
     
-    return axios.all(uploads).then((returnAll) => {
-      console.log('returnAll', returnAll)
-      // ... perform after upload is successful operation
-    });
-  }
+  //   return axios.all(uploads).then((returnAll) => {
+  //     console.log('returnAll', returnAll)
+  //     // ... perform after upload is successful operation
+  //   });
+  // }
 
   renderThumbnail = (photo) => {
     return (
@@ -49,8 +51,11 @@ class AlbumForm extends Component {
     )
   }
 
+  handleUpload = (imageName) => {
+    this.props.uploadImageName(imageName)
+  }
+
   render(){
-    console.log('this state', this.state)
     return (
       <div>
         <Nav />
@@ -75,14 +80,14 @@ class AlbumForm extends Component {
         <Row>
           <Col s={4}/>
           <Col s={6}>
-          <Dropzone 
+          {/* <Dropzone 
               onDrop={this.handleDrop} 
               multiple 
               accept="image/*"
               // style={{"width" : "100%", "height" : "20%", "border" : "1px solid black"}} 
             >
               <p>Drop your files or click here to upload</p>
-            </Dropzone>         
+            </Dropzone>          */}
           </Col>
         </Row>
         <Row>
@@ -92,7 +97,13 @@ class AlbumForm extends Component {
                       className='#80deea cyan lighten-1' 
                       waves='light'
                       id="upload_widget_opener"
-                      onClick={() => console.log('seave')}>
+                      onClick={() => {
+                        window.cloudinary.openUploadWidget({ cloud_name, upload_preset },
+                          (error, result) => {
+                              this.handleUpload(result)
+                          });
+                        }
+                        }>
                   SAVE
               </Button>
           </Col>
@@ -109,4 +120,4 @@ class AlbumForm extends Component {
   }
 }
 
-export default AlbumForm
+export default connect(null, { uploadImageName })(AlbumForm)

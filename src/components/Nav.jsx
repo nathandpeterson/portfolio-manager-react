@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react'
-import {Navbar, NavItem, Icon, Modal} from 'react-materialize'
+import {Navbar, NavItem, Icon } from 'react-materialize'
 import {withRouter} from 'react-router-dom'
 
 class Nav extends Component {

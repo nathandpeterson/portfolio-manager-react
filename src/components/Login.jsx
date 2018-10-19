@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Row, Input, Icon, Button, Toast } from 'react-materialize'
+import { Row, Input, Icon, Button } from 'react-materialize'
 import axios from 'axios'
 
 class Login extends Component {
@@ -12,6 +12,15 @@ class Login extends Component {
       password: '',
       error: ''
     }
+  }
+
+  componentDidMount() {
+    const isVerified = this.hasToken()
+    this.setState({isVerified})
+  }
+
+  hasToken = () => {
+    return localStorage.getItem('token') ? true : false
   }
 
   setToken = (data) => {

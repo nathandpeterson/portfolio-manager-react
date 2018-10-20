@@ -4,19 +4,23 @@ import Nav from './Nav'
 import { Image } from 'cloudinary-react'
 import { Button } from 'react-materialize'
 import { withRouter, Link } from 'react-router-dom'
-import { fetchAlbums } from '../actions'
+import { fetchAlbums, fetchOneAlbum } from '../actions'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+
 
 class Albums extends Component {
 
   async componentDidMount(){
-    const result = await fetchAlbums()
+    const result = await this.props.fetchAlbums()
   }
 
   renderAlbum = ({id, album_name, key_image_id}) => {
     return (
-      <Link to={`/albums/${id}`}>
+      <Link to={`/albums/${id}`}
+            key={`albums-${key_image_id}`} 
+            onClick={() => this.props.fetchOneAlbum(id)
+            }>
         <div key={`album-${id}`} className='album-card'>
           <Image publicId={key_image_id} width='150px'/>
           {album_name}
@@ -36,6 +40,7 @@ class Albums extends Component {
   )
 
   render(){
+    console.log('this props', this.props)
     const { albums } = this.props
     return (
       <div>
@@ -62,7 +67,10 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchAlbums}, dispatch)
+  return {
+    fetchAlbums: () => dispatch(fetchAlbums()),
+    fetchOneAlbum: (id) => { dispatch(fetchOneAlbum(id)) }
+  }
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Albums))

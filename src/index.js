@@ -16,11 +16,11 @@ const rootReducer = combineReducers({
   albums: AlbumReducer
 })
 
-const store = createStore(rootReducer, applyMiddleware(thunk))
+export const store = createStore(rootReducer, applyMiddleware(thunk))
 
-store.dispatch(uploadImageName())
-store.dispatch(fetchAlbums())
-store.dispatch(fetchOneAlbum())
+// store.dispatch(uploadImageName())
+// store.dispatch(fetchAlbums())
+// store.dispatch(fetchOneAlbum())
 
 ReactDOM.render( 
     <Provider store={store}>

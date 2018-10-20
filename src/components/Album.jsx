@@ -5,7 +5,6 @@ import Overdrive from 'react-overdrive'
 import { Link, withRouter } from 'react-router-dom'
 import { fetchOneAlbum } from '../actions'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 
 const photoArray = [
   {id: 1, key: 'rawls/rawls-001'}, 
@@ -15,12 +14,15 @@ const photoArray = [
 
 class Album extends Component {
 
-  // componentDidMount(){
-  //   const { id } = this.props.match.params
-  //   fetchOneAlbum(id)
-  // }
+  async componentDidMount() {
+    console.log('this props', this.props.match.params)
+    const { id } = this.props.match.params
+    await this.props.fetchOneAlbum(id)
+  }
 
   render() {
+    const { images } = this.props.album
+    console.log('images', images)
     return (
       <div>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -54,7 +56,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({fetchOneAlbum}, dispatch)
+  return {
+    fetchOneAlbum: (id) => { dispatch(fetchOneAlbum(id)) }
+  }
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Album))

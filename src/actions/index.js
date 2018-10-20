@@ -18,7 +18,6 @@ export const setSelectedPhoto = photoData => {
 }
 
 export const uploadImageName = cloudinaryResponse => {
-  console.log('imageName', cloudinaryResponse)
   return async (dispatch) => {
     const { data } = await axios.post(`${SERVER}/images`, {cloudinaryResponse})
     dispatch({
@@ -39,10 +38,8 @@ export const fetchAlbums = () => {
 }
 
 export const fetchOneAlbum = (albumId) => {
-  console.log('album ID', albumId)
   return async (dispatch) => {
     const { data } = await axios.get(`${SERVER}/albums/${albumId}`)
-    console.log('data', data)
     dispatch({
       type: FETCH_ONE_ALBUM,
       payload: data

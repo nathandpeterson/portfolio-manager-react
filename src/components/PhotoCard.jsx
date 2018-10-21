@@ -1,44 +1,42 @@
 import React, {Component} from 'react'
-import Overdrive from 'react-overdrive'
 import { Image } from 'cloudinary-react'
 import Nav from './Nav'
-
-const photoArray = [
-  {id: 1, key: 'rawls/rawls-001'}, 
-  {id: 2, key: 'rawls/rawls-002'},
-  {id: 3, key: "test-upload/cb12pqhuhx9bpafa0dwp"}
-]
+import { connect } from 'react-redux'
+import { fetchOneAlbum } from '../actions'
 
 class PhotoCard extends Component {
 
-  constructor(){
-    super()
-
-    this.state = {
-      id: ''
-    }
-  }
-
-  componentDidMount(){
-    const {id} = this.props.match.params
-    this.setState({id})
+  async componentDidMount() {
+    const { albumId } = this.props.match.params
+    await this.props.fetchOneAlbum(albumId)
   }
 
   render(){
-    const {id} = this.props.match.params
-    // temporary reference for development
-    const photoData = photoArray[id - 1]
+    console.log('this.props', this.props)
+    if(!this.props.album.length) return <div>loading</div>
+    const [ album ] = this.props.album
+    const { images } = album
+    console.log('images', images)
+    const { publicId, id } = images.find(image => {
+      return parseInt(image.id, 10) === parseInt(this.props.match.params.id, 10)
+    })
 
     return (
-      <div key={photoData.key}>
+      <div key={publicId}>
           <Nav />
-          <Overdrive id={photoData.key}>
-            <Image id={id} width='100%' publicId={photoData.key}></Image>
-          </Overdrive>
+          <Image id={id} width='100%' publicId={publicId}></Image>
       </div>
     )
   }
 }
 
+const mapDispatchToProps = dispatch => (
+  { fetchOneAlbum: (id) => { dispatch(fetchOneAlbum(id)) } }
+)
 
-export default PhotoCard
+const mapStateToProps = state => (
+  { album: state.albums }
+)
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(PhotoCard)

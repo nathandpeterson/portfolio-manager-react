@@ -8,7 +8,6 @@ import UploadImageReducer from './reducers/UploadImageReducer'
 import AlbumReducer from './reducers/AlbumReducer'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
-import { uploadImageName, fetchAlbums, fetchOneAlbum } from './actions'
 
 const rootReducer = combineReducers({
   selectedPhoto: SelectedPhotoReducer,
@@ -17,10 +16,6 @@ const rootReducer = combineReducers({
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunk))
-
-// store.dispatch(uploadImageName())
-// store.dispatch(fetchAlbums())
-// store.dispatch(fetchOneAlbum())
 
 ReactDOM.render( 
     <Provider store={store}>

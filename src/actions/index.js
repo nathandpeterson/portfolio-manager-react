@@ -46,16 +46,3 @@ export const fetchOneAlbum = (albumId) => {
     })
   }
 }
-
-
-// export function fetchBlogPost(blogPostId){
-//   return async (dispatch) => {
-//     const res = await request(`/api/blogposts/${blogPostId}`)
-//     const json = await res.json()
-
-//     dispatch({
-//       type: FETCH_BLOG_POST_SUCCESS,
-//       payload: json.BlogPost
-//     })
-//   }
-// }

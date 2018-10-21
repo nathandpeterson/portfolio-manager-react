@@ -12,7 +12,7 @@ import { bindActionCreators } from 'redux'
 class Albums extends Component {
 
   async componentDidMount(){
-    const result = await this.props.fetchAlbums()
+    await this.props.fetchAlbums()
   }
 
   renderAlbum = ({id, album_name, key_image_id}) => {
@@ -40,7 +40,7 @@ class Albums extends Component {
   )
 
   render(){
-    console.log('this props', this.props)
+    
     const { albums } = this.props
     return (
       <div>

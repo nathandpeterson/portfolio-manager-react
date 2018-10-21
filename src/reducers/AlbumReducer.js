@@ -6,7 +6,7 @@ const AlbumReducer = (albums = [], action) => {
       return action.payload
     }
     case FETCH_ONE_ALBUM: {
-      return action.payload
+      return [action.payload]
     }
     default: {
       return albums

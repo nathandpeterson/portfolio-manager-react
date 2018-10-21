@@ -3,7 +3,6 @@ import { CloudinaryContext } from 'cloudinary-react'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 import './App.css'
 import { cloud_name } from './config/config'
-import GroupThumbnails from './components/Album'
 import PhotoCard from './components/PhotoCard'
 import AddPhoto from './components/AddPhoto'
 import Albums from './components/Albums'
@@ -37,11 +36,7 @@ class App extends Component {
                 component={Albums} />           
             <Route
                 exact
-                path="/photos"
-                component={GroupThumbnails} />
-            <Route
-                exact
-                path="/photos/:id"
+                path="/albums/:albumId/photos/:id"
                 component={PhotoCard} />
             <Route
                 exact

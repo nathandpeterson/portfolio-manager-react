@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import Nav from '../Nav'
 import { connect } from 'react-redux'
-import { Button, Row, Col, Card } from 'react-materialize'
+import { Button } from 'react-materialize'
 import { uploadImageName, fetchOneAlbum } from '../../actions'
-import { Image } from 'cloudinary-react'
+import { Image, Transformation } from 'cloudinary-react'
 import NewImage from './NewImage'
 
 class ImageManager extends Component {
@@ -14,16 +14,20 @@ class ImageManager extends Component {
     this.state = {
       images: [],
       albumId: '',
-      addingNewImage: false
+      addingNewImage: false,
+      hasChanged: false
     }
   }
 
   async componentDidMount(){
-    await this.props.fetchOneAlbum(this.props.match.params.id)
+    await this.updateAlbumState()
   }
 
-  async componentDidUpdate(prevProps){
-    if(this.props.album !== prevProps.album){
+  async componentDidUpdate(prevProps, prevState){
+    if(this.state.hasChanged && !prevState.hasChanged){
+      this.updateAlbumState(this.props)
+    }
+    if(this.props.album.length !== prevProps.album.length){
       this.updateAlbumState(this.props)
     }
   }
@@ -31,36 +35,53 @@ class ImageManager extends Component {
   updateAlbumState = async (props = this.props) => {
 
     await this.props.fetchOneAlbum(this.props.match.params.id)
-
+  
     try {
       const { album } = props
       const [ albumObject ] = album
-      this.setState({images: albumObject.images, albumId: albumObject.id})
+      this.setState({images: albumObject.images, albumId: albumObject.id, hasChanged: false})
     } catch (error){
       console.log('ERROR', error.message)
+      this.setState({error: error.message, hasChanged: false})
     }
   }
 
-  renderCard = ({ name, publicId}) => {
-   
+  renderImageData = (fieldName) => {
     return (
-      <Col key={`image-thumbnail-${publicId}`} sm={4} style={{width: '25%'}}>
-        <Card >
-           <p>{name}</p>
-           <Image publicId={publicId} width='150px' />
-        </Card>
-      </Col>
+      <div className='image-field'>
+        <label>TITLE</label>
+        <p>{name}</p>
+      </div>
+    )
+  }
+
+  renderCard = ({ name, publicId, angle }) => {
+  
+    return (
+        <div key={`image-thumbnail-${publicId}`} className='image-card-manage'>
+            <Image publicId={publicId} width='200px'>
+              <Transformation angle={angle}/>
+            </Image>
+            <div>
+              <div className='image-field'>
+                <label>TITLE</label>
+                <p>{name}</p>
+              </div>
+             
+            </div>           
+        </div>
     )
   }
 
   render(){
     const { images, albumId } = this.state
-
+    console.log('this props', this.props)
     return (
       <div>
         <Nav />
-
-        {images.map(this.renderCard)}
+        <div className='album-flex-container'>
+          {images.map(this.renderCard)}
+        </div>
         <Button onClick={() => {
           this.setState({addingNewImage: !this.state.addingNewImage})
         }}>Add an image to the album

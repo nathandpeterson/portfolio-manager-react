@@ -23,3 +23,16 @@
   align-items: center;
   padding: 2rem;
 }
+
+.image-card-manage {
+  display: flex;
+  flex-direction: column;
+  margin: 1.5rem;
+}
+
+.image-field {
+  display: flex;
+  justify-content: space-between;
+  flex-direction:row;
+  align-items: center;
+}

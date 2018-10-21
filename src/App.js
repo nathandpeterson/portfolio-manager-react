@@ -4,10 +4,10 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 import './App.css'
 import { cloud_name } from './config/config'
 import PhotoCard from './components/PhotoCard'
-import AddPhoto from './components/AddPhoto'
 import Albums from './components/Albums'
 import Album from './components/Album'
-import AlbumForm from './components/AlbumForm'
+import AlbumForm from './components/Forms/AlbumForm'
+import ImageManager from './components/Forms/ImageManager'
 import InitiateLogin from './components/InitiateLogin';
 
 class App extends Component {
@@ -40,8 +40,8 @@ class App extends Component {
                 component={PhotoCard} />
             <Route
                 exact
-                path="/photos/new"
-                component={AddPhoto}  />
+                path="/albums/:id/manageImages"
+                component={ImageManager}  />
             <Redirect from="/" to="/albums" />
           </Switch>
         </BrowserRouter>        

@@ -12,11 +12,9 @@ class PhotoCard extends Component {
   }
 
   render(){
-    console.log('this.props', this.props)
     if(!this.props.album.length) return <div>loading</div>
     const [ album ] = this.props.album
     const { images } = album
-    console.log('images', images)
     const { publicId, id } = images.find(image => {
       return parseInt(image.id, 10) === parseInt(this.props.match.params.id, 10)
     })

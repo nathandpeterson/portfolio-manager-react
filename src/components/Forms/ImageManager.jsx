@@ -58,7 +58,7 @@ class ImageManager extends Component {
     return (
       <div className='image-field'>
         <label>{label}</label>
-        <p>{data[fieldName]}</p>
+        <span>{data[fieldName]}</span>
       </div>
     )
   }

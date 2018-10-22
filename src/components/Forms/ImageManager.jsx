@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Nav from '../Nav'
 import { connect } from 'react-redux'
-import { Button } from 'react-materialize'
+import { Button, Icon } from 'react-materialize'
 import { uploadImageName, fetchOneAlbum } from '../../actions'
 import { Image, Transformation } from 'cloudinary-react'
 import NewImage from './NewImage'
@@ -46,36 +46,49 @@ class ImageManager extends Component {
     }
   }
 
-  renderImageData = (fieldName) => {
+  fieldConfig = [
+    {label: 'TITLE', fieldName: 'name'},
+    {label: 'DESCRIPTION', fieldName: 'description'},
+    {label: 'DATE', fieldName: 'date'},
+    {label: 'SIZE', fieldName: 'size'}
+  ]
+
+  renderImageData = (field, data) => {
+    const { fieldName, label } = field
     return (
       <div className='image-field'>
-        <label>TITLE</label>
-        <p>{name}</p>
+        <label>{label}</label>
+        <p>{data[fieldName]}</p>
       </div>
     )
   }
 
-  renderCard = ({ name, publicId, angle }) => {
-  
+  renderCard = (data) => {
+    const { publicId, angle } = data
     return (
         <div key={`image-thumbnail-${publicId}`} className='image-card-manage'>
             <Image publicId={publicId} width='200px'>
               <Transformation angle={angle}/>
             </Image>
             <div>
-              <div className='image-field'>
-                <label>TITLE</label>
-                <p>{name}</p>
-              </div>
-             
-            </div>           
+              {this.fieldConfig.map(field => {
+                return this.renderImageData(field, data)
+              })}
+            </div>
+            <div className='flex-center'>
+              <Button>
+                <Icon>
+                  edit
+                </Icon>
+              </Button>   
+            </div> 
         </div>
     )
   }
 
   render(){
     const { images, albumId } = this.state
-    console.log('this props', this.props)
+
     return (
       <div>
         <Nav />

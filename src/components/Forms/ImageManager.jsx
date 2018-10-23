@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Nav from '../Nav'
 import { connect } from 'react-redux'
-import { Button, Icon } from 'react-materialize'
+import { Button, Icon, Col, Row, Preloader } from 'react-materialize'
 import { uploadImageName, fetchOneAlbum } from '../../actions'
 import { Image, Transformation } from 'cloudinary-react'
 import NewImage from './NewImage'
@@ -15,7 +15,9 @@ class ImageManager extends Component {
       images: [],
       albumId: '',
       addingNewImage: false,
-      hasChanged: false
+      hasChanged: false,
+      editMode: null,
+      loading: true
     }
   }
 
@@ -35,11 +37,14 @@ class ImageManager extends Component {
   updateAlbumState = async (props = this.props) => {
 
     await this.props.fetchOneAlbum(this.props.match.params.id)
-  
+    
     try {
       const { album } = props
       const [ albumObject ] = album
-      this.setState({images: albumObject.images, albumId: albumObject.id, hasChanged: false})
+      this.setState({images: albumObject.images, 
+                    albumId: albumObject.id, 
+                    hasChanged: false,
+                    loading: false})
     } catch (error){
       console.log('ERROR', error.message)
       this.setState({error: error.message, hasChanged: false})
@@ -56,7 +61,7 @@ class ImageManager extends Component {
   renderImageData = (field, data) => {
     const { fieldName, label } = field
     return (
-      <div className='image-field'>
+      <div key={`${data.publicId}-${fieldName}`} className='image-field'>
         <label>{label}</label>
         <span>{data[fieldName]}</span>
       </div>
@@ -64,41 +69,78 @@ class ImageManager extends Component {
   }
 
   renderCard = (data) => {
-    const { publicId, angle } = data
+    const { editMode } = this.state
+    const { publicId, angle, id } = data
     return (
         <div key={`image-thumbnail-${publicId}`} className='image-card-manage'>
+          
             <Image publicId={publicId} width='200px'>
               <Transformation angle={angle}/>
             </Image>
-            <div>
+            
+            <div style={{marginTop: '1rem'}}>
               {this.fieldConfig.map(field => {
                 return this.renderImageData(field, data)
               })}
             </div>
-            <div className='flex-center'>
-              <Button>
-                <Icon>
-                  edit
-                </Icon>
-              </Button>   
-            </div> 
+            {this.renderButtonGroup(editMode, id)}
         </div>
     )
   }
 
-  render(){
-    const { images, albumId } = this.state
+  renderButtonGroup = (editMode, id) => {
+    if(editMode !== id) {
+      return (
+      <div className='flex-center'>
+        <Button onClick={() => this.setState({editMode: id})}>
+          <Icon>
+            edit
+          </Icon>
+        </Button>
+      </div> 
+    )} else return (
+      <div className='flex-space-between'>
+        <Button onClick={() => this.setState({editMode: null})}>
+          CANCEL
+        </Button>
+        <Button onClick={() => console.log('save')}>
+          SAVE
+        </Button>
+      </div> 
+    )
+  }
 
+  renderImages = () => {
+    const { images } = this.state
+    return (
+      <div className='album-card'>
+        {images.map(this.renderCard)}
+      </div>
+    )
+  }
+
+  renderSpinner = () => {
+    return (
+      <div className='flex-center'>
+        <Preloader size={'big'} />
+      </div>       
+    )
+  }
+
+  render(){
+    const { albumId, loading } = this.state
     return (
       <div>
         <Nav />
-        <div className='album-flex-container'>
-          {images.map(this.renderCard)}
+        {loading ? this.renderSpinner() : this.renderImages()}
+        <div className='flex-center'>
+          <Button onClick={() => {
+                      this.setState({addingNewImage: !this.state.addingNewImage})
+                                  }}>Add an image to the album
+          </Button>
+        
         </div>
-        <Button onClick={() => {
-          this.setState({addingNewImage: !this.state.addingNewImage})
-        }}>Add an image to the album
-        </Button>
+        
         
         {this.state.addingNewImage ?
           <NewImage albumId={albumId} updateAlbumState={this.updateAlbumState} />

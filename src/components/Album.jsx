@@ -22,13 +22,7 @@ class Album extends Component {
         <div >
           <Nav />
         </div>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          
-          alignItems: 'center'
-        }}>
+        <div className='album-flex-container'>
           {images && images.map((image) => {
             const {publicId, id} = image
             return (

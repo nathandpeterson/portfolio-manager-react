@@ -1,3 +1,3 @@
 
-export const cloud_name = 'ndpimg'
-export const upload_preset = 'kzzmdscm'
+export const cloud_name = 'stephen-rawls'
+export const upload_preset = 'md3oe1ww'

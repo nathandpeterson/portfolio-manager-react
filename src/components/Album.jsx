@@ -19,14 +19,14 @@ class Album extends Component {
 
     return (
       <div>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div >
           <Nav />
         </div>
         <div style={{
           display: 'flex',
           flexDirection: 'row',
           flexWrap: 'wrap',
-          justifyContent: 'space-evenly',
+          
           alignItems: 'center'
         }}>
           {images && images.map((image) => {
@@ -34,7 +34,7 @@ class Album extends Component {
             return (
             <div key={publicId} style={{ padding: '1rem' }}>
               <Link to={`/albums/${album.id}/photos/${id}`} >
-                <Image publicId={publicId} width='150px' />
+                <Image publicId={publicId} width='180px' />
               </Link>
             </div>
           )}

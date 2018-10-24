@@ -42,9 +42,9 @@ export const fetchAlbums = () => {
 }
 
 export const fetchOneAlbum = (albumId) => {
-  console.log('album ID in fetchOne Album', albumId)
   return async (dispatch) => {
     const { data } = await axios.get(`${SERVER}/albums/${albumId}`)
+    console.log('data in FETCH ONE ALBUM', data)
     dispatch({
       type: FETCH_ONE_ALBUM,
       payload: data

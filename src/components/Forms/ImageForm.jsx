@@ -4,7 +4,7 @@ import { uploadImageName } from '../../actions'
 import { cloud_name, upload_preset } from '../../config/config'
 import { connect } from 'react-redux'
 
-class NewImage extends Component {
+class ImageForm extends Component {
   constructor(){
     super()
 
@@ -18,7 +18,14 @@ class NewImage extends Component {
   }
 
   componentDidMount(){
-    this.setState({albumId: this.props.albumId})
+    const { exists } = this.props
+    if(exists){
+      // get imageData and set it in state
+      this.setState({albumId: this.props.albumId})
+    } else {
+      this.setState({albumId: this.props.albumId})
+    }
+
   }
 
   handleUpload = (cloudinaryResultArray) => {
@@ -83,4 +90,4 @@ const mapDispatchToProps = dispatch => (
   }
 )
 
-export default connect(null, mapDispatchToProps)(NewImage)
+export default connect(null, mapDispatchToProps)(ImageForm)

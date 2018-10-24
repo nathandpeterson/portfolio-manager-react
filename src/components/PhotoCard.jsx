@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import { Image } from 'cloudinary-react'
-import { Row, Col } from 'react-materialize'
 import Nav from './Nav'
 import { connect } from 'react-redux'
 import { fetchOneAlbum } from '../actions'
@@ -24,8 +23,8 @@ class PhotoCard extends Component {
           <Nav />
           <div className='flex-center image-container'>
             <Image id={id} 
-                width='80%' 
-                height='700px' 
+                width='auto' 
+                height='600px' 
                 publicId={publicId}></Image>
           </div>
       </div>

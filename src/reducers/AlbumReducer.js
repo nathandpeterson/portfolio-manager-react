@@ -1,18 +1,15 @@
-import { FETCH_ALBUMS, FETCH_ONE_ALBUM, SAVE_ALBUM } from '../utils/Constants'
+import { FETCH_ONE_ALBUM, SAVE_ALBUM } from '../utils/Constants'
 
-const AlbumReducer = (albums = [], action) => {
+const AlbumReducer = (album = {}, action) => {
   switch(action.type){
-    case FETCH_ALBUMS: {
+    case FETCH_ONE_ALBUM: {
       return action.payload
     }
-    case FETCH_ONE_ALBUM: {
-      return [action.payload]
-    }
     case SAVE_ALBUM : {
-      return [action.payload]
+      return action.payload
     }
     default: {
-      return albums
+      return album
     }
   }
 }

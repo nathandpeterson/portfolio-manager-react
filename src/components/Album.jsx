@@ -13,9 +13,8 @@ class Album extends Component {
   }
 
   render() {
-    if(!this.props.album.length) return <div>loading</div>
-    const [ album ] = this.props.album
-    const { images } = album 
+    if(!this.props.album.id) return <div>loading</div>
+    const { album, album : { images } } = this.props
 
     return (
       <div>
@@ -40,7 +39,7 @@ class Album extends Component {
 }
 
 const mapStateToProps = state => {
-  return { album: state.albums }
+  return { album: state.album }
 }
 
 const mapDispatchToProps = dispatch => {

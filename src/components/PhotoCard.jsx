@@ -13,9 +13,8 @@ class PhotoCard extends Component {
   }
 
   render(){
-    if(!this.props.album.length) return <div>loading</div>
-    const [ album ] = this.props.album
-    const { images } = album
+    if(!this.props.album.id) return <div>loading</div>
+    const { images } = this.props.album
     const { publicId, id } = images.find(image => {
       return parseInt(image.id, 10) === parseInt(this.props.match.params.id, 10)
     })
@@ -29,9 +28,6 @@ class PhotoCard extends Component {
                 height='700px' 
                 publicId={publicId}></Image>
           </div>
-             
-          
-         
       </div>
     )
   }
@@ -42,7 +38,7 @@ const mapDispatchToProps = dispatch => (
 )
 
 const mapStateToProps = state => (
-  { album: state.albums }
+  { album: state.album }
 )
 
 

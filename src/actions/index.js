@@ -27,7 +27,7 @@ export const uploadImageName = (imageData, cb) => {
       payload : data
     })
 
-    cb ? cb() : null
+    cb ? cb() : console.log('no callback')
   }
 }
 
@@ -44,7 +44,7 @@ export const fetchAlbums = () => {
 export const fetchOneAlbum = (albumId) => {
   return async (dispatch) => {
     const { data } = await axios.get(`${SERVER}/albums/${albumId}`)
-    
+
     dispatch({
       type: FETCH_ONE_ALBUM,
       payload: data

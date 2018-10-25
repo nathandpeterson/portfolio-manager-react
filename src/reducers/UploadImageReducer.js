@@ -5,7 +5,7 @@ const uploadImage = (photoData={}, action) => {
     case UPLOAD_IMAGE_NAME:
       return action.imageName
     default:
-      return {}
+      return photoData
   }
 }
 

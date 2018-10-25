@@ -25,15 +25,16 @@ class ImageManager extends Component {
     if(this.props.album.id !== id){
       await this.props.fetchOneAlbum(id)
     }
-    
   }
 
   renderImages = () => {
     const { images } = this.props.album
+    // Change to sortPosition
+    const sortedImages = images.sort((a, b) => a.id - b.id)
     if(!images) return <div />
     return (
       <div className='album-card'>
-        {images.map(imageData => {
+        {sortedImages.map(imageData => {
           return <ImageManagerCard
                     key={imageData.id} 
                     imageData={imageData} 
@@ -57,6 +58,7 @@ class ImageManager extends Component {
       return this.renderSpinner()
     }
     const { albumId, images } = this.props.album
+    console.log('album in imageManage', this.props.album)
     return (
       <div>
         <Nav />

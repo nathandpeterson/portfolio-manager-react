@@ -11,7 +11,17 @@ class ImageManagerCard extends Component {
     super()
 
     this.state = {
-      editMode: false
+      editMode: false,
+      currentAngle: 0
+    }
+  }
+
+  componentDidMount(){
+    const { publicId, angle } = this.props.imageData
+    if(angle){
+      this.setState({ currentAngle: angle, publicId })
+    } else {
+      this.setState({ publicId })
     }
   }
 
@@ -36,15 +46,56 @@ class ImageManagerCard extends Component {
     this.setState({editMode: boolean})
   }
 
+  handleRotation = (degreeChange, currentDegree) => {
+    console.log('degreeCjamge', degreeChange)
+    console.log('currentDeg', currentDegree)
+    if(!currentDegree){
+      this.setState({ currentAngle: degreeChange })
+    } else {
+      const newAngle = currentDegree + degreeChange
+      console.log('newAngle', newAngle)
+      this.setState({currentAngle: newAngle})
+    }
+  }
+
+  renderRotateIcons = (angle) => {
+    return (
+      <div className='flex-space-between'>
+        <Button onClick={() => this.handleRotation(-90, angle)}>
+          <Icon>
+            rotate_left
+          </Icon>
+        </Button>
+        <Button onClick={() => this.handleRotation(90, angle)}>
+          <Icon>
+            rotate_right
+          </Icon>
+        </Button>   
+      </div>
+    )
+  }
+
+  renderTransformation = () => {
+    const { currentAngle } = this.state
+    if(currentAngle){
+      return <Transformation angle={currentAngle} />
+    }
+  }
+
   render(){
-    const { editMode } = this.state
-    const { publicId, angle, id } = this.props.imageData
+    console.log('this State', this.state)
+    const { editMode, currentAngle, publicId } = this.state
+    // const { publicId } = this.props.imageData
     return (
       <div key={`image-thumbnail-${publicId}`} className='image-card-manage'>
-        
+        <div>
           <Image publicId={publicId} width='200px'>
-            {angle ? <Transformation angle={angle}/> : ''}
+              {this.renderTransformation()}
           </Image>
+          {editMode ? this.renderRotateIcons(currentAngle) : ''}
+        </div>
+          
+          
           <div style={{marginTop: '1rem'}}>
             {editMode ?
             <ImageForm  exists={true}

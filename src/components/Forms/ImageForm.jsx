@@ -39,7 +39,7 @@ class ImageForm extends Component {
   handleClick = () => {
     window.cloudinary.openUploadWidget({ cloud_name, upload_preset },
       (error, result) => {
-          this.handleUpload(result)
+          this.handleUpload(result, this.props.toggleEditMode(false))
       })
   }
 
@@ -56,6 +56,7 @@ class ImageForm extends Component {
           <Col s={3}/>
           <Input 
                   s={6}
+                  value={this.state[property]}
                   autoFocus={displayName === 'Image Name'}
                   onChange={(e) => this.setState({[property]: e.target.value})}
                   placeholder={placeholder}
@@ -65,8 +66,7 @@ class ImageForm extends Component {
   }
 
   cleanData = (data) => {
-    const { image_id, album_id, ...cleanedData } = data
-    console.log(cleanedData)
+    const { image_id, album_id, updated_at, ...cleanedData } = data
     return {...cleanedData, id: image_id, albumId: album_id}
   }
 
@@ -79,7 +79,7 @@ class ImageForm extends Component {
         </Button>
         <Button onClick={() => {
           const cleanedData = this.cleanData(this.state)
-          this.props.uploadImage(cleanedData)
+          this.props.uploadImage(cleanedData, toggleEditMode(false))
         }}>
           SAVE
         </Button>

@@ -47,15 +47,10 @@ class ImageManagerCard extends Component {
   }
 
   handleRotation = (degreeChange, currentDegree) => {
-    console.log('degreeCjamge', degreeChange)
-    console.log('currentDeg', currentDegree)
-    if(!currentDegree){
-      this.setState({ currentAngle: degreeChange })
-    } else {
-      const newAngle = currentDegree + degreeChange
-      console.log('newAngle', newAngle)
+    const newAngle = currentDegree + degreeChange
+    Math.abs(newAngle === 360) ?
+      this.setState({currentAngle: 0}) :
       this.setState({currentAngle: newAngle})
-    }
   }
 
   renderRotateIcons = (angle) => {
@@ -83,9 +78,8 @@ class ImageManagerCard extends Component {
   }
 
   render(){
-    console.log('this State', this.state)
     const { editMode, currentAngle, publicId } = this.state
-    // const { publicId } = this.props.imageData
+    console.log('currentAngle', currentAngle)
     return (
       <div key={`image-thumbnail-${publicId}`} className='image-card-manage'>
         <div>

@@ -58,7 +58,7 @@ class ImageManager extends Component {
       return this.renderSpinner()
     }
     const { albumId, images } = this.props.album
-    console.log('album in imageManage', this.props.album)
+  
     return (
       <div>
         <Nav />

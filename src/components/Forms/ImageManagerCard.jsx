@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Image, Transformation } from 'cloudinary-react'
 import { Button, Icon } from 'react-materialize'
+import ImageForm from './ImageForm';
 
 
 class ImageManagerCard extends Component {
@@ -12,29 +13,6 @@ class ImageManagerCard extends Component {
     this.state = {
       editMode: false
     }
-  }
-
-  renderButtonGroup = () => {
-    const { editMode } = this.state
-    if(!editMode) {
-      return (
-      <div className='flex-center'>
-        <Button onClick={() => this.setState({editMode: true})}>
-          <Icon>
-            edit
-          </Icon>
-        </Button>
-      </div> 
-    )} else return (
-      <div className='flex-space-between'>
-        <Button onClick={() => this.setState({editMode: false})}>
-          CANCEL
-        </Button>
-        <Button onClick={() => console.log('save')}>
-          SAVE
-        </Button>
-      </div> 
-    )
   }
 
   fieldConfig = [
@@ -54,23 +32,38 @@ class ImageManagerCard extends Component {
     )
   }
 
+  toggleEditMode = (boolean) => {
+    this.setState({editMode: boolean})
+  }
+
   render(){
-    
+    const { editMode } = this.state
     const { publicId, angle, id } = this.props.imageData
     return (
       <div key={`image-thumbnail-${publicId}`} className='image-card-manage'>
         
           <Image publicId={publicId} width='200px'>
-            <Transformation angle={angle}/>
+            {angle ? <Transformation angle={angle}/> : ''}
           </Image>
           <div style={{marginTop: '1rem'}}>
-            {this.fieldConfig.map(field => {
-              return this.renderImageData(field, this.props.imageData)
-            })}
+            {editMode ?
+            <ImageForm  exists={true}
+                        editMode={editMode}
+                        toggleEditMode={this.toggleEditMode}
+                        imageData={this.props.imageData}/> : 
+            this.fieldConfig.map(field => this.renderImageData(field, this.props.imageData))}
           </div>
-          {this.renderButtonGroup()}
+          {editMode ? '' :   
+      <div className='flex-center'>
+        <Button onClick={() => this.toggleEditMode(true)}>
+          <Icon>
+            edit
+          </Icon>
+        </Button>
+      </div> 
+    }
       </div>
-
+      
     )
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Input, Col, Row, Button } from 'react-materialize'
+import { Input, Col, Row, Button, Icon } from 'react-materialize'
 import { uploadImageName } from '../../actions'
 import { cloud_name, upload_preset } from '../../config/config'
 import { connect } from 'react-redux'
@@ -13,15 +13,15 @@ class ImageForm extends Component {
       description: '',
       size: '',
       date: '',
-      albumId: ''
+      angle: 0
     }
   }
 
   componentDidMount(){
-    const { exists } = this.props
+    const { exists, imageData } = this.props
     if(exists){
       // get imageData and set it in state
-      this.setState({albumId: this.props.albumId})
+      this.setState({ ...imageData})
     } else {
       this.setState({albumId: this.props.albumId})
     }
@@ -29,12 +29,18 @@ class ImageForm extends Component {
   }
 
   handleUpload = (cloudinaryResultArray) => {
-
     if(cloudinaryResultArray){
       cloudinaryResultArray.forEach(result => {
         this.props.uploadImage({...this.state, publicId: result.public_id}, this.props.updateAlbumState)
       })
     }
+  }
+
+  handleClick = () => {
+    window.cloudinary.openUploadWidget({ cloud_name, upload_preset },
+      (error, result) => {
+          this.handleUpload(result)
+      })
   }
 
   imageDataConfig = [
@@ -58,25 +64,42 @@ class ImageForm extends Component {
     )
   }
 
+  cleanData = (data) => {
+    const { image_id, album_id, ...cleanedData } = data
+    console.log(cleanedData)
+    return {...cleanedData, id: image_id, albumId: album_id}
+  }
+
+  renderButtonGroup = () => {
+    const { toggleEditMode } = this.props
+     return (
+      <div className='flex-space-between'>
+        <Button onClick={() => toggleEditMode(false)}>
+          CANCEL
+        </Button>
+        <Button onClick={() => {
+          const cleanedData = this.cleanData(this.state)
+          this.props.uploadImage(cleanedData)
+        }}>
+          SAVE
+        </Button>
+      </div> 
+    )
+  }
+
   render(){
     return (
       <div>
         {this.imageDataConfig.map(this.renderField)}
         <Row>
-          <Col s={3}/>
-          <Button     large 
-                      className='#80deea cyan lighten-1' 
-                      waves='light'
-                      id="upload_widget_opener"
-                      onClick={() => {
-                        window.cloudinary.openUploadWidget({ cloud_name, upload_preset },
-                          (error, result) => {
-                              this.handleUpload(result)
-                          })
-                        }
-                        }>
-                  UPLOAD
-          </Button>
+          {this.props.exists ? this.renderButtonGroup() : 
+            <Button large 
+                    className='#80deea cyan lighten-1' 
+                    waves='light'
+                    id="upload_widget_opener"
+                    onClick={this.handleClick} >
+              UPLOAD
+            </Button>}
         </Row>
         
       </div>
@@ -86,7 +109,7 @@ class ImageForm extends Component {
 
 const mapDispatchToProps = dispatch => (
   { 
-    uploadImage: (publicId, cb) => dispatch(uploadImageName(publicId, cb))
+    uploadImage: (data, cb) => dispatch(uploadImageName(data, cb))
   }
 )
 

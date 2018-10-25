@@ -22,7 +22,10 @@ class ImageManager extends Component {
 
   async componentDidMount() {
     const { id } = this.props.match.params
-    await this.props.fetchOneAlbum(id)
+    if(this.props.album.id !== id){
+      await this.props.fetchOneAlbum(id)
+    }
+    
   }
 
   renderImages = () => {

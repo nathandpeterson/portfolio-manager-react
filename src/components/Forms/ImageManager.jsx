@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import Nav from '../Nav'
 import { connect } from 'react-redux'
-import { Button, Icon, Preloader } from 'react-materialize'
+import { Button, Preloader } from 'react-materialize'
 import { fetchOneAlbum } from '../../actions'
-import { Image, Transformation } from 'cloudinary-react'
 import ImageForm from './ImageForm'
 import ImageManagerCard from './ImageManagerCard';
 

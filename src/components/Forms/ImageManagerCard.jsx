@@ -18,6 +18,7 @@ class ImageManagerCard extends Component {
 
   componentDidMount(){
     const { publicId, angle } = this.props.imageData
+
     if(angle){
       this.setState({ currentAngle: angle, publicId })
     } else {
@@ -46,22 +47,23 @@ class ImageManagerCard extends Component {
     this.setState({editMode: boolean})
   }
 
-  handleRotation = (degreeChange, currentDegree) => {
-    const newAngle = currentDegree + degreeChange
+  handleRotation = (degreeChange) => {
+    const { currentAngle } = this.state
+    const newAngle = currentAngle + degreeChange
     Math.abs(newAngle === 360) ?
-      this.setState({currentAngle: 0}) :
-      this.setState({currentAngle: newAngle})
+      this.setState({currentAngle: 0 }) :
+      this.setState({currentAngle: newAngle })
   }
 
-  renderRotateIcons = (angle) => {
+  renderRotateIcons = () => {
     return (
       <div className='flex-space-between'>
-        <Button onClick={() => this.handleRotation(-90, angle)}>
+        <Button onClick={() => this.handleRotation(-90)}>
           <Icon>
             rotate_left
           </Icon>
         </Button>
-        <Button onClick={() => this.handleRotation(90, angle)}>
+        <Button onClick={() => this.handleRotation(90)}>
           <Icon>
             rotate_right
           </Icon>
@@ -70,23 +72,29 @@ class ImageManagerCard extends Component {
     )
   }
 
-  renderTransformation = () => {
-    const { currentAngle } = this.state
+  renderImage = () => {
+    const { publicId, currentAngle } = this.state
     if(currentAngle){
-      return <Transformation angle={currentAngle} />
+      return (
+        <Image publicId={publicId} width='200px'>
+           <Transformation quality={'auto'} angle={currentAngle} />
+        </Image>
+      )
+    } else {
+      return (
+        <Image publicId={publicId} width='200px' />
+      )
     }
   }
 
   render(){
-    const { editMode, currentAngle, publicId } = this.state
-    console.log('currentAngle', currentAngle)
+   
+    const { editMode, publicId,  } = this.state
     return (
       <div key={`image-thumbnail-${publicId}`} className='image-card-manage'>
         <div>
-          <Image publicId={publicId} width='200px'>
-              {this.renderTransformation()}
-          </Image>
-          {editMode ? this.renderRotateIcons(currentAngle) : ''}
+          {this.renderImage()}
+          {editMode ? this.renderRotateIcons() : ''}
         </div>
           
           
@@ -113,12 +121,9 @@ class ImageManagerCard extends Component {
   }
 }
 
-// const mapDispatchToProps = dispatch => (
-//   { fetchOneAlbum: (id) => { dispatch(fetchOneAlbum(id)) } }
-// )
 
 const mapStateToProps = state => (
   { album: state.album }
 )
 
-export default connect(null, mapStateToProps )(ImageManagerCard)
+export default connect(mapStateToProps )(ImageManagerCard)

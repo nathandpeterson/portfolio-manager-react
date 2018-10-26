@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { Row, Col, Input } from 'react-materialize'
+import { Row, Col, Input, Button, Icon } from 'react-materialize'
+import { sendEmail } from '../../actions'
+import { connect } from 'react-redux'
 
 class EmailForm extends Component {
 
@@ -28,7 +30,7 @@ class EmailForm extends Component {
           <Col s={3}/>
           <Input 
                  s={6} 
-                 label="Email" 
+                 label="Your Email" 
                  type='email' 
                  validate 
                  value={this.state.email}
@@ -40,13 +42,28 @@ class EmailForm extends Component {
           <Input  label={'Message'} 
                   s={6}
                   onChange={(e) => this.setState({emailContent: e.target.value})}
-                  placeholder='You are not required to write a description.'  
+                  placeholder='Write your message here...'  
                   type='textarea' />
         </Row>
+        <div className='flex-center'>
+          <Button onClick={() => this.props.sendEmail(this.state)}>
+            <Icon>
+              email
+            </Icon>
+          </Button>
+        </div>
       </div>
       
     )
   }
 }
 
-export default EmailForm
+const mapStateToProps = state => (
+  {emailRespose: state.emailResponse}
+)
+
+const mapDispatchToProps = dispatch => (
+  { sendEmail: (data) => { dispatch(sendEmail(data)) } }
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(EmailForm)

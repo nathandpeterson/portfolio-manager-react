@@ -5,7 +5,8 @@ import {
   FETCH_ONE_ALBUM,
   SET_SELECTED_PHOTO,
   UPLOAD_IMAGE_NAME,
-  SAVE_ALBUM
+  SAVE_ALBUM,
+  SEND_EMAIL
 } from '../utils/Constants'
 
 const SERVER = process.env.SERVER || 'http://localhost:4000/api'
@@ -57,6 +58,18 @@ export const saveAlbum = (albumData) => {
     const { data } = await axios.post(`${SERVER}/albums`, albumData)
     dispatch({
       type: SAVE_ALBUM,
+      payload: data
+    })
+  }
+}
+
+export const sendEmail = (emailData) => {
+  console.log('emailData', emailData)
+  return async (dispatch) => {
+    const { data } = await axios.post(`${SERVER}/contact`, emailData)
+    console.log('response', data)
+    dispatch({
+      type: SEND_EMAIL,
       payload: data
     })
   }

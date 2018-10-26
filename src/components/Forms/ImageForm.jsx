@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Input, Col, Row, Button, Icon } from 'react-materialize'
+import { Input, Col, Row, Button } from 'react-materialize'
 import { uploadImageName } from '../../actions'
 import { cloud_name, upload_preset } from '../../config/config'
 import { connect } from 'react-redux'

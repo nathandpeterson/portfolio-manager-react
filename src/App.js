@@ -8,7 +8,8 @@ import Albums from './components/Albums'
 import Album from './components/Album'
 import AlbumForm from './components/Forms/AlbumForm'
 import ImageManager from './components/Forms/ImageManager'
-import InitiateLogin from './components/InitiateLogin';
+import InitiateLogin from './components/InitiateLogin'
+import EmailForm from './components/Forms/EmailForm'
 
 class App extends Component {
 
@@ -42,6 +43,10 @@ class App extends Component {
                 exact
                 path="/albums/:id/manageImages"
                 component={ImageManager}  />
+            <Route
+                exact
+                path="/email"
+                component={EmailForm}  />
             <Redirect from="/" to="/albums" />
           </Switch>
         </BrowserRouter>        

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Modal, Button, Icon } from 'react-materialize'
+import { Modal, Button } from 'react-materialize'
 import Login from './Login'
 import Nav from './Nav'
 

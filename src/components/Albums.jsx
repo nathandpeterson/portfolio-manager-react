@@ -1,12 +1,11 @@
 import React, {Component} from 'react'
 import Nav from './Nav'
-// import { albums } from '../data/fixtures'
+import Footer from './Footer'
 import { Image } from 'cloudinary-react'
 import { Button } from 'react-materialize'
 import { withRouter, Link } from 'react-router-dom'
 import { fetchAlbums, fetchOneAlbum } from '../actions'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 
 
 class Albums extends Component {
@@ -46,15 +45,13 @@ class Albums extends Component {
       <div>
         <Nav />
         <br />
-        <div className='heading flex-center'>
-          ALBUMS
-        </div>
         <div className='album-flex-container'>
           {albums.map(this.renderAlbum)}
         </div>
         {localStorage.getItem('token') ? 
           this.renderAddAlbumButton() :
-          '' }        
+          '' }
+          <Footer />        
       </div>
     )
   }

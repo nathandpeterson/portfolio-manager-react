@@ -23,11 +23,11 @@ class Album extends Component {
         </div>
         <div className='album-flex-container'>
           {images && images.map((image) => {
-            const {publicId, id} = image
+            const {publicId, id, angle } = image
             return (
             <div key={publicId} style={{ padding: '1rem' }}>
               <Link to={`/albums/${album.id}/photos/${id}`} >
-                <Image publicId={publicId} width='180px' />
+                <Image publicId={publicId} width='180px'  style={{transform: `rotate(${angle}deg)`}}  />
               </Link>
             </div>
           )}

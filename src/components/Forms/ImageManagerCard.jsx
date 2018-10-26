@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Image, Transformation } from 'cloudinary-react'
+import { Image } from 'cloudinary-react'
 import { Button, Icon } from 'react-materialize'
-import ImageForm from './ImageForm';
-
+import ImageForm from './ImageForm'
+import { fieldConfig } from '../../utils/Constants'
 
 class ImageManagerCard extends Component {
 
@@ -12,7 +12,7 @@ class ImageManagerCard extends Component {
 
     this.state = {
       editMode: false,
-      currentAngle: 0
+      angle: 0
     }
   }
 
@@ -20,18 +20,18 @@ class ImageManagerCard extends Component {
     const { publicId, angle } = this.props.imageData
 
     if(angle){
-      this.setState({ currentAngle: angle, publicId })
+      this.setState({ angle, publicId })
     } else {
       this.setState({ publicId })
     }
   }
 
-  fieldConfig = [
-    {label: 'TITLE', fieldName: 'name'},
-    {label: 'DESCRIPTION', fieldName: 'description'},
-    {label: 'DATE', fieldName: 'date'},
-    {label: 'SIZE', fieldName: 'size'}
-  ]
+  // fieldConfig = [
+  //   {label: 'TITLE', fieldName: 'name'},
+  //   {label: 'DESCRIPTION', fieldName: 'description'},
+  //   {label: 'DATE', fieldName: 'date'},
+  //   {label: 'SIZE', fieldName: 'size'}
+  // ]
 
   renderImageData = (field, data) => {
     const { fieldName, label } = field
@@ -48,11 +48,11 @@ class ImageManagerCard extends Component {
   }
 
   handleRotation = (degreeChange) => {
-    const { currentAngle } = this.state
-    const newAngle = currentAngle + degreeChange
+    const { angle } = this.state
+    const newAngle = angle + degreeChange
     Math.abs(newAngle === 360) ?
-      this.setState({currentAngle: 0 }) :
-      this.setState({currentAngle: newAngle })
+      this.setState({angle: 0 }) :
+      this.setState({angle: newAngle })
   }
 
   renderRotateIcons = () => {
@@ -73,12 +73,10 @@ class ImageManagerCard extends Component {
   }
 
   renderImage = () => {
-    const { publicId, currentAngle } = this.state
-    if(currentAngle){
+    const { publicId, angle } = this.state
+    if(angle){
       return (
-        <Image publicId={publicId} width='200px'>
-           <Transformation quality={'auto'} angle={currentAngle} />
-        </Image>
+        <Image publicId={publicId} width='200px' style={{transform: `rotate(${angle}deg)`}} />
       )
     } else {
       return (
@@ -92,20 +90,20 @@ class ImageManagerCard extends Component {
     const { editMode, publicId,  } = this.state
     return (
       <div key={`image-thumbnail-${publicId}`} className='image-card-manage'>
-        <div>
+        <div style={{padding: '2rem 3rem', margin: '0 auto'}}>
           {this.renderImage()}
-          {editMode ? this.renderRotateIcons() : ''}
         </div>
-          
-          
           <div style={{marginTop: '1rem'}}>
+          {editMode ? this.renderRotateIcons() : ''}
             {editMode ?
             <ImageForm  exists={true}
                         editMode={editMode}
                         toggleEditMode={this.toggleEditMode}
+                        angle={this.state.angle}
                         imageData={this.props.imageData}/> : 
-            this.fieldConfig.map(field => this.renderImageData(field, this.props.imageData))}
+            fieldConfig.map(field => this.renderImageData(field, this.props.imageData))}
           </div>
+        
           {editMode ? '' :   
       <div className='flex-center'>
         <Button onClick={() => this.toggleEditMode(true)}>

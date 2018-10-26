@@ -12,8 +12,7 @@ class ImageForm extends Component {
       name: '',
       description: '',
       size: '',
-      date: '',
-      angle: 0
+      date: ''
     }
   }
 
@@ -25,7 +24,12 @@ class ImageForm extends Component {
     } else {
       this.setState({albumId: this.props.albumId})
     }
+  }
 
+  componentDidUpdate(prevProps){
+    if(this.props.angle !== prevProps.angle){
+      this.setState({angle: this.props.angle})
+    }
   }
 
   handleUpload = (cloudinaryResultArray) => {

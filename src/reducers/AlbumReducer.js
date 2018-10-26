@@ -9,8 +9,6 @@ const AlbumReducer = (album = {}, action) => {
       return action.payload
     }
     case UPLOAD_IMAGE_NAME: {
-      console.log('action.payload', action.payload)
-      console.log('album', album)
       const newImages = [...album.images].filter(image => image.id !== action.payload.id)
       const imagesWithPayload = [...newImages, action.payload]
       const newAlbum = {...album, images: imagesWithPayload}

@@ -64,10 +64,8 @@ export const saveAlbum = (albumData) => {
 }
 
 export const sendEmail = (emailData) => {
-  console.log('emailData', emailData)
   return async (dispatch) => {
     const { data } = await axios.post(`${SERVER}/contact`, emailData)
-    console.log('response', data)
     dispatch({
       type: SEND_EMAIL,
       payload: data

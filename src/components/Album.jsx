@@ -26,7 +26,7 @@ class Album extends Component {
             const {publicId, id, angle } = image
             return (
             <div key={publicId} style={{ padding: '1rem' }}>
-              <Link to={`/albums/${album.id}/photos/${id}`} >
+              <Link to={`/${album.id}/${id}`} >
                 <Image publicId={publicId} width='180px'  style={{transform: `rotate(${angle}deg)`}}  />
               </Link>
             </div>

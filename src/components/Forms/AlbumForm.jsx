@@ -37,11 +37,11 @@ class AlbumForm extends Component {
                   s={6}
                   onChange={(e) => this.setState({album_name: e.target.value})}
                   placeholder={'Year or Theme'}
-                  label={'Album Name'}/>
+                  label={'Collection Name'}/>
         </Row>
         <Row>
           <Col s={3}/>
-          <Input  label={'Album Description'} 
+          <Input  label={'Collection Description'} 
                   s={6}
                   onChange={(e) => this.setState({album_description: e.target.value})}
                   placeholder='You are not required to write a description.'  

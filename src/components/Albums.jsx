@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import Nav from './Nav'
-import Footer from './Footer'
 import { Image } from 'cloudinary-react'
 import { Button } from 'react-materialize'
 import { withRouter, Link } from 'react-router-dom'
@@ -16,7 +15,7 @@ class Albums extends Component {
 
   renderAlbum = ({id, album_name, key_image_id}) => {
     return (
-      <Link to={`/albums/${id}`}
+      <Link to={`/${id}`}
             key={`albums-${key_image_id}`} 
             onClick={() => this.props.fetchOneAlbum(id)
             }>
@@ -35,7 +34,7 @@ class Albums extends Component {
       waves='light' 
       icon='add'
       id="upload_widget_opener"
-      onClick={() => this.props.history.push('/albums/new')} />
+      onClick={() => this.props.history.push('/collections/new')} />
   )
 
   render(){
@@ -50,8 +49,7 @@ class Albums extends Component {
         </div>
         {localStorage.getItem('token') ? 
           this.renderAddAlbumButton() :
-          '' }
-          <Footer />        
+          '' } 
       </div>
     )
   }

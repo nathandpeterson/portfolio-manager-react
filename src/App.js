@@ -24,30 +24,30 @@ class App extends Component {
                   component={InitiateLogin}/>
             <Route
                 exact
-                path="/albums/new"
+                path="/collections/new"
                 component={AlbumForm}
               />
             <Route
                 exact
-                path="/albums/:id"
+                path="/:id"
                 component={Album} />
             <Route
                 exact
-                path="/albums"
+                path="/"
                 component={Albums} />           
             <Route
                 exact
-                path="/albums/:albumId/photos/:id"
+                path="/:albumId/:id"
                 component={PhotoCard} />
             <Route
                 exact
-                path="/albums/:id/manageImages"
+                path="/collections/:id/manageImages"
                 component={ImageManager}  />
             <Route
                 exact
                 path="/email"
                 component={EmailForm}  />
-            <Redirect from="/" to="/albums" />
+            <Redirect from="/" to="/" />
           </Switch>
         </BrowserRouter>        
       </CloudinaryContext>

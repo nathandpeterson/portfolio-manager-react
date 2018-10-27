@@ -6,10 +6,14 @@ class Footer extends Component {
 
   render() {
     return (
-      <div className='header flex-center'>
-        <Link to='/email'>
-         <h6>CONTACT</h6> 
-        </Link>
+      <div className='header' style={{display: 'flex', justifyContent: 'flex-end'}}>
+        <div>
+          <Link to='/email'>
+          <h6>CONTACT</h6> 
+          </Link>
+
+        </div>
+        
       </div>
     )
   }

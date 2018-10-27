@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Row, Col, Input, Button, Icon } from 'react-materialize'
+import Nav from '../Nav'
 import { sendEmail } from '../../actions'
 import { connect } from 'react-redux'
 
@@ -18,6 +19,7 @@ class EmailForm extends Component {
   render(){
     return (
       <div>
+        <Nav />
         <Row>
           <Col s={3}/>
           <Input 

@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
-import {withRouter} from 'react-router-dom'
+import Navbar from './Navbar'
+import { withRouter } from 'react-router-dom'
 
 class Nav extends Component {
 
@@ -12,6 +13,7 @@ class Nav extends Component {
             STEPHEN RAWLS
         </h4>
         </div>
+        <Navbar />
       </Fragment>
      
     )

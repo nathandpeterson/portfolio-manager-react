@@ -26,13 +26,6 @@ class ImageManagerCard extends Component {
     }
   }
 
-  // fieldConfig = [
-  //   {label: 'TITLE', fieldName: 'name'},
-  //   {label: 'DESCRIPTION', fieldName: 'description'},
-  //   {label: 'DATE', fieldName: 'date'},
-  //   {label: 'SIZE', fieldName: 'size'}
-  // ]
-
   renderImageData = (field, data) => {
     const { fieldName, label } = field
     return (

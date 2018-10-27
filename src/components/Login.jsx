@@ -80,6 +80,7 @@ class Login extends Component {
                 type='email' 
                 validate 
                 value={this.state.email}
+                defaultValue=''
                 onChange={(e) => this.setState({ email: e.target.value})}>
             <Icon>account_circle</Icon>
           </Input>

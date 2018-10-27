@@ -29,6 +29,10 @@ class App extends Component {
               />
             <Route
                 exact
+                path="/contact"
+                component={EmailForm}  />
+            <Route
+                exact
                 path="/:id"
                 component={Album} />
             <Route
@@ -43,10 +47,6 @@ class App extends Component {
                 exact
                 path="/collections/:id/manage"
                 component={ImageManager}  />
-            <Route
-                exact
-                path="/email"
-                component={EmailForm}  />
             <Redirect from="/" to="/" />
           </Switch>
         </BrowserRouter>        

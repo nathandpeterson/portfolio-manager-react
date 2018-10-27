@@ -34,7 +34,7 @@ class Navbar extends PureComponent {
       )
     } else {
       return (
-          <Link style={iconStyle} to='/email'>
+          <Link style={iconStyle} to='/contact'>
             <Icon tiny>mail_outline</Icon>
           </Link>
       )

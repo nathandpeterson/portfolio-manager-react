@@ -56,7 +56,7 @@ class Album extends Component {
   }
 
   render() {
-    if(!this.props.album.id) return <div>loading</div>
+    if(!this.props.album.id) return <div>loading album page</div>
   
     return (
       <div>

@@ -108,7 +108,9 @@ class ImageForm extends Component {
           <div>
             <Input  s={12} 
                     type='select' 
-                    label='Move to another album' 
+                    label='Move to another album'
+                    onChange={(e) => this.setState({albumId: e.target.value})}
+                    value={this.props.albumId} 
                     defaultValue={this.props.albumId}>
               {otherAlbums.map(({id, album_name}) => {
                 return <option value={id}>{album_name}</option>

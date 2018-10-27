@@ -36,7 +36,7 @@ class PhotoCard extends Component {
   }
 
   render(){
-    if(!this.props.album.id) return <div>loading</div>
+    if(!this.props.album.id) return <div>loading image</div>
     const { album: { images } , match : { params : { id } } } = this.props
     const selectedImage = images.find(image => parseInt(image.id, 10) === parseInt(id, 10))
     const {publicId, angle} = selectedImage

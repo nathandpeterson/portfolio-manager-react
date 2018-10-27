@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import { Image } from 'cloudinary-react'
 import Nav from './Nav'
-import Footer from './Footer'
 import { connect } from 'react-redux'
 import { fetchOneAlbum } from '../actions'
 import { fieldConfig } from '../utils/Constants'
@@ -12,17 +11,6 @@ class PhotoCard extends Component {
     const { albumId } = this.props.match.params
     await this.props.fetchOneAlbum(albumId)
   }
-
-  // renderField(label, data){
-  //   return (
-  //     <div style={{width: '40%', margin: '0 auto'}}>
-  //       <div className='flex-space-between header'>
-  //         <div>{label}</div>
-  //         <div style={{color: '#BEBEBE'}}>{data}</div>
-  //       </div>
-  //     </div>
-  //   )
-  // }
 
   renderField(label, data){
     return (
@@ -57,7 +45,6 @@ class PhotoCard extends Component {
             </Image>
           </div>
           {this.renderText(selectedImage)}
-          <Footer />
       </div>
     )
   }

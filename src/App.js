@@ -41,7 +41,7 @@ class App extends Component {
                 component={PhotoCard} />
             <Route
                 exact
-                path="/collections/:id/manageImages"
+                path="/collections/:id/manage"
                 component={ImageManager}  />
             <Route
                 exact

@@ -30,10 +30,9 @@ class Albums extends Component {
   renderAddAlbumButton = () => (
     <Button     large
       floating
-      className='#80deea cyan lighten-3' 
+      className='#03a9f4 light-blue' 
       waves='light' 
       icon='add'
-      id="upload_widget_opener"
       onClick={() => this.props.history.push('/collections/new')} />
   )
 
@@ -46,10 +45,11 @@ class Albums extends Component {
         <br />
         <div className='album-flex-container'>
           {albums.map(this.renderAlbum)}
-        </div>
-        {localStorage.getItem('token') ? 
+          {localStorage.getItem('token') ? 
           this.renderAddAlbumButton() :
           '' } 
+        </div>
+       
       </div>
     )
   }

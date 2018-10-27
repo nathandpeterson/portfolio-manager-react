@@ -30,17 +30,23 @@ class Album extends Component {
     }
   }
 
+  handleRotation = angle => {
+    const angleStyle = angle ? 
+      {transform: `rotate(${angle}deg)`} : {}
+      return angleStyle
+  }
+
   renderImages(){
     const { album, album : { images } } = this.props
     const sortedImages = images.sort((a, b) => a.id - b.id)
     return (
       <div className='album-flex-container'>
-        {images && images.map((image) => {
+        {sortedImages && sortedImages.map((image) => {
           const {publicId, id, angle } = image
           return (
           <div key={publicId} style={{ padding: '1rem' }}>
             <Link to={`/${album.id}/${id}`} >
-              <Image publicId={publicId} width='180px'  style={{transform: `rotate(${angle}deg)`}}  />
+              <Image publicId={publicId} width='180px'  style={this.handleRotation(angle)}  />
             </Link>
           </div>
             )}

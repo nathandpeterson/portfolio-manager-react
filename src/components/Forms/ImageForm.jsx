@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { Input, Col, Row, Button } from 'react-materialize'
-import { uploadImageName } from '../../actions'
+import React, { Component, Fragment } from 'react'
+import { Input, Row, Button } from 'react-materialize'
+import { uploadImageName, fetchAlbums } from '../../actions'
 import { cloud_name, upload_preset } from '../../config/config'
 import { connect } from 'react-redux'
 
@@ -16,11 +16,13 @@ class ImageForm extends Component {
     }
   }
 
-  componentDidMount(){
+  async componentDidMount(){
+    await this.props.fetchAlbums()
     const { exists, imageData } = this.props
     if(exists){
-      // get imageData and set it in state
-      this.setState({ ...imageData})
+      // clean out data
+      const cleanedData = this.cleanData(imageData)
+      this.setState({ ...cleanedData })
     } else {
       this.setState({albumId: this.props.albumId})
     }
@@ -30,6 +32,11 @@ class ImageForm extends Component {
     if(this.props.angle !== prevProps.angle){
       this.setState({angle: this.props.angle})
     }
+  }
+
+  cleanData = (data) => {
+    const { image_id, album_id, updated_at, created_at, ...cleanedData } = data
+    return {...cleanedData, id: image_id, albumId: album_id}
   }
 
   handleUpload = (cloudinaryResultArray) => {
@@ -57,9 +64,8 @@ class ImageForm extends Component {
   renderField = ({displayName, property, placeholder}) => {
     return (
       <Row key={`imageUploader-${property}`}>
-          <Col s={3}/>
           <Input 
-                  s={6}
+                  s={12}
                   value={this.state[property]}
                   autoFocus={displayName === 'Image Name'}
                   onChange={(e) => this.setState({[property]: e.target.value})}
@@ -69,26 +75,50 @@ class ImageForm extends Component {
     )
   }
 
-  cleanData = (data) => {
-    const { image_id, album_id, updated_at, ...cleanedData } = data
-    return {...cleanedData, id: image_id, albumId: album_id}
-  }
-
   renderButtonGroup = () => {
     const { toggleEditMode } = this.props
-     return (
-      <div className='flex-space-between'>
-        <Button onClick={() => toggleEditMode(false)}>
-          CANCEL
-        </Button>
-        <Button onClick={() => {
-          const cleanedData = this.cleanData(this.state)
-          this.props.uploadImage(cleanedData, toggleEditMode(false))
-        }}>
-          SAVE
-        </Button>
-      </div> 
+    return (
+      <Fragment>
+        <div className='flex-space-between'>
+          <Button onClick={() => toggleEditMode(false)}>
+            CANCEL
+          </Button>
+          <Button onClick={() => console.log('remove')}>
+            DELETE
+          </Button>
+          <Button onClick={() => {
+            this.props.uploadImage(this.state, toggleEditMode(false))
+          }}>
+            SAVE
+          </Button>
+        </div>
+        <br />
+        {this.renderMoveImageControl()}
+      </Fragment>
     )
+  }
+
+  renderMoveImageControl(){
+
+    const { albums} = this.props
+    const otherAlbums = albums.filter(album => parseInt(album.id,10) !== parseInt(this.state.albumId, 10))
+    if(otherAlbums.length){
+      return (
+        <div className='flex-space-beween'>
+          <div>
+            <Input  s={12} 
+                    type='select' 
+                    label='Move to another album' 
+                    defaultValue={this.props.albumId}>
+              {otherAlbums.map(({id, album_name}) => {
+                return <option value={id}>{album_name}</option>
+              })}
+            </Input>
+          </div>        
+        </div>
+      )
+    }
+    
   }
 
   render(){
@@ -113,8 +143,16 @@ class ImageForm extends Component {
 
 const mapDispatchToProps = dispatch => (
   { 
-    uploadImage: (data, cb) => dispatch(uploadImageName(data, cb))
+    uploadImage: (data, cb) => dispatch(uploadImageName(data, cb)),
+    fetchAlbums: () => dispatch(fetchAlbums()),
   }
 )
 
-export default connect(null, mapDispatchToProps)(ImageForm)
+const mapStateToProps = state => (
+  {
+    album: state.album,
+    albums: state.albums
+  }
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(ImageForm)

@@ -8,7 +8,7 @@ class Footer extends Component {
     return (
       <div className='header' style={{display: 'flex', justifyContent: 'flex-end'}}>
         <div>
-          <Link to='/email'>
+          <Link to='/contact'>
           <h6>CONTACT</h6> 
           </Link>
 

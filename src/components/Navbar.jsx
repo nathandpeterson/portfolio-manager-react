@@ -24,6 +24,23 @@ const iconStyle = {
 
 class Navbar extends PureComponent {
 
+  renderMailOrLogout(){
+    const token = localStorage.getItem('token')
+    if(token){
+      return (
+        <Link style={iconStyle} to='/' onClick={() => localStorage.removeItem('token')}>
+          <Icon tiny>exit_to_app</Icon>
+        </Link>
+      )
+    } else {
+      return (
+          <Link style={iconStyle} to='/email'>
+            <Icon tiny>mail_outline</Icon>
+          </Link>
+      )
+    }
+  }
+
   render(){
     return (
       <Fragment>
@@ -31,11 +48,8 @@ class Navbar extends PureComponent {
         <div style={navStyle}>
         <Link style={iconStyle} to='/'>
             <Icon tiny>view_module</Icon>
-          </Link>
-          <Link style={iconStyle} to='/email'>
-            <Icon tiny>mail_outline</Icon>
-          </Link>
-         
+        </Link>
+        {this.renderMailOrLogout()}
         </div>
         <hr style={{...navBorderStyles } } />
 

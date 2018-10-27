@@ -14,7 +14,7 @@ class PhotoCard extends Component {
 
   renderField(label, data){
     return (
-      <div className='flex-center'>
+      <div key={`${label}-${data}`} className='flex-center'>
         <div style={{color: '#BEBEBE'}}>{data}</div>
       </div>
     )
@@ -26,6 +26,13 @@ class PhotoCard extends Component {
     return fieldConfigWithValue.map(({fieldName, label}) => {
       return this.renderField(label, imageData[fieldName])
     })
+  }
+
+  rotateStyle(angle){
+    return angle ? 
+    {transform: `rotate(${angle}deg) translate(0, 100)`}
+    :
+    {}
   }
 
   render(){
@@ -40,7 +47,7 @@ class PhotoCard extends Component {
             <Image id={publicId} 
                 width='auto' 
                 height='600px'
-                style={{transform: `rotate(${angle}deg)`}} 
+                style={this.rotateStyle(angle)} 
                 publicId={publicId}>
             </Image>
           </div>

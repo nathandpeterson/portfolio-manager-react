@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Row, Input, Icon, Button } from 'react-materialize'
+import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 
 class Login extends Component {
@@ -10,7 +11,9 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      error: ''
+      error: '',
+      message: '',
+      showMessage: false
     }
   }
 
@@ -37,28 +40,38 @@ class Login extends Component {
     try {
       const { data } = await axios.post(`http://localhost:4000/api/login`, {email, password})
       this.setToken(data)
+      this.setState({message: 'Success', showMessage: true})
     } catch(err){
-      this.setState({error: 'Something went wrong'})
+      this.setState({error: 'You seem to have entered the wrong credentials...', showMessage: true})
     }
   }
 
-  showError(){
+  showMessage(){
     setTimeout(() => {
-      this.setState({error: ''})
+      this.setState({error: '', message: '', showMessage: false})
     }, 1500)
     return (
       <Row>
         <div className='flex-center'>
-          Something went wrong
+          {this.renderMessageContent()}
         </div>
       </Row>
     )
   }
 
+  renderMessageContent(){
+    const { error, message } = this.state
+    if(error){
+      return <h5 style={{color: 'red'}}>{error}</h5>
+    } else {
+      return <h5>{message}</h5>
+    }
+  }
+
   render(){
 
     return (
-      this.state.error ? this.showError() : 
+      this.state.showMessage ? this.showMessage() : 
       <div>
         <Row>
           <Input 
@@ -89,4 +102,4 @@ class Login extends Component {
   }
 }
 
-export default Login
+export default withRouter(Login)

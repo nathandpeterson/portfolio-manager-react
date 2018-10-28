@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react'
-import { Input, Row, Button } from 'react-materialize'
-import { uploadImageName, fetchAlbums } from '../../actions'
+import { Input, Row, Button, Collapsible, CollapsibleItem } from 'react-materialize'
+import { uploadImageName, fetchAlbums, fetchOneAlbum, deleteImage } from '../../actions'
 import { cloud_name, upload_preset } from '../../config/config'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 class ImageForm extends Component {
   constructor(){
@@ -16,15 +17,17 @@ class ImageForm extends Component {
     }
   }
 
-  async componentDidMount(){
+  componentDidMount =  async () => {
+    const { id } = this.props.match.params
     await this.props.fetchAlbums()
-    const { exists, imageData, id } = this.props
+    await this.props.fetchOneAlbum(id)
+    const { exists, imageData, album } = this.props
     if(exists){
       // clean out data 
-      const cleanedData = this.cleanData({...imageData, id})
+      const cleanedData = this.cleanData({...imageData })
       this.setState({ ...cleanedData })
     } else {
-      this.setState({albumId: this.props.albumId})
+      this.setState({albumId: album.id})
     }
   }
 
@@ -42,6 +45,8 @@ class ImageForm extends Component {
   handleUpload = (cloudinaryResultArray) => {
     if(cloudinaryResultArray){
       cloudinaryResultArray.forEach(result => {
+        console.log('this.state', this.state)
+        console.log('this.props', this.props)
         this.props.uploadImage({...this.state, publicId: result.public_id}, this.props.updateAlbumState)
       })
     }
@@ -50,7 +55,7 @@ class ImageForm extends Component {
   handleClick = () => {
     window.cloudinary.openUploadWidget({ cloud_name, upload_preset },
       (error, result) => {
-          this.handleUpload(result, this.props.toggleEditMode(false))
+          this.handleUpload(result, () => this.props.toggleEditMode(false))
       })
   }
 
@@ -79,45 +84,65 @@ class ImageForm extends Component {
     const { toggleEditMode } = this.props
     return (
       <Fragment>
+       
         <div className='flex-space-between'>
-          <Button onClick={() => toggleEditMode(false)}>
+          <Button onClick={() => toggleEditMode(false)}
+                  className='#03a9f4 light-blue'>
             CANCEL
           </Button>
-          <Button onClick={() => console.log('remove')}>
-            DELETE
-          </Button>
-          <Button onClick={() => {
+          
+          <Button className='#03a9f4 light-blue' 
+                  onClick={() => {
             this.props.uploadImage(this.state, toggleEditMode(false))
           }}>
             SAVE
           </Button>
         </div>
         <br />
+        {this.renderDeleteButton()}
         {this.renderMoveImageControl()}
+       
       </Fragment>
+    )
+  }
+  
+  renderDeleteButton(){
+    return (
+      <div >
+          <Collapsible style={{width:'15rem', textAlign: 'center'}}>
+              <CollapsibleItem header='DELETE'>
+                <Button className='red'
+                        onClick={() => this.props.deleteImage(this.state.id, () => console.log('success'))}>
+                  DELETE
+                </Button>
+              </CollapsibleItem>
+          </Collapsible>
+        </div>
     )
   }
 
   renderMoveImageControl(){
 
-    const { albums} = this.props
+    const { albums } = this.props
     const otherAlbums = albums.filter(album => parseInt(album.id,10) !== parseInt(this.state.albumId, 10))
     if(otherAlbums.length){
       return (
-        <div className='flex-space-beween'>
+      
+        <div>
           <div>
-            <Input  s={12} 
-                    type='select' 
-                    label='Move to another album'
-                    onChange={(e) => this.setState({albumId: e.target.value})}
-                    value={this.props.albumId} 
-                    defaultValue={this.props.albumId}>
-              {otherAlbums.map(({id, album_name}) => {
-                return <option key={`album-select-${id}`} value={id}>{album_name}</option>
-              })}
-            </Input>
-          </div>        
-        </div>
+            This image is currently associated with {this.props.album.album_name}
+          </div>
+          <Input  s={12} 
+                  type='select' 
+                  label='Move to another collection'
+                  onChange={(e) => this.setState({albumId: e.target.value})}
+                  value={this.props.albumId} 
+                  defaultValue={this.props.albumId}>
+            {otherAlbums.map(({id, album_name}) => {
+              return <option key={`album-select-${id}`} value={id}>{album_name}</option>
+            })}
+          </Input>
+        </div>        
       )
     }
     
@@ -147,6 +172,8 @@ const mapDispatchToProps = dispatch => (
   { 
     uploadImage: (data, cb) => dispatch(uploadImageName(data, cb)),
     fetchAlbums: () => dispatch(fetchAlbums()),
+    fetchOneAlbum: (id) => { dispatch(fetchOneAlbum(id)) },
+    deleteImage: (id, cb) => dispatch(deleteImage(id, cb))
   }
 )
 
@@ -157,4 +184,4 @@ const mapStateToProps = state => (
   }
 )
 
-export default connect(mapStateToProps, mapDispatchToProps)(ImageForm)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ImageForm))

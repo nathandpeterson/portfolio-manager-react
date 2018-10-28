@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 
 class Album extends Component {
 
-  async componentDidMount() {
+  componentDidMount = async () => {
     const { id } = this.props.match.params
     await this.props.fetchOneAlbum(id)
   }
@@ -20,10 +20,15 @@ class Album extends Component {
     } else {
       const { id } = this.props.match.params
       return (
-        <div className='flex-center'>
+        <div className='flex-space-around'>
           <Button className='#03a9f4 light-blue'
-                onClick={() => this.props.history.push(`/collections/${id}/manage`)}>
-            EDIT COLLECTION
+                  onClick={() => this.props.history.push(`/collections/${id}/manageImages`)}>
+            EDIT COLLECTION IMAGES
+          </Button>
+          <Button className='#03a9f4 light-blue'
+                  onClick={() => this.props.history.push(`/collections/${id}/manageCollection`)}
+          >
+          EDIT COLLECTION INFORMATION
           </Button>
         </div>
       )

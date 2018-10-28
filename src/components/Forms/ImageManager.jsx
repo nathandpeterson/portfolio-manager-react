@@ -63,9 +63,10 @@ class ImageManager extends Component {
         <Nav />
           {images ? this.renderImages() : this.renderSpinner()}
         <div className='flex-center'>
-          <Button onClick={() => {
+          <Button   className='#03a9f4 light-blue'
+                    onClick={() => {
                       this.setState({addingNewImage: !this.state.addingNewImage})
-                                  }}>Add an image to the album
+                                  }}>Add an image to the COLLECTION
           </Button>
         </div>
         {this.state.addingNewImage ?

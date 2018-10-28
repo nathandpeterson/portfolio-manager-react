@@ -45,7 +45,11 @@ class App extends Component {
                 component={PhotoCard} />
             <Route
                 exact
-                path="/collections/:id/manage"
+                path="/collections/:id/manageCollection"
+                component={AlbumForm} />
+            <Route
+                exact
+                path="/collections/:id/manageImages"
                 component={ImageManager}  />
             <Redirect from="/" to="/" />
           </Switch>

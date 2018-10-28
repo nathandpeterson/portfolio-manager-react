@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { Image } from 'cloudinary-react'
 import { Button, Icon } from 'react-materialize'
 import ImageForm from './ImageForm'
+import { fetchOneAlbum, updateAlbum } from '../../actions'
+import { withRouter } from 'react-router-dom'
 import { fieldConfig } from '../../utils/Constants'
 
 class ImageManagerCard extends Component {
@@ -17,13 +19,15 @@ class ImageManagerCard extends Component {
     }
   }
 
-  componentDidMount(){
+  async componentDidMount(){
     const { publicId, angle, id } = this.props.imageData
-
     if(angle){
       this.setState({ angle, publicId, id })
     } else {
       this.setState({ publicId, id })
+    }
+    if(this.props.match.params.id){
+      await this.props.fetchOneAlbum(this.props.match.params.id)
     }
   }
 
@@ -52,12 +56,14 @@ class ImageManagerCard extends Component {
   renderRotateIcons = () => {
     return (
       <div className='flex-space-between'>
-        <Button onClick={() => this.handleRotation(-90)}>
+        <Button className='#03a9f4 light-blue' 
+                onClick={() => this.handleRotation(-90)}>
           <Icon>
             rotate_left
           </Icon>
         </Button>
-        <Button onClick={() => this.handleRotation(90)}>
+        <Button className='#03a9f4 light-blue'
+                onClick={() => this.handleRotation(90)}>
           <Icon>
             rotate_right
           </Icon>
@@ -79,9 +85,15 @@ class ImageManagerCard extends Component {
     }
   }
 
+  handleUpdateKeyImage = (keyImageId) => {
+    console.log('KEYIMAGE', keyImageId)
+    const { created_at, images, updated_at, ...albumCopy } = this.props.album
+    this.props.updateAlbum({...albumCopy, key_image_id: keyImageId})
+  }
+
   render(){
    
-    const { editMode, publicId,  } = this.state
+    const { editMode, publicId  } = this.state
     return (
       <div key={`image-thumbnail-${publicId}`} className='image-card-manage'>
         <div style={{padding: '2rem 3rem', margin: '0 auto'}}>
@@ -100,11 +112,16 @@ class ImageManagerCard extends Component {
           </div>
         
           {editMode ? '' :   
-      <div className='flex-center'>
-        <Button onClick={() => this.toggleEditMode(true)}>
+      <div className='flex-space-between'>
+        <Button className='#03a9f4 light-blue'
+                onClick={() => this.toggleEditMode(true)}>
           <Icon>
             edit
           </Icon>
+        </Button>
+        <Button className='#03a9f4 light-blue'
+                onClick={(e) => this.handleUpdateKeyImage(publicId)}>
+          KEY IMAGE
         </Button>
       </div> 
     }
@@ -114,9 +131,16 @@ class ImageManagerCard extends Component {
   }
 }
 
+const mapDispatchToProps = dispatch => (
+  { 
+    fetchOneAlbum: (id) => dispatch(fetchOneAlbum(id)),
+    updateAlbum: (albumData) => dispatch(updateAlbum(albumData))
+  }
+)
+
 
 const mapStateToProps = state => (
   { album: state.album }
 )
 
-export default connect(mapStateToProps)(ImageManagerCard)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ImageManagerCard))

@@ -5,8 +5,11 @@ import {
   FETCH_ONE_ALBUM,
   SET_SELECTED_PHOTO,
   UPLOAD_IMAGE_NAME,
+  DELETE_IMAGE,
   SAVE_ALBUM,
-  SEND_EMAIL
+  UPDATE_ALBUM,
+  SEND_EMAIL,
+  DELETE_ALBUM
 } from '../utils/Constants'
 
 const SERVER = process.env.SERVER || 'http://localhost:4000/api'
@@ -23,15 +26,29 @@ export const setSelectedPhoto = photoData => {
 export const uploadImageName = (imageData, cb) => {
   const token = localStorage.getItem('token')
   const { id } = imageData
+  const postURL = id ? `${SERVER}/images/${id}` : `${SERVER}/images`
   return async (dispatch) => {
-    const { data } = await axios.post(`${SERVER}/images/${id}`, 
-      {data: {...imageData}}, {headers: { ...HEADERS, token }} )
+    const { data } = await axios.post(postURL, 
+      {...imageData}, {headers: { ...HEADERS, token }} )
     dispatch({
       type: UPLOAD_IMAGE_NAME,
       payload : data
     })
 
     cb ? cb() : console.log('no callback')
+  }
+}
+
+export const deleteImage = (imageId, cb) => {
+  const token = localStorage.getItem('token')
+  return async (dispatch) => {
+    const { data } = await axios.delete(`${SERVER}/images/${imageId}`, 
+    {headers: { ...HEADERS, token }} )
+  dispatch({
+    type: DELETE_IMAGE,
+    payload : data
+  })
+  cb ? cb() : console.log('no callback')
   }
 }
 
@@ -46,6 +63,7 @@ export const fetchAlbums = () => {
 }
 
 export const fetchOneAlbum = (albumId) => {
+  const token = localStorage.getItem('token')
   return async (dispatch) => {
     const { data } = await axios.get(`${SERVER}/albums/${albumId}`)
 
@@ -57,12 +75,42 @@ export const fetchOneAlbum = (albumId) => {
 }
 
 export const saveAlbum = (albumData) => {
+  const token = localStorage.getItem('token')
   return async (dispatch) => {
-    const { data } = await axios.post(`${SERVER}/albums`, albumData)
+    const { data } = await axios.post(`${SERVER}/albums`, albumData,  {headers: { ...HEADERS, token }})
     dispatch({
       type: SAVE_ALBUM,
       payload: data
     })
+  }
+}
+
+
+export const updateAlbum = (albumData) => {
+  const token = localStorage.getItem('token')
+  const { id } = albumData
+  return async (dispatch) => {
+    const { data } = await axios.post(`${SERVER}/albums/${id}`, 
+                                      albumData, 
+                                      {headers: { ...HEADERS, token }}
+                                      )
+    dispatch({
+      type: UPDATE_ALBUM,
+      payload: data
+    })
+  }
+}
+
+export const deleteAlbum = (albumId, cb) => {
+  const token = localStorage.getItem('token')
+  return async (dispatch) => {
+    const { data } = await axios.delete(`${SERVER}/albums/${albumId}`, 
+    {headers: { ...HEADERS, token }} )
+  dispatch({
+    type: DELETE_ALBUM,
+    payload : data
+  })
+  cb ? cb() : console.log('no callback')
   }
 }
 

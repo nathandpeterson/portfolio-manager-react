@@ -12,17 +12,18 @@ class ImageManagerCard extends Component {
 
     this.state = {
       editMode: false,
-      angle: 0
+      angle: 0,
+      id: null
     }
   }
 
   componentDidMount(){
-    const { publicId, angle } = this.props.imageData
+    const { publicId, angle, id } = this.props.imageData
 
     if(angle){
-      this.setState({ angle, publicId })
+      this.setState({ angle, publicId, id })
     } else {
-      this.setState({ publicId })
+      this.setState({ publicId, id })
     }
   }
 
@@ -90,6 +91,7 @@ class ImageManagerCard extends Component {
           {editMode ? this.renderRotateIcons() : ''}
             {editMode ?
             <ImageForm  exists={true}
+                        id={this.state.id}
                         editMode={editMode}
                         toggleEditMode={this.toggleEditMode}
                         angle={this.state.angle}
@@ -117,4 +119,4 @@ const mapStateToProps = state => (
   { album: state.album }
 )
 
-export default connect(mapStateToProps )(ImageManagerCard)
+export default connect(mapStateToProps)(ImageManagerCard)

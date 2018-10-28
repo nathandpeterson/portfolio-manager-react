@@ -11,6 +11,7 @@ import {
 
 const SERVER = process.env.SERVER || 'http://localhost:4000/api'
 
+const HEADERS = {"Content-Type": "application/json"}
 
 export const setSelectedPhoto = photoData => {
   return {
@@ -20,9 +21,11 @@ export const setSelectedPhoto = photoData => {
 }
 
 export const uploadImageName = (imageData, cb) => {
+  const token = localStorage.getItem('token')
   const { id } = imageData
   return async (dispatch) => {
-    const { data } = await axios.post(`${SERVER}/images${id ? '/' + id : ''}`, {...imageData})
+    const { data } = await axios.post(`${SERVER}/images/${id}`, 
+      {data: {...imageData}}, {headers: { ...HEADERS, token }} )
     dispatch({
       type: UPLOAD_IMAGE_NAME,
       payload : data

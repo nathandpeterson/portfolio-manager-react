@@ -18,10 +18,10 @@ class ImageForm extends Component {
 
   async componentDidMount(){
     await this.props.fetchAlbums()
-    const { exists, imageData } = this.props
+    const { exists, imageData, id } = this.props
     if(exists){
-      // clean out data
-      const cleanedData = this.cleanData(imageData)
+      // clean out data 
+      const cleanedData = this.cleanData({...imageData, id})
       this.setState({ ...cleanedData })
     } else {
       this.setState({albumId: this.props.albumId})
@@ -36,7 +36,7 @@ class ImageForm extends Component {
 
   cleanData = (data) => {
     const { image_id, album_id, updated_at, created_at, ...cleanedData } = data
-    return {...cleanedData, id: image_id, albumId: album_id}
+    return {...cleanedData, albumId: album_id}
   }
 
   handleUpload = (cloudinaryResultArray) => {
@@ -113,7 +113,7 @@ class ImageForm extends Component {
                     value={this.props.albumId} 
                     defaultValue={this.props.albumId}>
               {otherAlbums.map(({id, album_name}) => {
-                return <option value={id}>{album_name}</option>
+                return <option key={`album-select-${id}`} value={id}>{album_name}</option>
               })}
             </Input>
           </div>        

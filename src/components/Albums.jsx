@@ -13,15 +13,19 @@ class Albums extends Component {
     await this.props.fetchAlbums()
   }
 
-  renderAlbum = ({id, album_name, key_image_id}) => {
+  renderAlbum = ({id, album_name, key_image_id }) => {
+
     return (
-      <Link to={`/${id}`}
+      <Link to={`/collections/${id}`}
             key={`albums-${key_image_id}`} 
             onClick={() => this.props.fetchOneAlbum(id)
             }>
         <div key={`album-${id}`} className='album-card'>
-          <Image publicId={key_image_id} width='150px'/>
-          {album_name}
+          <Image publicId={key_image_id} width='70%'/>
+          <div>
+            {album_name}
+          </div>
+         
         </div>
       </Link>   
     )

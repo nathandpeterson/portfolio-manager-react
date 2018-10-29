@@ -74,8 +74,6 @@ class AlbumForm extends Component {
   }
 
   render(){
-    console.log('this state', this.state)
-    console.log('props', this.props.album)
     return (
       <div>
         <Nav />
@@ -85,9 +83,9 @@ class AlbumForm extends Component {
           <Col s={3}/>
           <Input 
                   s={6}
+                  value={this.state.album_name}
                   onChange={(e) => this.setState({album_name: e.target.value})}
                   placeholder={'Year or Theme'}
-                  value={this.state.album_name}
                   label={'Collection Name'}/>
         </Row>
         <Row>
@@ -113,7 +111,6 @@ class AlbumForm extends Component {
               </Button>
           </Col>
         </Row>
-          
       </div>
     )
   }

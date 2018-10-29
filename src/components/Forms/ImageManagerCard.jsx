@@ -86,7 +86,6 @@ class ImageManagerCard extends Component {
   }
 
   handleUpdateKeyImage = (keyImageId) => {
-    console.log('KEYIMAGE', keyImageId)
     const { created_at, images, updated_at, ...albumCopy } = this.props.album
     this.props.updateAlbum({...albumCopy, key_image_id: keyImageId})
   }

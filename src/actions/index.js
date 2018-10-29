@@ -26,6 +26,7 @@ export const setSelectedPhoto = photoData => {
 export const uploadImageName = (imageData, cb) => {
   const token = localStorage.getItem('token')
   const { id } = imageData
+  console.log('-------', id, imageData)
   const postURL = id ? `${SERVER}/images/${id}` : `${SERVER}/images`
   return async (dispatch) => {
     const { data } = await axios.post(postURL, 
@@ -63,10 +64,8 @@ export const fetchAlbums = () => {
 }
 
 export const fetchOneAlbum = (albumId) => {
-  const token = localStorage.getItem('token')
   return async (dispatch) => {
     const { data } = await axios.get(`${SERVER}/albums/${albumId}`)
-
     dispatch({
       type: FETCH_ONE_ALBUM,
       payload: data

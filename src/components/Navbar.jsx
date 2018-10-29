@@ -28,7 +28,8 @@ class Navbar extends PureComponent {
     const token = localStorage.getItem('token')
     if(token){
       return (
-        <Link style={iconStyle} to='/' onClick={() => localStorage.removeItem('token')}>
+        <Link style={iconStyle} to='/' 
+              onClick={() => localStorage.removeItem('token')}>
           <Icon tiny>exit_to_app</Icon>
         </Link>
       )
@@ -46,7 +47,7 @@ class Navbar extends PureComponent {
       <Fragment>
         <hr style={navBorderStyles}/>
         <div style={navStyle}>
-        <Link style={iconStyle} to='/'>
+        <Link style={iconStyle} to='/collections'>
             <Icon tiny>view_module</Icon>
         </Link>
         {this.renderMailOrLogout()}

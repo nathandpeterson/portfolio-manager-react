@@ -49,9 +49,9 @@ class Album extends Component {
         {sortedImages && sortedImages.map((image) => {
           const {publicId, id, angle } = image
           return (
-          <div key={publicId} style={{ padding: '1rem' }}>
+          <div key={publicId} style={{ padding: '2.5rem .5rem' }}>
             <Link to={`/${album.id}/${id}`} >
-              <Image publicId={publicId} width='180px'  style={this.handleRotation(angle)}  />
+              <Image publicId={publicId} width='auto' height='180px'  style={this.handleRotation(angle)}  />
             </Link>
           </div>
             )}

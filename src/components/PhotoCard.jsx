@@ -30,9 +30,18 @@ class PhotoCard extends Component {
 
   rotateStyle(angle){
     return angle ? 
-    {transform: `rotate(${angle}deg) translate(0, 100)`}
+    {transform: `rotate(${angle}deg)`}
     :
     {}
+  }
+
+  marginForRotation = (degree) => {
+    const absoluteDegree = Math.abs(degree)
+    if(absoluteDegree === 90 || absoluteDegree === 270){
+      return 'marginDown'
+    } else {
+      return ''
+    }
   }
 
   render(){
@@ -43,10 +52,10 @@ class PhotoCard extends Component {
     return (
       <div key={publicId}>
           <Nav />
-          <div className='flex-center image-container'>
+          <div className={'flex-center image-container ' + this.marginForRotation(angle)}>
             <Image id={publicId} 
                 width='auto' 
-                height='600px'
+                height='500px'
                 style={this.rotateStyle(angle)} 
                 publicId={publicId}>
             </Image>

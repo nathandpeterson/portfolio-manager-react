@@ -1,9 +1,12 @@
 import React, { Component, Fragment } from 'react'
 import { Input, Row, Button, Collapsible, CollapsibleItem } from 'react-materialize'
 import { uploadImageName, fetchAlbums, fetchOneAlbum, deleteImage } from '../../actions'
-import { cloud_name, upload_preset } from '../../config/config'
+// import { cloud_name, upload_preset } from '../../config/config'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+
+const cloud_name = process.env.REACT_APP_CLOUD_NAME
+const upload_preset = process.env.REACT_APP_UPLOAD_PRESET
 
 class ImageForm extends Component {
   constructor(){
@@ -23,8 +26,7 @@ class ImageForm extends Component {
     await this.props.fetchOneAlbum(id)
     const { exists, imageData, album } = this.props
     if(exists){
-      // clean out data 
-      const cleanedData = this.cleanData({...imageData })
+      const cleanedData = this.cleanData({ ...imageData })
       this.setState({ ...cleanedData })
     } else {
       this.setState({albumId: album.id})
@@ -42,12 +44,10 @@ class ImageForm extends Component {
     return {...cleanedData, albumId: album_id}
   }
 
-  handleUpload = (cloudinaryResultArray) => {
+  handleUpload = (cloudinaryResultArray, cb) => {
     if(cloudinaryResultArray){
       cloudinaryResultArray.forEach(result => {
-        console.log('this.state', this.state)
-        console.log('this.props', this.props)
-        this.props.uploadImage({...this.state, publicId: result.public_id}, this.props.updateAlbumState)
+        this.props.uploadImage({...this.state, publicId: result.public_id}, cb)
       })
     }
   }
@@ -84,7 +84,6 @@ class ImageForm extends Component {
     const { toggleEditMode } = this.props
     return (
       <Fragment>
-       
         <div className='flex-space-between'>
           <Button onClick={() => toggleEditMode(false)}
                   className='#03a9f4 light-blue'>
@@ -93,7 +92,7 @@ class ImageForm extends Component {
           
           <Button className='#03a9f4 light-blue' 
                   onClick={() => {
-            this.props.uploadImage(this.state, toggleEditMode(false))
+            this.props.uploadImage(this.state)
           }}>
             SAVE
           </Button>
@@ -108,7 +107,7 @@ class ImageForm extends Component {
   
   renderDeleteButton(){
     return (
-      <div >
+      <div className='flex-center' >
           <Collapsible style={{width:'15rem', textAlign: 'center'}}>
               <CollapsibleItem header='DELETE'>
                 <Button className='red'

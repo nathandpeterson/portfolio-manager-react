@@ -1,12 +1,13 @@
 export const FETCH_ALBUMS = 'FETCH_ALBUMS'
 export const FETCH_ONE_ALBUM = 'FETCH_ONE_ALBUM'
-export const SET_SELECTED_PHOTO = 'SET_SELECTED_PHOTO'
 export const UPLOAD_IMAGE_NAME = 'UPLOAD_IMAGE_NAME'
 export const SAVE_ALBUM = 'SAVE_ALBUM'
 export const UPDATE_ALBUM = 'UPDATE_ALBUM'
 export const DELETE_ALBUM = 'DELETE_ALBUM'
 export const SEND_EMAIL = 'SEND_EMAIL'
 export const DELETE_IMAGE = 'DELETE_IMAGE'
+export const GET_INFORMATION = 'GET_INFORMATION'
+export const UPDATE_INFORMATION = 'UPDATE_INFORMATION'
 
 
 export const fieldConfig = [

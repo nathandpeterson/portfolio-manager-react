@@ -1,32 +1,32 @@
 import axios from 'axios'
 
 import {
-  FETCH_ALBUMS,
-  FETCH_ONE_ALBUM,
-  SET_SELECTED_PHOTO,
-  UPLOAD_IMAGE_NAME,
-  DELETE_IMAGE,
-  SAVE_ALBUM,
-  UPDATE_ALBUM,
-  SEND_EMAIL,
-  DELETE_ALBUM
+  FETCH_ALBUMS, FETCH_ONE_ALBUM,
+  UPLOAD_IMAGE_NAME, DELETE_IMAGE,
+  SAVE_ALBUM, UPDATE_ALBUM,
+  SEND_EMAIL,DELETE_ALBUM,
+  GET_INFORMATION, UPDATE_INFORMATION
 } from '../utils/Constants'
 
 const SERVER = process.env.SERVER || 'http://localhost:4000/api'
 
 const HEADERS = {"Content-Type": "application/json"}
 
-export const setSelectedPhoto = photoData => {
-  return {
-    type: SET_SELECTED_PHOTO,
-    photoData
+export const getInformation = () => {
+  return async (dispatch) => {
+    const { data } = await axios.get(`${SERVER}/information`)
+    const first = data.find(info => info.id === 1)
+    console.log('first ', first)
+    dispatch({
+      type: GET_INFORMATION,
+      payload: first
+    })
   }
 }
 
 export const uploadImageName = (imageData, cb) => {
   const token = localStorage.getItem('token')
   const { id } = imageData
-  console.log('-------', id, imageData)
   const postURL = id ? `${SERVER}/images/${id}` : `${SERVER}/images`
   return async (dispatch) => {
     const { data } = await axios.post(postURL, 

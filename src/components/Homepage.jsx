@@ -1,26 +1,51 @@
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
 import { Image } from 'cloudinary-react'
 import Nav from './Nav'
+import { getInformation } from '../actions'
+import { Preloader } from 'react-materialize'
 
 class Homepage extends PureComponent {
 
+  async componentDidMount(){
+    await this.props.fetchInformation()
+  }
+
+  renderSpinner = () => (
+    <div className='flex-center'>
+      <Preloader />
+    </div>
+  )
+  
+
   render(){
+    const { homepage_image } = this.props.information
+    if(!homepage_image) return this.renderSpinner()
     return (
       <div>
       <Nav/>
       <div className='flex-center image-container'>
-        <Image id={'IMG_20180716_154334.jpg'} 
+        <Image  
             width='auto' 
             height='600px'
-            publicId={'IMG_20180716_154334.jpg'}>
+            publicId={homepage_image}>
         </Image>
       </div>
     </div>
-
     )
-    
   }
-
 }
 
-export default Homepage
+const mapStateToProps = state => {
+  return { 
+    information : state.information 
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchInformation: () => dispatch(getInformation())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Homepage)

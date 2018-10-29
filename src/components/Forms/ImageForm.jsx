@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Input, Row, Button, Collapsible, CollapsibleItem } from 'react-materialize'
 import { uploadImageName, fetchAlbums, fetchOneAlbum, deleteImage } from '../../actions'
-// import { cloud_name, upload_preset } from '../../config/config'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 

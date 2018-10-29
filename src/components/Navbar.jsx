@@ -14,7 +14,7 @@ const navStyle = {
   height: '10px',
   display: 'flex',
   justifyContent: 'flex-end',
-  alignItems: 'center'
+  alignItems: 'center',
 }
 
 const iconStyle = {
@@ -42,15 +42,24 @@ class Navbar extends PureComponent {
     }
   }
 
+  renderInfo(){
+    return (
+      <Link style={iconStyle} to='/'>
+          <Icon tiny >account_circle</Icon>
+      </Link>
+    )
+  }
+
   render(){
     return (
       <Fragment>
         <hr style={navBorderStyles}/>
         <div style={navStyle}>
-        <Link style={iconStyle} to='/collections'>
-            <Icon tiny>view_module</Icon>
-        </Link>
-        {this.renderMailOrLogout()}
+          {this.renderInfo()}
+          <Link style={iconStyle} to='/collections'>
+              <Icon tiny>view_module</Icon>
+          </Link>
+          {this.renderMailOrLogout()}
         </div>
         <hr style={{...navBorderStyles } } />
 

@@ -5,7 +5,7 @@ import {
   UPLOAD_IMAGE_NAME, DELETE_IMAGE,
   SAVE_ALBUM, UPDATE_ALBUM,
   SEND_EMAIL,DELETE_ALBUM,
-  GET_INFORMATION, UPDATE_INFORMATION
+  GET_INFORMATION
 } from '../utils/Constants'
 
 const SERVER = process.env.SERVER || 'http://localhost:4000/api'
@@ -16,7 +16,6 @@ export const getInformation = () => {
   return async (dispatch) => {
     const { data } = await axios.get(`${SERVER}/information`)
     const first = data.find(info => info.id === 1)
-    console.log('first ', first)
     dispatch({
       type: GET_INFORMATION,
       payload: first

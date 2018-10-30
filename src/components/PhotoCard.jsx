@@ -15,7 +15,7 @@ class PhotoCard extends Component {
   renderField(label, data){
     return (
       <div key={`${label}-${data}`} className='flex-center'>
-        <div style={{color: '#BEBEBE'}}>{data}</div>
+        <div style={{ marginTop: 0, fontSize: '1.25rem'}}>{data}</div>
       </div>
     )
   }

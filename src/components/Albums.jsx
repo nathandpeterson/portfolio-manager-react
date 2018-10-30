@@ -55,7 +55,6 @@ class Albums extends Component {
   render(){
     
     const { albums } = this.props
-    console.log('albums', albums)
     return (
       <div>
         <Nav />

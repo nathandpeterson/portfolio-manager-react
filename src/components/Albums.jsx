@@ -13,15 +13,27 @@ class Albums extends Component {
     await this.props.fetchAlbums()
   }
 
-  renderAlbum = ({id, album_name, key_image_id }) => {
+  handleRotation = angle => {
+   
+    const angleStyle = angle ? 
+      {transform: `rotate(${angle}deg)`} : {}
+      return angleStyle
+  }
 
+  getAngleForKeyAlbumImage = (images, key_image_id) => {
+    const keyImageData = images.find(image => image.publicId === key_image_id)
+    return keyImageData.angle
+  }
+
+  renderAlbum = ({id, album_name, key_image_id, images }) => {
+    const angle = this.getAngleForKeyAlbumImage(images, key_image_id)
     return (
       <Link to={`/collections/${id}`}
             key={`albums-${key_image_id}`} 
             onClick={() => this.props.fetchOneAlbum(id)
             }>
         <div key={`album-${id}`} className='album-card'>
-          <Image publicId={key_image_id} width='70%'/>
+          <Image style={this.handleRotation(angle)} publicId={key_image_id} width='70%'/>
           <div>
             {album_name}
           </div>
@@ -43,6 +55,7 @@ class Albums extends Component {
   render(){
     
     const { albums } = this.props
+    console.log('albums', albums)
     return (
       <div>
         <Nav />

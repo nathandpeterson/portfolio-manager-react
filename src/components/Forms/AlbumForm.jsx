@@ -13,7 +13,8 @@ class AlbumForm extends Component {
     this.state = {
       album_name: '',
       album_description: '',
-      id: null
+      id: null,
+      message: ''
     }
   }
 
@@ -36,10 +37,19 @@ class AlbumForm extends Component {
   handleUpload = async () => {
     if(!this.state.id){
       const { album_name, album_description } = this.state
-      await this.props.handleUpload({album_name, album_description})
+      this.setState({message: 'SAVING'})
+      await this.props.handleUpload({album_name, album_description}, this.success())
     } else {
-      await this.props.updateAlbum(this.state)
+      const {message, ...albumData} = this.state
+      await this.props.updateAlbum(albumData, this.success())
     }
+  }
+
+  success = () => {
+    this.setState({message: 'Success!'})
+    setTimeout(() => {
+      this.setState({message: ''})
+    }, 1000);
   }
 
   renderDeleteButtonWrapper = () => {
@@ -69,7 +79,6 @@ class AlbumForm extends Component {
                       >DELETE
           </Button>
       </Col>
-        
     )
   }
 
@@ -78,7 +87,10 @@ class AlbumForm extends Component {
       <div>
         <Nav />
         <br />
-
+        <div className='flex-center header'>
+          <h4>{this.state.message}</h4>
+        </div>
+        
         <Row>
           <Col s={3}/>
           <Input 

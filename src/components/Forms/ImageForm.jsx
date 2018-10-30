@@ -11,12 +11,15 @@ class ImageForm extends Component {
   constructor(){
     super()
 
-    this.state = {
-      name: '',
-      description: '',
-      size: '',
-      date: ''
-    }
+    this.state = this.initialState
+  }
+
+  initialState = {
+    name: '',
+    description: '',
+    size: '',
+    date: '',
+    message: ''
   }
 
   componentDidMount =  async () => {
@@ -46,7 +49,8 @@ class ImageForm extends Component {
   handleUpload = (cloudinaryResultArray, cb) => {
     if(cloudinaryResultArray){
       cloudinaryResultArray.forEach(result => {
-        this.props.uploadImage({...this.state, publicId: result.public_id}, cb)
+        const { message, ...cleanedState } = this.state
+        this.props.uploadImage({...cleanedState, publicId: result.public_id}, cb)
       })
     }
   }
@@ -54,8 +58,15 @@ class ImageForm extends Component {
   handleClick = () => {
     window.cloudinary.openUploadWidget({ cloud_name, upload_preset },
       (error, result) => {
-          this.handleUpload(result, () => this.props.toggleEditMode(false))
+          this.handleUpload(result, () => this.success())
       })
+  }
+
+  success = () => {
+    this.setState({message: 'Success!'})
+    setTimeout(() => {
+      this.setState({...this.initialState})
+    }, 1000);
   }
 
   imageDataConfig = [
@@ -91,7 +102,8 @@ class ImageForm extends Component {
           
           <Button className='#03a9f4 light-blue' 
                   onClick={() => {
-            this.props.uploadImage(this.state)
+                    const { message, ...cleanedState } = this.state
+                    this.props.uploadImage(cleanedState, () => this.success())
           }}>
             SAVE
           </Button>
@@ -125,7 +137,6 @@ class ImageForm extends Component {
     const otherAlbums = albums.filter(album => parseInt(album.id,10) !== parseInt(this.state.albumId, 10))
     if(otherAlbums.length){
       return (
-      
         <div>
           <div>
             This image is currently associated with {this.props.album.album_name}
@@ -143,12 +154,14 @@ class ImageForm extends Component {
         </div>        
       )
     }
-    
   }
 
   render(){
     return (
       <div>
+        <div className='flex-center header'>
+          <h4>{this.state.message}</h4>
+        </div>
         {this.imageDataConfig.map(this.renderField)}
         <Row>
           {this.props.exists ? this.renderButtonGroup() : 
@@ -160,7 +173,6 @@ class ImageForm extends Component {
               UPLOAD
             </Button>}
         </Row>
-        
       </div>
     )
   }

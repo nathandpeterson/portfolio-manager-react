@@ -25,7 +25,7 @@ class Albums extends Component {
     return keyImageData.angle
   }
 
-  renderAlbum = ({id, album_name, key_image_id, images }) => {
+  renderAlbum = ({id, album_name, key_image_id, images, album_description }) => {
     const angle = this.getAngleForKeyAlbumImage(images, key_image_id)
     return (
       <Link to={`/collections/${id}`}
@@ -37,7 +37,9 @@ class Albums extends Component {
           <div>
             {album_name}
           </div>
-         
+          <div>
+            {album_description}
+          </div>
         </div>
       </Link>   
     )

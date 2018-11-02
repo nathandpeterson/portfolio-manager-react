@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Row, Input, Icon, Button } from 'react-materialize'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
-const SERVER = process.env.SERVER || 'http://localhost:4000/api'
+const SERVER = process.env.REACT_APP_SERVER
 
 class Login extends Component {
 

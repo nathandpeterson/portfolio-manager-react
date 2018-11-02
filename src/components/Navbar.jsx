@@ -22,6 +22,12 @@ const iconStyle = {
   color: '#989898'
 }
 
+const invisible = {
+  padding: '0 1rem',
+  color: 'white',
+  alignSelf: 'flex-start',
+}
+
 class Navbar extends PureComponent {
 
   renderMailOrLogout(){
@@ -53,8 +59,11 @@ class Navbar extends PureComponent {
   render(){
     return (
       <Fragment>
-        <hr style={navBorderStyles}/>
+        <hr style={navBorderStyles}/>    
         <div style={navStyle}>
+          <Link style={invisible} to='/login'>
+              <Icon tiny>view_module</Icon>
+          </Link>
           {this.renderInfo()}
           <Link style={iconStyle} to='/collections'>
               <Icon tiny>view_module</Icon>

@@ -14,7 +14,6 @@ const HEADERS = {"Content-Type": "application/json"}
 
 export const getInformation = () => {
   return async (dispatch) => {
-    console.log('server url ', `${SERVER}/information`)
     const { data } = await axios.get(`${SERVER}/information`)
     const first = data.find(info => info.id === 1)
     dispatch({

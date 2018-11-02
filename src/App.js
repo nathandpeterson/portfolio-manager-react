@@ -16,7 +16,6 @@ const cloud_name = process.env.REACT_APP_CLOUD_NAME
 class App extends Component {
 
   render() {
-      console.log('process.env', process.env)
     return (
       <CloudinaryContext cloudName={cloud_name}>
         <BrowserRouter>

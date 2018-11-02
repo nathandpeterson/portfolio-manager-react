@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Row, Input, Icon, Button } from 'react-materialize'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
+const SERVER = process.env.SERVER || 'http://localhost:4000/api'
 
 class Login extends Component {
 
@@ -38,7 +39,7 @@ class Login extends Component {
       return
     }
     try {
-      const { data } = await axios.post(`http://localhost:4000/api/login`, {email, password})
+      const { data } = await axios.post(`${SERVER}/login`, {email, password})
       this.setToken(data)
       this.setState({message: 'Success', showMessage: true})
     } catch(err){

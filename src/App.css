@@ -58,3 +58,15 @@
 .marginDown {
   margin-top: 100px;
 }
+
+@media(max-width: 500px){
+  .full-image {
+    width: 400px;
+  }
+}
+
+@media(max-width: 300px){
+  .full-image {
+    width: 250px;
+  }
+}

@@ -8,7 +8,7 @@ import {
   GET_INFORMATION
 } from '../utils/Constants'
 
-const SERVER = process.env.SERVER || 'http://localhost:4000/api'
+const SERVER = process.env.REACT_APP_SERVER || 'http://localhost:4000/api'
 
 const HEADERS = {"Content-Type": "application/json"}
 

@@ -22,7 +22,7 @@ class Albums extends Component {
 
   getAngleForKeyAlbumImage = (images, key_image_id) => {
     const keyImageData = images.find(image => image.publicId === key_image_id)
-    return keyImageData.angle
+    return (keyImageData && keyImageData.angle) ? keyImageData.angle : 0
   }
 
   renderAlbum = ({id, album_name, key_image_id, images, album_description }) => {

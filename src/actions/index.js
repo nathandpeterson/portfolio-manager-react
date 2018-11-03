@@ -5,10 +5,11 @@ import {
   UPLOAD_IMAGE_NAME, DELETE_IMAGE,
   SAVE_ALBUM, UPDATE_ALBUM,
   SEND_EMAIL,DELETE_ALBUM,
-  GET_INFORMATION
+  GET_INFORMATION, UPDATE_INFORMATION,
+  UPDATE_HOME_IMAGE
 } from '../utils/Constants'
 
-const SERVER = process.env.REACT_APP_SERVER || '/api'
+const SERVER = 'http://localhost:4000/api' || process.env.REACT_APP_SERVER || '/api'
 
 const HEADERS = {"Content-Type": "application/json"}
 
@@ -22,6 +23,36 @@ export const getInformation = () => {
     })
   }
 }
+
+export const updateInformation = (updatedInformation, cb) => {
+  const token = localStorage.getItem('token')
+  return async (dispatch, getState) => {
+    const { information } = getState()
+    const { data } = await axios.post(`${SERVER}/information`, 
+          {...information, ...updatedInformation}, {headers: { ...HEADERS, token }
+        })
+    dispatch({
+      type: UPDATE_INFORMATION,
+      payload: data
+    })
+    cb ? cb() : console.log('no callback')
+  }
+} 
+
+export const updateHomeImage = (imageId, cb) => {
+    const token = localStorage.getItem('token')
+    return async (dispatch, getState) => {
+      const { information } = getState()
+      const { data } = await axios.post(`${SERVER}/information`, 
+            {...information, homepage_image: imageId}, {headers: { ...HEADERS, token }
+          })
+      dispatch({
+        type: UPDATE_HOME_IMAGE,
+        payload: data
+      })
+      cb ? cb() : console.log('no callback')
+    }
+} 
 
 export const uploadImageName = (imageData, cb) => {
   const token = localStorage.getItem('token')

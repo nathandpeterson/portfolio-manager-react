@@ -50,7 +50,7 @@ class Navbar extends PureComponent {
 
   renderInfo(){
     return (
-      <Link style={iconStyle} to='/'>
+      <Link style={iconStyle} to='/about'>
           <Icon tiny >account_circle</Icon>
       </Link>
     )

@@ -24,10 +24,10 @@ class Homepage extends PureComponent {
     return (
       <div>
       <Nav/>
-      <div  className='flex-center' >
+      <div  className='flex-center' style={{marginTop: '3rem'}} >
         <Image
             className='full-image'  
-            width='650px'
+            width='500px'
             style={{alignSelf: 'center'}}
             publicId={homepage_image}>
         </Image>

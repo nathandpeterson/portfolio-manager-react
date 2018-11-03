@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Image } from 'cloudinary-react'
 import { Button, Icon } from 'react-materialize'
 import ImageForm from './ImageForm'
-import { fetchOneAlbum, updateAlbum } from '../../actions'
+import { updateAlbum, updateHomeImage } from '../../actions'
 import { withRouter } from 'react-router-dom'
 import { fieldConfig } from '../../utils/Constants'
 
@@ -25,9 +25,6 @@ class ImageManagerCard extends Component {
       this.setState({ angle, publicId, id })
     } else {
       this.setState({ publicId, id })
-    }
-    if(this.props.match.params.id){
-      await this.props.fetchOneAlbum(this.props.match.params.id)
     }
   }
 
@@ -119,6 +116,13 @@ class ImageManagerCard extends Component {
           </Icon>
         </Button>
         <Button className='#03a9f4 light-blue'
+                onClick={() => {
+                  console.log('publicId in handler', publicId)
+                  this.props.updateHomeImage(publicId)}}
+          >
+          HOMEPAGE IMAGE
+        </Button>
+        <Button className='#03a9f4 light-blue'
                 onClick={(e) => this.handleUpdateKeyImage(publicId)}>
           KEY IMAGE
         </Button>
@@ -132,8 +136,8 @@ class ImageManagerCard extends Component {
 
 const mapDispatchToProps = dispatch => (
   { 
-    fetchOneAlbum: (id) => dispatch(fetchOneAlbum(id)),
-    updateAlbum: (albumData) => dispatch(updateAlbum(albumData))
+    updateAlbum: (albumData) => dispatch(updateAlbum(albumData)),
+    updateHomeImage: (imageId) => dispatch(updateHomeImage(imageId))
   }
 )
 

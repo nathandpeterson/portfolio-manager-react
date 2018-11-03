@@ -8,7 +8,7 @@ export const SEND_EMAIL = 'SEND_EMAIL'
 export const DELETE_IMAGE = 'DELETE_IMAGE'
 export const GET_INFORMATION = 'GET_INFORMATION'
 export const UPDATE_INFORMATION = 'UPDATE_INFORMATION'
-
+export const UPDATE_HOME_IMAGE = 'UPDATE_HOME_IMAGE'
 
 export const fieldConfig = [
   {label: 'TITLE', fieldName: 'name'},

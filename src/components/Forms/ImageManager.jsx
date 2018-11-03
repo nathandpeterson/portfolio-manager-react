@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Nav from '../Nav'
 import { connect } from 'react-redux'
 import { Button, Preloader } from 'react-materialize'
-import { fetchOneAlbum } from '../../actions'
+import { fetchOneAlbum, getInformation } from '../../actions'
 import ImageForm from './ImageForm'
 import ImageManagerCard from './ImageManagerCard';
 
@@ -24,6 +24,7 @@ class ImageManager extends Component {
     if(this.props.album.id !== id){
       await this.props.fetchOneAlbum(id)
     }
+    await this.props.fetchInformation()
   }
 
   renderImages = () => {
@@ -82,7 +83,9 @@ class ImageManager extends Component {
 }
 
 const mapDispatchToProps = dispatch => (
-  { fetchOneAlbum: (id) => { dispatch(fetchOneAlbum(id)) } }
+  { fetchOneAlbum: (id) => { dispatch(fetchOneAlbum(id)) },
+    fetchInformation: () => dispatch(getInformation()) 
+  }
 )
 
 const mapStateToProps = state => (

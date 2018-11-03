@@ -10,6 +10,7 @@ import ImageManager from './components/Forms/ImageManager'
 import InitiateLogin from './components/InitiateLogin'
 import EmailForm from './components/Forms/EmailForm'
 import Homepage from './components/Homepage'
+import AboutArtist from './components/AboutArtist'
 
 const cloud_name = process.env.REACT_APP_CLOUD_NAME
 
@@ -17,7 +18,7 @@ class App extends Component {
 
   render() {
     return (
-      <CloudinaryContext cloudName={cloud_name}>
+      <CloudinaryContext cloudName={cloud_name} >
         <BrowserRouter>
           <Switch className="router">
             <Route exact 
@@ -56,6 +57,11 @@ class App extends Component {
                 exact
                 path="/collections/:id/manageImages"
                 component={ImageManager}  />
+            <Route
+                exact
+                path='/about'
+                component={AboutArtist} />
+
             <Redirect from="/" to="/" />
           </Switch>
         </BrowserRouter>        

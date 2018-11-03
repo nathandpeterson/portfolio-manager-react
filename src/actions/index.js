@@ -9,7 +9,7 @@ import {
   UPDATE_HOME_IMAGE
 } from '../utils/Constants'
 
-const SERVER = 'http://localhost:4000/api' || process.env.REACT_APP_SERVER || '/api'
+const SERVER = process.env.REACT_APP_SERVER || '/api'
 
 const HEADERS = {"Content-Type": "application/json"}
 

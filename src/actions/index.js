@@ -10,7 +10,7 @@ import {
   GENERATE_SORT_LIST, UPDATE_SORT_LIST, SAVE_SORT_LIST
 } from '../utils/Constants'
 
-const SERVER = 'http://localhost:4000/api' || process.env.REACT_APP_SERVER || '/api'
+const SERVER = process.env.REACT_APP_SERVER || '/api'
 
 const HEADERS = {"Content-Type": "application/json"}
 

@@ -6,10 +6,11 @@ import {
   SAVE_ALBUM, UPDATE_ALBUM,
   SEND_EMAIL,DELETE_ALBUM,
   GET_INFORMATION, UPDATE_INFORMATION,
-  UPDATE_HOME_IMAGE
+  UPDATE_HOME_IMAGE,
+  UPDATE_SORT_ORDER
 } from '../utils/Constants'
 
-const SERVER = process.env.REACT_APP_SERVER || '/api'
+const SERVER = 'http://localhost:4000/api' || process.env.REACT_APP_SERVER || '/api'
 
 const HEADERS = {"Content-Type": "application/json"}
 
@@ -81,6 +82,18 @@ export const deleteImage = (imageId, cb) => {
   })
   cb ? cb() : console.log('no callback')
   }
+}
+
+export const updateSortOrder = (imageArray, cb) => {
+  const token = localStorage.getItem('token')
+  return async (dispatch) => {
+    const { data } = await axios.post(`${SERVER}/albumImages`, imageArray, 
+    {headers: { ...HEADERS, token }} )
+  dispatch({
+    type: UPDATE_SORT_ORDER,
+    payload : data
+  })
+}
 }
 
 export const fetchAlbums = () => {

@@ -11,6 +11,7 @@ import InitiateLogin from './components/InitiateLogin'
 import EmailForm from './components/Forms/EmailForm'
 import Homepage from './components/Homepage'
 import AboutArtist from './components/AboutArtist'
+import SortAlbum from './components/SortAlbum'
 
 const cloud_name = process.env.REACT_APP_CLOUD_NAME
 
@@ -57,6 +58,10 @@ class App extends Component {
                 exact
                 path="/collections/:id/manageImages"
                 component={ImageManager}  />
+            <Route
+                exact
+                path="/collections/:id/sortImages"
+                component={SortAlbum}  />   
             <Route
                 exact
                 path='/about'

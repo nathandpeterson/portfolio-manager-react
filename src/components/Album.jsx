@@ -20,10 +20,14 @@ class Album extends Component {
     } else {
       const { id } = this.props.match.params
       return (
-        <div className='flex-space-around'>
+        <div className='flex-space-around' style={{marginTop: '2rem'}}>
           <Button className='#03a9f4 light-blue'
                   onClick={() => this.props.history.push(`/collections/${id}/manageImages`)}>
             EDIT COLLECTION IMAGES
+          </Button>
+          <Button className='#03a9f4 light-blue'
+                   onClick={() => this.props.history.push(`/collections/${id}/sortImages`)}>
+            SORT IMAGES
           </Button>
           <Button className='#03a9f4 light-blue'
                   onClick={() => this.props.history.push(`/collections/${id}/manageCollection`)}

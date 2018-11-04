@@ -70,3 +70,16 @@
     width: 250px;
   }
 }
+
+.drag-card {
+  border: 1px lightgray solid;
+  border-radius: 5px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.drag-label {
+  margin-left: 1rem;
+}

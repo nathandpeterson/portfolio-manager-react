@@ -10,6 +10,9 @@ export const GET_INFORMATION = 'GET_INFORMATION'
 export const UPDATE_INFORMATION = 'UPDATE_INFORMATION'
 export const UPDATE_HOME_IMAGE = 'UPDATE_HOME_IMAGE'
 export const UPDATE_SORT_ORDER = 'UPDATE_SORT_ORDER'
+export const GENERATE_SORT_LIST = 'GENERATE_SORT_LIST'
+export const UPDATE_SORT_LIST = 'UPDATE_SORT_LIST'
+export const SAVE_SORT_LIST = 'SAVE_SORT_LIST'
 
 export const fieldConfig = [
   {label: 'TITLE', fieldName: 'name'},

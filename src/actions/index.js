@@ -7,7 +7,7 @@ import {
   SEND_EMAIL,DELETE_ALBUM,
   GET_INFORMATION, UPDATE_INFORMATION,
   UPDATE_HOME_IMAGE,
-  UPDATE_SORT_ORDER
+  GENERATE_SORT_LIST, UPDATE_SORT_LIST, SAVE_SORT_LIST
 } from '../utils/Constants'
 
 const SERVER = 'http://localhost:4000/api' || process.env.REACT_APP_SERVER || '/api'
@@ -59,14 +59,25 @@ export const uploadImageName = (imageData, cb) => {
   const token = localStorage.getItem('token')
   const { id } = imageData
   const postURL = id ? `${SERVER}/images/${id}` : `${SERVER}/images`
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     const { data } = await axios.post(postURL, 
       {...imageData}, {headers: { ...HEADERS, token }} )
+    
     dispatch({
       type: UPLOAD_IMAGE_NAME,
       payload : data
     })
-
+    const { uploadImage, album } = getState()
+    if(uploadImage.id){
+      const imageCopy = [...album.images]
+      const imagesWithoutUpdatedImage = imageCopy.filter(image => image.id !== uploadImage.id)
+      const newAlbum = {...album}
+      newAlbum.images = [...imagesWithoutUpdatedImage, uploadImage]
+      dispatch({
+        type: UPDATE_ALBUM,
+        payload: newAlbum
+      })
+    }
     cb ? cb() : console.log('no callback')
   }
 }
@@ -84,16 +95,26 @@ export const deleteImage = (imageId, cb) => {
   }
 }
 
-export const updateSortOrder = (imageArray, cb) => {
+export const saveSortOrder = (imageArray, cb) => {
   const token = localStorage.getItem('token')
   return async (dispatch) => {
     const { data } = await axios.post(`${SERVER}/albumImages`, imageArray, 
     {headers: { ...HEADERS, token }} )
   dispatch({
-    type: UPDATE_SORT_ORDER,
+    type: SAVE_SORT_LIST,
     payload : data
   })
+  cb ? cb() : console.log('no callback')
 }
+}
+
+export const updateSortOrder = (images) => {
+  return (dispatch) => {
+    dispatch({
+      type: UPDATE_SORT_LIST,
+      images
+    })
+  }
 }
 
 export const fetchAlbums = () => {
@@ -106,13 +127,19 @@ export const fetchAlbums = () => {
   }
 }
 
-export const fetchOneAlbum = (albumId) => {
+export const fetchOneAlbum = (albumId, sortList=false) => {
   return async (dispatch) => {
     const { data } = await axios.get(`${SERVER}/albums/${albumId}`)
     dispatch({
       type: FETCH_ONE_ALBUM,
       payload: data
     })
+    if(sortList){
+      dispatch({
+        type: GENERATE_SORT_LIST,
+        images: data.images
+      })
+    }
   }
 }
 

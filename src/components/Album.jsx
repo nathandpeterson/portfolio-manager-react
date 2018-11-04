@@ -47,7 +47,7 @@ class Album extends Component {
 
   renderImages(){
     const { album, album : { images } } = this.props
-    const sortedImages = images.sort((a, b) => a.id - b.id)
+    const sortedImages = images.sort((a, b) => a.sortOrder - b.sortOrder)
     return (
       <div className='album-flex-container'>
         {sortedImages && sortedImages.map((image) => {

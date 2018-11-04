@@ -117,7 +117,6 @@ class ImageManagerCard extends Component {
         </Button>
         <Button className='#03a9f4 light-blue'
                 onClick={() => {
-                  console.log('publicId in handler', publicId)
                   this.props.updateHomeImage(publicId)}}
           >
           HOMEPAGE IMAGE

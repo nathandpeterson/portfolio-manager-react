@@ -39,6 +39,11 @@ class ImageForm extends Component {
     if(this.props.angle !== prevProps.angle){
       this.setState({angle: this.props.angle})
     }
+    if(this.props.uploadedImage.id !== prevProps.uploadedImage.id){
+      const cleanedData = this.cleanData({ ...this.props.uploadImage })
+      this.setState({...cleanedData}, this.props.toggleEditMode(false))
+    }
+  
   }
 
   cleanData = (data) => {
@@ -190,7 +195,8 @@ const mapDispatchToProps = dispatch => (
 const mapStateToProps = state => (
   {
     album: state.album,
-    albums: state.albums
+    albums: state.albums,
+    uploadedImage: state.uploadImage
   }
 )
 

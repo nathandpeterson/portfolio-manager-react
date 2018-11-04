@@ -39,10 +39,9 @@ class ImageForm extends Component {
     if(this.props.angle !== prevProps.angle){
       this.setState({angle: this.props.angle})
     }
-    if(this.props.uploadedImage.id !== prevProps.uploadedImage.id){
-      const cleanedData = this.cleanData({ ...this.props.uploadImage })
-      this.setState({...cleanedData}, this.props.toggleEditMode(false))
-    }
+    // if(this.props.uploadedImage.id !== prevProps.uploadedImage.id){
+    //   this.props.toggleEditMode(false)
+    // }
   
   }
 
@@ -51,11 +50,11 @@ class ImageForm extends Component {
     return {...cleanedData, albumId: album_id}
   }
 
-  handleUpload = (cloudinaryResultArray, cb) => {
+  handleUpload = (cloudinaryResultArray) => {
     if(cloudinaryResultArray){
       cloudinaryResultArray.forEach(result => {
         const { message, ...cleanedState } = this.state
-        this.props.uploadImage({...cleanedState, publicId: result.public_id}, cb)
+        this.props.uploadImage({...cleanedState, publicId: result.public_id})
       })
     }
   }
@@ -63,14 +62,14 @@ class ImageForm extends Component {
   handleClick = () => {
     window.cloudinary.openUploadWidget({ cloud_name, upload_preset },
       (error, result) => {
-          this.handleUpload(result, () => this.success())
+          this.handleUpload(result)
       })
   }
 
   success = () => {
     this.setState({message: 'Success!'})
     setTimeout(() => {
-      this.setState({...this.initialState})
+      this.props.toggleEditMode(false)
     }, 1000);
   }
 

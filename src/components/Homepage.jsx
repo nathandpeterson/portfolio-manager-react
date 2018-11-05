@@ -4,6 +4,7 @@ import { Image } from 'cloudinary-react'
 import Nav from './Nav'
 import { getInformation } from '../actions'
 import { Preloader } from 'react-materialize'
+import { withRouter } from 'react-router-dom'
 
 class Homepage extends PureComponent {
 
@@ -24,16 +25,16 @@ class Homepage extends PureComponent {
     return (
       <div>
       <Nav/>
-      <div  className='flex-center' style={{marginTop: '3rem'}} >
+      <div  className='flex-center' 
+            style={{marginTop: '3rem'}} 
+            onClick={() => this.props.history.push('/collections')}>
         <Image
             className='full-image'  
             width='500px'
             style={{alignSelf: 'center'}}
             publicId={homepage_image}>
         </Image>
-
       </div>
-       
     </div>
     )
   }
@@ -51,4 +52,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Homepage)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Homepage))

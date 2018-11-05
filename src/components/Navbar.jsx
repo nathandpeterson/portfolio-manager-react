@@ -61,9 +61,6 @@ class Navbar extends PureComponent {
       <Fragment>
         <hr style={navBorderStyles}/>    
         <div style={navStyle}>
-          <Link style={invisible} to='/login'>
-              <Icon tiny>view_module</Icon>
-          </Link>
           {this.renderInfo()}
           <Link style={iconStyle} to='/collections'>
               <Icon tiny>view_module</Icon>

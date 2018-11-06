@@ -33,7 +33,7 @@ class Albums extends Component {
             onClick={() => this.props.fetchOneAlbum(id)
             }>
         <div key={`album-${id}`} className='album-card'>
-          <Image style={this.handleRotation(angle)} publicId={key_image_id} width='70%'/>
+          <Image style={this.handleRotation(angle)} publicId={key_image_id} width='400px'/>
           <div>
             {album_name}
           </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Image } from 'cloudinary-react'
-import { Row, Col, Button } from 'react-materialize'
+import { Row, Col, Button, Preloader } from 'react-materialize'
 import Nav from './Nav'
 import { fetchOneAlbum, updateSortOrder, saveSortOrder } from '../actions'
 import { withRouter } from 'react-router-dom'
@@ -63,11 +63,19 @@ class SortAlbum extends Component {
     }, 1000);
   }
 
+  loading = () => {
+    return (
+      <div className='flex-center'>
+        <Preloader size='big' /> 
+        LOADING SORTER
+        </div>
+      )
+  }
 
 
   render(){
     let { sortList } = this.props
-    if(!sortList) return <div> LOADING SORTER</div>
+    if(!sortList) return this.loading()
     sortList = sortList.sort((a, b) => a.sortPosition - b.sortPosition)
     return (
       <div>

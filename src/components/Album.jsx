@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { Image } from 'cloudinary-react'
-import { Button } from 'react-materialize'
+import { Button, Preloader } from 'react-materialize'
 import Nav from './Nav'
 import { Link, withRouter } from 'react-router-dom'
 import { fetchOneAlbum } from '../actions'
@@ -53,7 +53,7 @@ class Album extends Component {
         {sortedImages && sortedImages.map((image) => {
           const {publicId, id, angle } = image
           return (
-          <div key={publicId} style={{ padding: '2.5rem .5rem' }}>
+          <div className='animated fadeIn' key={publicId} style={{ padding: '2.5rem .5rem' }}>
             <Link to={`/${album.id}/${id}`} >
               <Image publicId={publicId} width='auto' height='180px'  style={this.handleRotation(angle)}  />
             </Link>
@@ -65,7 +65,11 @@ class Album extends Component {
   }
 
   render() {
-    if(!this.props.album.id) return <div>loading album page</div>
+    if(!this.props.album.id) return (
+    <div className='flex-center'>
+      <Preloader size='big'/>
+    </div>
+    )
   
     return (
       <div>

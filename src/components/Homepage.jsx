@@ -25,7 +25,7 @@ class Homepage extends PureComponent {
     return (
       <div>
       <Nav/>
-      <div  className='flex-center' 
+      <div  className='flex-center animated fadeIn' 
             style={{marginTop: '3rem'}} 
             onClick={() => this.props.history.push('/collections')}>
         <Image

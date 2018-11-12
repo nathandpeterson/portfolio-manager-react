@@ -32,7 +32,7 @@ class Albums extends Component {
             key={`albums-${key_image_id}`} 
             onClick={() => this.props.fetchOneAlbum(id)
             }>
-        <div key={`album-${id}`} className='album-card'>
+        <div key={`album-${id}`} className='album-card animated fadeIn'>
           <Image style={this.handleRotation(angle)} publicId={key_image_id} width='400px'/>
           <div>
             {album_name}
@@ -57,12 +57,13 @@ class Albums extends Component {
   render(){
     
     const { albums } = this.props
+    const reversedAlbums = albums.reverse()
     return (
       <div>
         <Nav />
         <br />
         <div className='album-flex-container'>
-          {albums.map(this.renderAlbum)}
+          {reversedAlbums.map(this.renderAlbum)}
           {localStorage.getItem('token') ? 
           this.renderAddAlbumButton() :
           '' } 

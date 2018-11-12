@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { Image } from 'cloudinary-react'
 import Nav from './Nav'
+import { Preloader } from 'react-materialize'
 import { connect } from 'react-redux'
 import { fetchOneAlbum } from '../actions'
 import { fieldConfig } from '../utils/Constants'
@@ -44,15 +45,23 @@ class PhotoCard extends Component {
     }
   }
 
+  loading = () => {
+    return (
+      <div className='flex-center'>
+        <Preloader size='big' /> 
+        </div>
+      )
+  }
+
   render(){
-    if(!this.props.album.id) return <div>loading image</div>
+    if(!this.props.album.id) return this.loading()
     const { album: { images } , match : { params : { id } } } = this.props
     const selectedImage = images.find(image => parseInt(image.id, 10) === parseInt(id, 10))
     const {publicId, angle} = selectedImage
     return (
       <div key={publicId}>
           <Nav />
-          <div className={'flex-center image-container ' + this.marginForRotation(angle)}>
+          <div className={'flex-center animated fadeIn image-container ' + this.marginForRotation(angle)}>
             <Image id={publicId} 
                 className='full-image'
                 width='650px'

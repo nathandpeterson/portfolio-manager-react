@@ -61,7 +61,16 @@ class Albums extends Component {
     return (
       <div>
         <Nav />
-        <br />
+        
+        <div className='flex-center'>
+          <h4 className='heading'>
+            Collections
+          </h4>
+        </div>
+        <div className='flex-center'>
+          <div>CLICK TO VIEW COLLECTION</div>
+        </div>
+    
         <div className='album-flex-container'>
           {reversedAlbums.map(this.renderAlbum)}
           {localStorage.getItem('token') ? 

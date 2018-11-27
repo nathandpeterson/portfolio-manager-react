@@ -40,6 +40,10 @@ class Albums extends Component {
           <div>
             {album_description}
           </div>
+          <Button  className='#757575 grey darken-1'
+                    large={false} >
+            View Collection
+          </Button>
         </div>
       </Link>   
     )
@@ -66,11 +70,7 @@ class Albums extends Component {
           <h4 className='heading'>
             Collections
           </h4>
-        </div>
-        <div className='flex-center'>
-          <div>CLICK TO VIEW COLLECTION</div>
-        </div>
-    
+        </div>    
         <div className='album-flex-container'>
           {reversedAlbums.map(this.renderAlbum)}
           {localStorage.getItem('token') ? 

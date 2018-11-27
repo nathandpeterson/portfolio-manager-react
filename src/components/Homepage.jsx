@@ -35,6 +35,10 @@ class Homepage extends PureComponent {
             publicId={homepage_image}>
         </Image>
       </div>
+      <div  className='flex-center animated fadeIn header'
+            onClick={() => this.props.history.push('/collections')}>
+            Click to view
+      </div>
     </div>
     )
   }

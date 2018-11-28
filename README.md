@@ -17,7 +17,7 @@ The React frontend communicates with the node.js API, which sends metadata about
 
 The node server is a simple REST api. I initially considered graphQL, but decided that the data structure was a classic case for REST architecture. There are CRUD routes for albums, images, and information. Albums and images are linked by a join table which also contains sorting order for displaying images within an album.
 
-## Deployment
+### Deployment
 
 The site was deployed on a digitalocean droplet, where I installed git and pm2. I have been SSHing into the environment to pull down latest, which is kind of a pain. Next time, I will definitely try and integrate with Travis or Jenkins to make it less painful.
 

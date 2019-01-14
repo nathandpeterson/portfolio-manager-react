@@ -5,7 +5,6 @@ import { Preloader, Button } from 'react-materialize'
 import { connect } from 'react-redux'
 import { fetchOneAlbum } from '../actions'
 import { fieldConfig } from '../utils/Constants'
-import Overdrive from 'react-overdrive'
 import { withRouter } from 'react-router-dom'
 
 class PhotoCard extends Component {
@@ -64,20 +63,20 @@ class PhotoCard extends Component {
       <div key={publicId}>
           <Nav />
           <Button
+            className='#9e9e9e grey'
+            waves='light'
             onClick={() => this.props.history.push(`/collections/${id}`)} 
             style={{marginLeft: '2rem'}}>
             &larr;
           </Button>
-          <Overdrive id={publicId}>
-            <div className={'flex-center image-container ' + this.marginForRotation(angle)}>
-              <Image id={publicId} 
-                  className='full-image'
-                  width='650px'
-                  style={this.rotateStyle(angle)} 
-                  publicId={publicId}>
-              </Image>
-            </div>
-          </Overdrive>
+          <div className={'flex-center image-container ' + this.marginForRotation(angle)}>
+            <Image id={publicId} 
+                className='full-image'
+                width='650px'
+                style={this.rotateStyle(angle)} 
+                publicId={publicId}>
+            </Image>
+          </div>
           {this.renderText(selectedImage)}
       </div>
     )

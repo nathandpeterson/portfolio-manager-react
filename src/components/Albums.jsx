@@ -54,10 +54,16 @@ class Albums extends Component {
       onClick={() => this.props.history.push('/collections/new')} />
   )
 
+  sortByUpdate = albums => {
+    return albums.sort((a, b) => {
+      return new Date(b.updated_at) - new Date(a.updated_at)
+    })
+  }
+
   render(){
     
     const { albums } = this.props
-    const reversedAlbums = albums.reverse()
+    const albumsSortedByLastUpdated = this.sortByUpdate(albums)
     return (
       <div>
         <Nav />
@@ -66,9 +72,14 @@ class Albums extends Component {
           <h4 className='heading'>
             Collections
           </h4>
+        </div>
+        <div className='flex-center'>
+          <h5 className='heading-secondary animated pulse'>
+            Click to view paintings
+          </h5>
         </div>    
         <div className='album-flex-container'>
-          {reversedAlbums.map(this.renderAlbum)}
+          {albumsSortedByLastUpdated.map(this.renderAlbum)}
           {localStorage.getItem('token') ? 
           this.renderAddAlbumButton() :
           '' } 

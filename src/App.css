@@ -4,6 +4,12 @@
   letter-spacing: .5ch;
 }
 
+.heading-secondary{
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: .5ch;
+}
+
 .flex-center {
   display: flex;
   justify-content: center;

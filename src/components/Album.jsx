@@ -5,7 +5,6 @@ import Nav from './Nav'
 import { Link, withRouter } from 'react-router-dom'
 import { fetchOneAlbum } from '../actions'
 import { connect } from 'react-redux'
-import Overdrive from 'react-overdrive'
 
 class Album extends Component {
 
@@ -54,16 +53,11 @@ class Album extends Component {
         {sortedImages && sortedImages.map((image) => {
           const {publicId, id, angle } = image
           return (
-            <Overdrive 
-              id={publicId} 
-              key={publicId}
-            >
-              <div style={{ padding: '2.5rem .5rem' }}>
-                <Link to={`/${album.id}/${id}`} >
-                  <Image publicId={publicId} width='auto' height='180px'  style={this.handleRotation(angle)}  />
-                </Link>
-              </div>
-            </Overdrive>
+            <div style={{ padding: '2.5rem .5rem' }}>
+              <Link to={`/${album.id}/${id}`} >
+                <Image publicId={publicId} width='auto' height='180px'  style={this.handleRotation(angle)}  />
+              </Link>
+            </div>
             )}
           )}
         </div>

@@ -1,10 +1,11 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { Image } from 'cloudinary-react'
 import { Button, Preloader } from 'react-materialize'
 import Nav from './Nav'
 import { Link, withRouter } from 'react-router-dom'
 import { fetchOneAlbum } from '../actions'
 import { connect } from 'react-redux'
+import Overdrive from 'react-overdrive'
 
 class Album extends Component {
 
@@ -49,15 +50,20 @@ class Album extends Component {
     const { album, album : { images } } = this.props
     const sortedImages = images.sort((a, b) => a.sortOrder - b.sortOrder)
     return (
-      <div className='album-flex-container'>
+        <div className='album-flex-container'>
         {sortedImages && sortedImages.map((image) => {
           const {publicId, id, angle } = image
           return (
-          <div className='animated fadeIn' key={publicId} style={{ padding: '2.5rem .5rem' }}>
-            <Link to={`/${album.id}/${id}`} >
-              <Image publicId={publicId} width='auto' height='180px'  style={this.handleRotation(angle)}  />
-            </Link>
-          </div>
+            <Overdrive 
+              id={publicId} 
+              key={publicId}
+            >
+              <div style={{ padding: '2.5rem .5rem' }}>
+                <Link to={`/${album.id}/${id}`} >
+                  <Image publicId={publicId} width='auto' height='180px'  style={this.handleRotation(angle)}  />
+                </Link>
+              </div>
+            </Overdrive>
             )}
           )}
         </div>

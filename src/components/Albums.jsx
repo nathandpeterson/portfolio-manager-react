@@ -46,12 +46,15 @@ class Albums extends Component {
   }
 
   renderAddAlbumButton = () => (
-    <Button     large
-      floating
-      className='#03a9f4 light-blue' 
-      waves='light' 
-      icon='add'
-      onClick={() => this.props.history.push('/collections/new')} />
+    <div className='flex-center'>
+      <Button     large
+        className='#03a9f4 light-blue' 
+        waves='light' 
+        onClick={() => this.props.history.push('/collections/new')}>
+        ADD NEW ALBUM
+      </Button>
+    </div>
+    
   )
 
   sortByUpdate = albums => {
@@ -80,11 +83,9 @@ class Albums extends Component {
         </div>    
         <div className='album-flex-container'>
           {albumsSortedByLastUpdated.map(this.renderAlbum)}
-          {localStorage.getItem('token') ? 
-          this.renderAddAlbumButton() :
-          '' } 
+         
         </div>
-       
+        {localStorage.getItem('token') && this.renderAddAlbumButton() } 
       </div>
     )
   }

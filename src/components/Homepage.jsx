@@ -37,7 +37,7 @@ class Homepage extends PureComponent {
       </div>
       <div  className='flex-center animated fadeIn header'
             onClick={() => this.props.history.push('/collections')}>
-            Click to view
+          
       </div>
     </div>
     )

@@ -1,10 +1,12 @@
 import React, {Component} from 'react'
 import { Image } from 'cloudinary-react'
 import Nav from './Nav'
-import { Preloader } from 'react-materialize'
+import { Preloader, Button } from 'react-materialize'
 import { connect } from 'react-redux'
 import { fetchOneAlbum } from '../actions'
 import { fieldConfig } from '../utils/Constants'
+import Overdrive from 'react-overdrive'
+import { withRouter } from 'react-router-dom'
 
 class PhotoCard extends Component {
 
@@ -61,14 +63,21 @@ class PhotoCard extends Component {
     return (
       <div key={publicId}>
           <Nav />
-          <div className={'flex-center animated fadeIn image-container ' + this.marginForRotation(angle)}>
-            <Image id={publicId} 
-                className='full-image'
-                width='650px'
-                style={this.rotateStyle(angle)} 
-                publicId={publicId}>
-            </Image>
-          </div>
+          <Button
+            onClick={() => this.props.history.push(`/collections/${id}`)} 
+            style={{marginLeft: '2rem'}}>
+            &larr;
+          </Button>
+          <Overdrive id={publicId}>
+            <div className={'flex-center image-container ' + this.marginForRotation(angle)}>
+              <Image id={publicId} 
+                  className='full-image'
+                  width='650px'
+                  style={this.rotateStyle(angle)} 
+                  publicId={publicId}>
+              </Image>
+            </div>
+          </Overdrive>
           {this.renderText(selectedImage)}
       </div>
     )
@@ -84,4 +93,4 @@ const mapStateToProps = state => (
 )
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(PhotoCard)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PhotoCard))

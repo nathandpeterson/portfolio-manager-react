@@ -33,17 +33,13 @@ class Albums extends Component {
             onClick={() => this.props.fetchOneAlbum(id)
             }>
         <div key={`album-${id}`} className='album-card animated fadeIn'>
-          <Image style={this.handleRotation(angle)} publicId={key_image_id} width='400px'/>
+          <Image style={this.handleRotation(angle)} publicId={key_image_id} width='450px'/>
           <div>
             {album_name}
           </div>
           <div>
             {album_description}
           </div>
-          <Button  className='#757575 grey darken-1'
-                    large={false} >
-            View Collection
-          </Button>
         </div>
       </Link>   
     )

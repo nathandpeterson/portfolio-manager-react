@@ -1,6 +1,6 @@
 import React, { PureComponent, Fragment } from 'react'
 import { Icon } from 'react-materialize'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 const navBorderStyles = {
   display: "block",
@@ -22,10 +22,11 @@ const iconStyle = {
   color: '#989898'
 }
 
-const invisible = {
+const backArrow = {
   padding: '0 1rem',
-  color: 'white',
-  alignSelf: 'flex-start',
+  display: 'inline',
+  color: '#989898',
+  flexGrow: '5'
 }
 
 class Navbar extends PureComponent {
@@ -56,11 +57,30 @@ class Navbar extends PureComponent {
     )
   }
 
+  renderBackArrow(){
+    // check if we are on a nested route
+   const { id, albumId } = this.props.match.params
+   if(id && albumId){
+     return (
+     <Link style={backArrow} to={`/collections/${albumId}`}>
+        &larr;
+     </Link>
+     )
+   } else if (id) {
+    return (
+      <Link style={backArrow} to={`/collections`}>
+         &larr;
+      </Link>
+      )
+   }
+  }
+
   render(){
     return (
       <Fragment>
-        <hr style={navBorderStyles}/>    
+        <hr style={navBorderStyles}/>
         <div style={navStyle}>
+          {this.renderBackArrow()}
           {this.renderInfo()}
           <Link style={iconStyle} to='/collections'>
               <Icon tiny>view_module</Icon>
@@ -76,4 +96,4 @@ class Navbar extends PureComponent {
 
 }
 
-export default Navbar
+export default withRouter(Navbar)

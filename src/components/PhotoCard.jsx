@@ -62,13 +62,6 @@ class PhotoCard extends Component {
     return (
       <div key={publicId}>
           <Nav />
-          <Button
-            className='#9e9e9e grey'
-            waves='light'
-            onClick={() => this.props.history.push(`/collections/${id}`)} 
-            style={{marginLeft: '2rem'}}>
-            &larr;
-          </Button>
           <div className={'flex-center image-container ' + this.marginForRotation(angle)}>
             <Image id={publicId} 
                 className='full-image'

@@ -29,7 +29,7 @@ class Albums extends Component {
     const angle = this.getAngleForKeyAlbumImage(images, key_image_id)
     return (
       <Link to={`/collections/${id}`}
-            key={`albums-${key_image_id}`} 
+            key={`albums-${id}`} 
             onClick={() => this.props.fetchOneAlbum(id)
             }>
         <div key={`album-${id}`} className='album-card animated fadeIn'>
@@ -67,6 +67,7 @@ class Albums extends Component {
     
     const { albums } = this.props
     const albumsSortedByLastUpdated = this.sortByUpdate(albums)
+   
     return (
       <div>
         <Nav />

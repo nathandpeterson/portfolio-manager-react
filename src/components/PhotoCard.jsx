@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { Image } from 'cloudinary-react'
 import Nav from './Nav'
-import { Preloader, Button } from 'react-materialize'
+import { Preloader } from 'react-materialize'
 import { connect } from 'react-redux'
 import { fetchOneAlbum } from '../actions'
 import { fieldConfig } from '../utils/Constants'

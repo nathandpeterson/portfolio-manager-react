@@ -1,0 +1,23 @@
+.photo-card {
+  position: relative;
+}
+
+.nav-button-inactive {
+  color: #ddd;
+  cursor: default !important;
+  pointer-events: none;
+}
+
+.back-button {
+  position: absolute;
+  top: 20rem;
+  left: 10%;
+  cursor: pointer;
+}
+
+.forward-button {
+  position: absolute;
+  top: 20rem;
+  left: 85%;
+  cursor: pointer;
+}

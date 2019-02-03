@@ -6,12 +6,28 @@ import { connect } from 'react-redux'
 import { fetchOneAlbum } from '../actions'
 import { fieldConfig } from '../utils/Constants'
 import { withRouter } from 'react-router-dom'
+import { Icon } from 'react-materialize'
+import './PhotoCard.css'
 
 class PhotoCard extends Component {
+
+  state = {
+    images: [],
+    isFirst: true,
+    isLast: true
+  }
 
   async componentDidMount() {
     const { albumId } = this.props.match.params
     await this.props.fetchOneAlbum(albumId)
+  }
+
+  componentDidUpdate(prevProps) {
+    if(this.props.album !== prevProps.album){
+      const { images } = this.props.album
+      const {isFirst, isLast} = this.isFirstOrLastInAlbum(this.props.album.images, this.props.match.params.id)
+      this.setState({images, isFirst, isLast})
+    }
   }
 
   renderField(label, data){
@@ -54,21 +70,56 @@ class PhotoCard extends Component {
       )
   }
 
+  navigate = (destination) => {
+    const { images } = this.state
+    const currentImageId = this.props.match.params.id
+    images.forEach((image, i) => {
+      if(image.id == currentImageId){
+        const imageToNaviagateTo = images[i + destination]
+        return this.props.history.push(`/${this.props.album.id}/${imageToNaviagateTo.id}`)
+      }
+    })
+  }
+
+  isFirstOrLastInAlbum = (images, id) => {
+    if(!images || !images.length || !id) return {isFirst : true, isLast: true }
+    const isFirst = parseInt(images[0].id, 10) === parseInt(id, 10)
+    const isLast = parseInt(images[images.length - 1].id, 10) === parseInt(id, 10)
+    return { isFirst, isLast }
+  }
+
   render(){
     if(!this.props.album.id) return this.loading()
     const { album: { images } , match : { params : { id } } } = this.props
     const selectedImage = images.find(image => parseInt(image.id, 10) === parseInt(id, 10))
     const {publicId, angle} = selectedImage
+    const { isFirst, isLast } = this.isFirstOrLastInAlbum(images, id)
     return (
       <div key={publicId}>
           <Nav />
-          <div className={'flex-center image-container ' + this.marginForRotation(angle)}>
+          <div className={'photo-card flex-center image-container ' + this.marginForRotation(angle)}>
+            <div onClick={() => this.navigate(-1)} >
+              <Icon 
+                medium
+                className={`nav-button back-button ${isFirst ? 'nav-button-inactive' : ''}`}>
+                chevron_left
+              </Icon>
+            </div>
+            
             <Image id={publicId} 
                 className='full-image'
-                width='650px'
+                width='750px'
                 style={this.rotateStyle(angle)} 
                 publicId={publicId}>
             </Image>
+            <div onClick={() => this.navigate(1)} >
+              <Icon 
+                medium
+                className={`nav-button forward-button ${isLast ? 'nav-button-inactive' : ''}`}>
+                chevron_right
+              </Icon>
+            </div>
+            
           </div>
           {this.renderText(selectedImage)}
       </div>

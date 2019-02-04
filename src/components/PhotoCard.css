@@ -2,12 +2,6 @@
   position: relative;
 }
 
-.nav-button-inactive {
-  color: #ddd;
-  cursor: default !important;
-  pointer-events: none;
-}
-
 .back-button {
   position: absolute;
   top: 20rem;
@@ -21,3 +15,28 @@
   left: 85%;
   cursor: pointer;
 }
+
+/* Over-riding materialize's CSS is really painful here */
+
+@media(max-width: 1000px){
+  .nav-button {
+    color: rgba(256, 256, 256, .6) !important;
+  }
+  .nav-button-inactive {
+    color: #ddd;
+    visibility: hidden;
+    pointer-events: none !important;
+  }
+} 
+
+@media(min-width: 1000px){
+  .nav-button {
+    color: black !important;
+  }
+
+  .nav-button-inactive {
+    color: #ddd !important;
+    cursor: default !important;
+    pointer-events: none !important;
+  }
+} 

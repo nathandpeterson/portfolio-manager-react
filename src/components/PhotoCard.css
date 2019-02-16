@@ -4,34 +4,34 @@
 
 .back-button {
   position: absolute;
-  top: 20rem;
-  left: 10%;
+  top: 40%;
+  left:3%;
   cursor: pointer;
 }
 
 .forward-button {
   position: absolute;
-  top: 20rem;
-  left: 85%;
+  top: 40%;
+  right: 3%;
   cursor: pointer;
 }
 
-/* Over-riding materialize's CSS is really painful here */
+.nav-button {
+  color: rgba(256, 256, 256, .6) !important;
+}
 
-@media(max-width: 1000px){
-  .nav-button {
-    color: rgba(256, 256, 256, .6) !important;
-  }
-  .nav-button-inactive {
-    color: #ddd;
-    visibility: hidden;
-    pointer-events: none !important;
-  }
-} 
 
-@media(min-width: 1000px){
+@media(min-width: 550px){
   .nav-button {
-    color: black !important;
+    color: #666 !important;
+  }
+
+  .back-button {
+    left:-1%;
+  }
+
+  .forward-button {
+    right: -1%;
   }
 
   .nav-button-inactive {

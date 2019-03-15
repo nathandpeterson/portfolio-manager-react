@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Image } from 'cloudinary-react'
+import { Image, Transformation } from 'cloudinary-react'
 import { Button, Preloader } from 'react-materialize'
 import Nav from './Nav'
 import { Link, withRouter } from 'react-router-dom'
@@ -55,7 +55,10 @@ class Album extends Component {
           return (
             <div style={{ padding: '2.5rem .5rem' }}>
               <Link to={`/${album.id}/${id}`} >
-                <Image publicId={publicId} width='auto' height='180px'  style={this.handleRotation(angle)}  />
+                <Image publicId={publicId} width='auto' height='180px'  style={this.handleRotation(angle)}>
+                  <Transformation height="180" width="auto" />
+                  <Transformation quality="60" />
+                </Image>
               </Link>
             </div>
             )}

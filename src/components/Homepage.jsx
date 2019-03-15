@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { Image } from 'cloudinary-react'
+import { Image, Transformation } from 'cloudinary-react'
 import Nav from './Nav'
 import { getInformation } from '../actions'
 import { Preloader } from 'react-materialize'
@@ -33,6 +33,8 @@ class Homepage extends PureComponent {
             width='500px'
             style={{alignSelf: 'center'}}
             publicId={homepage_image}>
+            <Transformation width="500" height="auto" />
+            <Transformation quality="60" />
         </Image>
        
       </div>

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Nav from './Nav'
-import { Image } from 'cloudinary-react'
+import { Image, Transformation } from 'cloudinary-react'
 import { Button } from 'react-materialize'
 import { withRouter, Link } from 'react-router-dom'
 import { fetchAlbums, fetchOneAlbum } from '../actions'
@@ -33,7 +33,10 @@ class Albums extends Component {
             onClick={() => this.props.fetchOneAlbum(id)
             }>
         <div key={`album-${id}`} className='album-card animated fadeIn'>
-          <Image style={this.handleRotation(angle)} publicId={key_image_id} width='450px'/>
+          <Image style={this.handleRotation(angle)} publicId={key_image_id} width='450px'>
+            <Transformation quality="60" />
+            <Transformation width='450' height="auto" />
+          </Image>
           <div>
             {album_name}
           </div>

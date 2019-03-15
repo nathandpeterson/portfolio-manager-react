@@ -21,7 +21,7 @@ The node server is a simple REST api. I initially considered graphQL, but decide
 
 The site was deployed on a digitalocean droplet, where I installed git and pm2. I have been SSHing into the environment to pull down latest, which is kind of a pain. Next time, I will definitely try and integrate with Travis or Jenkins to make it less painful.
 
-The site is hosted through NGINX reverse proxy, which serves up the static files and routes API requests to the node server. I set up environment variables while in the shell. I copied all the passwords into my notes, but there is probably a better way of maintaining continuity of environment variables between environmnents.
+The site is hosted through NGINX reverse proxy, which serves up the static files and routes API requests to the node server. I set up environment variables while in the shell.
 
 I used letsencrypt for a SSL cert and goDaddy for domain name. 
 

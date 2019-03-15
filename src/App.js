@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { CloudinaryContext } from 'cloudinary-react'
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import './App.css'
 import PhotoCard from './components/PhotoCard'
 import Albums from './components/Albums'
@@ -66,8 +66,6 @@ class App extends Component {
                 exact
                 path='/about'
                 component={AboutArtist} />
-
-            <Redirect from="/" to="/" />
           </Switch>
         </BrowserRouter>        
       </CloudinaryContext>

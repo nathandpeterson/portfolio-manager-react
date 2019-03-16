@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import Nav from './Nav'
 import { Image, Transformation } from 'cloudinary-react'
-import { Button } from 'react-materialize'
 import { withRouter, Link } from 'react-router-dom'
 import { fetchAlbums, fetchOneAlbum } from '../actions'
 import { connect } from 'react-redux'
@@ -50,12 +49,12 @@ class Albums extends Component {
 
   renderAddAlbumButton = () => (
     <div className='flex-center'>
-      <Button     large
-        className='#03a9f4 light-blue' 
+      <button     large
+        className='btn #03a9f4 light-blue waves-effect waves-light' 
         waves='light' 
         onClick={() => this.props.history.push('/collections/new')}>
         ADD NEW ALBUM
-      </Button>
+      </button>
     </div>
     
   )

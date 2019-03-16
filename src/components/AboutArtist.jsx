@@ -63,7 +63,7 @@ class AboutArtist extends Component {
         {localStorage.getItem('token') &&
           <div className='flex-center' style={{marginTop: '2rem'}}>
             <button
-              className='btn #03a9f4 light-blue'
+              className='btn #03a9f4 light-blue waves-light waves-effect'
               onClick={() => this.setState({ editMode: !editMode})}
             >{editMode ? 'CANCEL' : 'CHANGE BIO'} 
             </button> 

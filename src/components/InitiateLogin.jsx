@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Modal, Button } from 'react-materialize'
+import { Modal } from 'react-materialize'
 import Login from './Login'
 import Nav from './Nav'
 
@@ -14,9 +14,9 @@ class InitiateLogin extends Component {
       <Modal header='Login in to manage photos'
                 trigger={
                 <div className='flex-center'>
-                  <Button>
+                  <btn className='btn #03a9f4 light-blue waves-light waves-effect'>
                     LOG IN
-                  </Button>
+                  </btn>
                 </div>
                 }
         >

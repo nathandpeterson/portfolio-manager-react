@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Image } from 'cloudinary-react'
-import { Row, Col, Button, Preloader } from 'react-materialize'
+import { Preloader } from 'react-materialize'
 import Nav from './Nav'
 import { fetchOneAlbum, updateSortOrder, saveSortOrder } from '../actions'
 import { withRouter } from 'react-router-dom'
@@ -85,39 +85,35 @@ class SortAlbum extends Component {
         </div>
         <div className='flex-center header'>
           {this.state.message ? <h5>{this.state.message}</h5> :
-            <Button className='#03a9f4 light-blue'
+            <button className='btn #03a9f4 light-blue waves-effect waves-light'
                   onClick={this.handleSave}>
                   SAVE CHANGES
-            </Button>   
+            </button>   
           } 
         </div>
         <br />
-        <Row>
-          <Col s={2}/>
-          <Col s={8}>
-            <DragDropContext onDragEnd={this.onDragEnd}>
-              <Droppable droppableId="droppable">
-                {(provided, snapshot) => (
-                  <div ref={provided.innerRef}>
-                    {sortList.map((item, index) => (
-                      <Draggable key={item.id} draggableId={item.image_id} index={index}>
-                        {(provided, snapshot) => (
-                          <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                        >
-                          {this.renderImageItem(item)}
-                        </div>
-                        )}
-                      </Draggable>
-                    ))}
-                  </div>
-                )}
-              </Droppable>
-            </DragDropContext>
-          </Col>
-        </Row>
+       
+        <DragDropContext onDragEnd={this.onDragEnd}>
+          <Droppable droppableId="droppable">
+            {(provided, snapshot) => (
+              <div ref={provided.innerRef}>
+                {sortList.map((item, index) => (
+                  <Draggable key={item.id} draggableId={item.image_id} index={index}>
+                    {(provided, snapshot) => (
+                      <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      {this.renderImageItem(item)}
+                    </div>
+                    )}
+                  </Draggable>
+                ))}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       </div>
     )
   }

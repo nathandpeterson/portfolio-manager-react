@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Image, Transformation } from 'cloudinary-react'
-import { Button, Preloader } from 'react-materialize'
+import { Preloader } from 'react-materialize'
 import Nav from './Nav'
 import { Link, withRouter } from 'react-router-dom'
 import { fetchOneAlbum } from '../actions'
@@ -21,19 +21,19 @@ class Album extends Component {
       const { id } = this.props.match.params
       return (
         <div className='flex-space-around' style={{marginTop: '2rem'}}>
-          <Button className='#03a9f4 light-blue'
+          <button className='btn #03a9f4 light-blue waves-light waves-effect'
                   onClick={() => this.props.history.push(`/collections/${id}/manageImages`)}>
             EDIT COLLECTION IMAGES
-          </Button>
-          <Button className='#03a9f4 light-blue'
+          </button>
+          <button className='btn #03a9f4 light-blue waves-light waves-effect'
                    onClick={() => this.props.history.push(`/collections/${id}/sortImages`)}>
             SORT IMAGES
-          </Button>
-          <Button className='#03a9f4 light-blue'
+          </button>
+          <button className='btn #03a9f4 light-blue waves-light waves-effect'
                   onClick={() => this.props.history.push(`/collections/${id}/manageCollection`)}
           >
           EDIT COLLECTION INFORMATION
-          </Button>
+          </button>
         </div>
       )
     }

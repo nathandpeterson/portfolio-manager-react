@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Nav from './Nav'
-import { Button } from 'react-materialize'
 import { getInformation, updateInformation } from '../actions'
 
 const bio = "Stephen Rawls earned a BFA from Pratt Institute and an MA St John's College. He lives in Philadelphia, PA."
@@ -63,19 +62,19 @@ class AboutArtist extends Component {
         }
         {localStorage.getItem('token') &&
           <div className='flex-center' style={{marginTop: '2rem'}}>
-            <Button
-              className='#03a9f4 light-blue'
+            <button
+              className='btn #03a9f4 light-blue'
               onClick={() => this.setState({ editMode: !editMode})}
             >{editMode ? 'CANCEL' : 'CHANGE BIO'} 
-            </Button> 
+            </button> 
           </div>
         }
         {editMode && <div className='flex-center' style={{marginTop: '2rem'}}>
-          <Button
-            className='#03a9f4 light-blue'
+          <button
+            className='btn #03a9f4 light-blue'
             onClick={() => this.props.updateInformation({about}, this.success)}
           >SAVE
-          </Button> 
+          </button> 
         </div>}
         
     </div>

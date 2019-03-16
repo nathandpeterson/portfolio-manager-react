@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Nav from './Nav'
-import { Button, Input, Row, Col } from 'react-materialize'
+import { Button } from 'react-materialize'
 import { getInformation, updateInformation } from '../actions'
 
 const bio = "Stephen Rawls earned a BFA from Pratt Institute and an MA St John's College. He lives in Philadelphia, PA."
@@ -31,15 +31,13 @@ class AboutArtist extends Component {
   )
 
   renderBioInput = () => (
-    <Row>
-      <Col s={3}/>
-      <Input  label={'Collection Description'} 
-              s={6}
-              defaultValue={this.state.about}
-              onChange={(e) => this.setState({about: e.target.value})}
-              placeholder="Stephen Rawls earned a BFA from Pratt Institute and an MA St John's College. He lives in Philadelphia, PA."
-              type='textarea' />
-    </Row>
+    <div className={'flex-center'}>
+        <input
+          className='materialize-textarea'
+          value={this.state.about}
+          onChange={(e) => this.setState({about: e.target.value})}
+        />
+    </div>
   )
 
   success = () => {
@@ -55,7 +53,7 @@ class AboutArtist extends Component {
     <div>
        <Nav />
         <div className='flex-center header'>
-          <h5 style={{fontWeight: '300'}}>About the Artist</h5>
+          <h5>About the Artist</h5>
         </div>
         <div className='flex-center header'>{this.state.response}</div>
         {this.state.editMode ? 
@@ -64,13 +62,13 @@ class AboutArtist extends Component {
           this.renderBio(about)
         }
         {localStorage.getItem('token') &&
-        <div className='flex-center' style={{marginTop: '2rem'}}>
-          <Button
-            className='#03a9f4 light-blue'
-            onClick={() => this.setState({ editMode: !editMode})}
-          >{editMode ? 'CANCEL' : 'CHANGE BIO'} 
-          </Button> 
-        </div>
+          <div className='flex-center' style={{marginTop: '2rem'}}>
+            <Button
+              className='#03a9f4 light-blue'
+              onClick={() => this.setState({ editMode: !editMode})}
+            >{editMode ? 'CANCEL' : 'CHANGE BIO'} 
+            </Button> 
+          </div>
         }
         {editMode && <div className='flex-center' style={{marginTop: '2rem'}}>
           <Button

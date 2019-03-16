@@ -89,3 +89,8 @@
 .drag-label {
   margin-left: 1rem;
 }
+
+.padding-container {
+  width: 100%;
+  padding: 2rem 5rem;
+}

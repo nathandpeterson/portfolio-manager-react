@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row, Col, Input, Button, Modal } from 'react-materialize'
+import {  Modal } from 'react-materialize'
 import Nav from '../Nav'
 import { saveAlbum, fetchOneAlbum, updateAlbum, deleteAlbum } from '../../actions'
 import { connect } from 'react-redux'
@@ -57,28 +57,24 @@ class AlbumForm extends Component {
       return <div />
     } else {
       return (
-          <Modal header='Are you sure you want to delete this collection?'
-                trigger={this.renderDeleteButton()}>
-                <div className='flex-center'>
-                  <Button className='red'
-                          onClick={() => {
-                            this.props.deleteAlbum(this.state.id, () => this.props.history.push('/'))}}
-                            >DELETE</Button>
-                </div> 
-          </Modal>
+          <Modal 
+            header='Are you sure you want to delete this collection?'
+            trigger={this.renderDeleteButton()}>
+              <div className='flex-center'>
+                <button 
+                  className='btn red'
+                  onClick={() => {
+                    this.props.deleteAlbum(this.state.id, () => this.props.history.push('/'))}}
+                    >DELETE</button>
+              </div> 
+            </Modal>
       )
     }
   }
 
   renderDeleteButton = () => {
     return (
-      <Col s={1}>
-        <Button     large 
-                      className='red'
-                      waves='light'
-                      >DELETE
-          </Button>
-      </Col>
+      <button large className='btn red'>DELETE</button>
     )
   }
 
@@ -90,39 +86,27 @@ class AlbumForm extends Component {
         <div className='flex-center header'>
           <h4>{this.state.message}</h4>
         </div>
+        <div className='padding-container'>
+          <input    className='input_2'
+                    value={this.state.album_name}
+                    onChange={(e) => this.setState({album_name: e.target.value})}
+                    placeholder={'Year or Theme'}
+                    label={'Collection Name'}/>
         
-        <Row>
-          <Col s={3}/>
-          <Input 
-                  s={6}
-                  value={this.state.album_name}
-                  onChange={(e) => this.setState({album_name: e.target.value})}
-                  placeholder={'Year or Theme'}
-                  label={'Collection Name'}/>
-        </Row>
-        <Row>
-          <Col s={3}/>
-          <Input  label={'Collection Description'} 
-                  s={6}
-                  value={this.state.description}
-                  onChange={(e) => this.setState({album_description: e.target.value})}
-                  placeholder='You are not required to write a description.'  
-                  type='textarea' />
-        </Row>
-        <Row>
-          {this.renderDeleteButtonWrapper()}
-          <Col s={9}></Col>  
-          <Col s={1}>
-            <Button   large 
-                      className='#03a9f4 light-blue'
-                      waves='light'
-                      id="upload_widget_opener"
-                      onClick={this.handleUpload}
-              >
-                  SAVE
-              </Button>
-          </Col>
-        </Row>
+          <input    className='materialize-textarea'
+                    label={'Collection Description'} 
+                    value={this.state.description}
+                    onChange={(e) => this.setState({album_description: e.target.value})}
+                    placeholder='You are not required to write a description.'  
+                     />
+            {this.renderDeleteButtonWrapper()}
+            <button 
+              className='btn #03a9f4 light-blue  waves-light waves-effect'
+              id="upload_widget_opener"
+              onClick={this.handleUpload}
+            >SAVE</button>
+        </div>
+        
       </div>
     )
   }

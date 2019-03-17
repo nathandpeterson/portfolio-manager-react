@@ -1,3 +1,4 @@
+                                                                                                                                         41,4-16       47%
 upstream api {
         server localhost:4000;
 }
@@ -5,6 +6,10 @@ upstream api {
 server {
         listen 80;
         server_name stephenrawls.com;
+        return 301 https://stephenrawls.com$request_uri;
+}
+
+server {
         listen 443 ssl;
         ssl_certificate /etc/letsencrypt/live/stephenrawls.com/fullchain.pem;
         ssl_certificate_key /etc/letsencrypt/live/stephenrawls.com/privkey.pem;

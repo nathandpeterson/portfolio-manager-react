@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Image } from 'cloudinary-react'
+import { Image, Transformation } from 'cloudinary-react'
 import Nav from './Nav'
 import { Preloader } from 'react-materialize'
 import { connect } from 'react-redux'
@@ -113,6 +113,7 @@ class PhotoCard extends Component {
                 publicId={publicId}
                 alt={name ? name : 'Painting By Stephen Rawls'}
                 >
+              <Transformation quality="60"/>
             </Image>
             <div onClick={() => this.navigate(1)} >
               <Icon 

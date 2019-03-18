@@ -41,7 +41,7 @@ class Albums extends Component {
             publicId={key_image_id} width='450px'
             alt={name ? name : 'Painting By Stephen Rawls'}
           >
-            <Transformation quality="60" />
+            <Transformation quality="30" />
             <Transformation width='450' height="auto" />
           </Image>
           <div>

@@ -58,12 +58,12 @@ class Album extends Component {
                 <Image 
                   publicId={publicId} 
                   width='auto' 
-                  height='180px'  
+                  height='180px' 
                   style={this.handleRotation(angle)}
                   alt={name ? name : 'Painting by Stephen Rawls'}
                   >
                   <Transformation height="180" width="auto" />
-                  <Transformation quality="60" />
+                  <Transformation quality="30" />
                 </Image>
               </Link>
             </div>

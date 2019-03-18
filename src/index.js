@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux'
 import {rootReducer} from './reducers'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
-import { register } from './registerServiceWorker'
+import register from './registerServiceWorker'
 
 export const store = createStore(rootReducer, applyMiddleware(thunk))
 

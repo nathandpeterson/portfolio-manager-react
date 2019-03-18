@@ -51,11 +51,17 @@ class Album extends Component {
     return (
         <div className='album-flex-container'>
         {sortedImages && sortedImages.map((image) => {
-          const {publicId, id, angle } = image
+          const { publicId, id, angle, name } = image
           return (
-            <div style={{ padding: '2.5rem .5rem' }}>
+            <div key={publicId} style={{ padding: '2.5rem .5rem' }}>
               <Link to={`/${album.id}/${id}`} >
-                <Image publicId={publicId} width='auto' height='180px'  style={this.handleRotation(angle)}>
+                <Image 
+                  publicId={publicId} 
+                  width='auto' 
+                  height='180px'  
+                  style={this.handleRotation(angle)}
+                  alt={name ? name : 'Painting by Stephen Rawls'}
+                  >
                   <Transformation height="180" width="auto" />
                   <Transformation quality="60" />
                 </Image>

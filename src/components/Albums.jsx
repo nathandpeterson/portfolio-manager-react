@@ -19,20 +19,28 @@ class Albums extends Component {
       return angleStyle
   }
 
-  getAngleForKeyAlbumImage = (images, key_image_id) => {
+  getDataForKeyAlbumImage = (images, key_image_id) => {
     const keyImageData = images.find(image => image.publicId === key_image_id)
-    return (keyImageData && keyImageData.angle) ? keyImageData.angle : 0
+    if (keyImageData) {
+      return keyImageData
+    }
+    return { angle: 0, name: '' }
   }
 
   renderAlbum = ({id, album_name, key_image_id, images, album_description }) => {
-    const angle = this.getAngleForKeyAlbumImage(images, key_image_id)
+    const { angle, name } = this.getDataForKeyAlbumImage(images, key_image_id)
+
     return (
       <Link to={`/collections/${id}`}
             key={`albums-${id}`} 
             onClick={() => this.props.fetchOneAlbum(id)
             }>
         <div key={`album-${id}`} className='album-card animated fadeIn'>
-          <Image style={this.handleRotation(angle)} publicId={key_image_id} width='450px'>
+          <Image 
+            style={this.handleRotation(angle)} 
+            publicId={key_image_id} width='450px'
+            alt={name ? name : 'Painting By Stephen Rawls'}
+          >
             <Transformation quality="60" />
             <Transformation width='450' height="auto" />
           </Image>

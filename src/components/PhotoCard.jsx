@@ -92,7 +92,7 @@ class PhotoCard extends Component {
     if(!this.props.album.id) return this.loading()
     const { album: { images } , match : { params : { id } } } = this.props
     const selectedImage = images.find(image => parseInt(image.id, 10) === parseInt(id, 10))
-    const {publicId, angle} = selectedImage
+    const { publicId, angle, name } = selectedImage
     const { isFirst, isLast } = this.isFirstOrLastInAlbum(images, id)
     return (
       <div key={publicId}>
@@ -110,7 +110,9 @@ class PhotoCard extends Component {
                 className='full-image'
                 width='90%'
                 style={this.rotateStyle(angle)} 
-                publicId={publicId}>
+                publicId={publicId}
+                alt={name ? name : 'Painting By Stephen Rawls'}
+                >
             </Image>
             <div onClick={() => this.navigate(1)} >
               <Icon 

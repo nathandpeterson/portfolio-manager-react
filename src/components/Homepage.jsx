@@ -31,9 +31,10 @@ class Homepage extends PureComponent {
         <Image
             className='full-image'  
             width='500px'
+            alt={'Painting by Stephen Rawls'}
             style={{alignSelf: 'center'}}
             publicId={homepage_image}>
-            <Transformation width="500" height="auto" />
+            <Transformation width="500" height="auto" dpr="auto" />
             <Transformation quality="60" />
         </Image>
        

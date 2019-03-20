@@ -11,7 +11,7 @@ const navBorderStyles = {
 }
 
 const navStyle = {
-  height: '10px',
+  height: '25px',
   display: 'flex',
   justifyContent: 'flex-end',
   alignItems: 'center',
@@ -19,14 +19,17 @@ const navStyle = {
 
 const iconStyle = {
   padding: '0 1rem',
-  color: '#989898'
+  color: '#707070',
+  display: 'flex',
+  alignItems: 'center'
 }
 
 const backArrow = {
   padding: '0 1rem',
   display: 'inline',
-  color: '#989898',
-  flexGrow: '5'
+  color: '#707070',
+  flexGrow: '5',
+  fontSize: '20px'
 }
 
 class Navbar extends PureComponent {
@@ -37,13 +40,13 @@ class Navbar extends PureComponent {
       return (
         <Link style={iconStyle} to='/' 
               onClick={() => localStorage.removeItem('token')}>
-          <Icon tiny>exit_to_app</Icon>
+          <Icon >exit_to_app</Icon>
         </Link>
       )
     } else {
       return (
           <Link style={iconStyle} to='/contact'>
-            <Icon tiny>mail_outline</Icon>
+            <Icon >mail_outline</Icon>
           </Link>
       )
     }
@@ -52,7 +55,7 @@ class Navbar extends PureComponent {
   renderInfo(){
     return (
       <Link style={iconStyle} to='/about'>
-          <Icon tiny >account_circle</Icon>
+          <Icon >account_circle</Icon>
       </Link>
     )
   }
@@ -83,7 +86,7 @@ class Navbar extends PureComponent {
           {this.renderBackArrow()}
           {this.renderInfo()}
           <Link style={iconStyle} to='/collections'>
-              <Icon tiny>view_module</Icon>
+              <Icon >view_module</Icon>
           </Link>
           {this.renderMailOrLogout()}
         </div>

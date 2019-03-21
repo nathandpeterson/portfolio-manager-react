@@ -18,7 +18,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=node",
+    "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
@@ -26,7 +26,8 @@
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.11.2",
     "enzyme-to-json": "^3.3.5",
-    "jest-enzyme": "^7.0.2"
+    "jest-enzyme": "^7.0.2",
+    "redux-mock-store": "^1.5.3"
   },
   "jest": {
     "snapshotSerializers": [

@@ -50,6 +50,7 @@ class Login extends Component {
   showMessage(){
     setTimeout(() => {
       this.setState({error: '', message: '', showMessage: false})
+      this.props.closeModal()
     }, 1500)
     return (
       <Row>
@@ -73,7 +74,15 @@ class Login extends Component {
 
     return (
       this.state.showMessage ? this.showMessage() : 
-      <div>
+      <div className='modal-container'>
+        <div className='close-modal-container'>
+          <button
+            className='close-modal'
+            onClick={() => this.props.closeModal()}>
+            X
+          </button>
+        </div>
+        
         <Row>
           <Input 
                 s={6} 

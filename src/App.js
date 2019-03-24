@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { CloudinaryContext } from 'cloudinary-react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import './App.css'
+import { MetaHeaders } from './metaheaders/MetaHeaders'
 import PhotoCard from './components/PhotoCard'
 import Albums from './components/Albums'
 import Album from './components/Album'
@@ -20,6 +21,7 @@ class App extends Component {
   render() {
     return (
       <CloudinaryContext cloudName={cloud_name} >
+        <MetaHeaders />
         <BrowserRouter>
           <Switch className="router">
             <Route exact 

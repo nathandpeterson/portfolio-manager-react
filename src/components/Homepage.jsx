@@ -39,10 +39,10 @@ class Homepage extends PureComponent {
         </Image>
        
       </div>
-      <div  className='flex-center animated fadeIn heading-secondary'
+      {/* <div  className='flex-center animated fadeIn heading-secondary'
             onClick={() => this.props.history.push('/collections')}>
           Click to view paintings
-      </div>
+      </div> */}
     </div>
     )
   }

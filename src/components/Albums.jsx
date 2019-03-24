@@ -13,7 +13,6 @@ class Albums extends Component {
   }
 
   handleRotation = angle => {
-   
     const angleStyle = angle ? 
       {transform: `rotate(${angle}deg)`} : {}
       return angleStyle
@@ -87,11 +86,11 @@ class Albums extends Component {
             Collections
           </h4>
         </div>
-        <div className='flex-center'>
+        {/* <div className='flex-center'>
           <h5 className='heading-secondary animated pulse'>
             Click to view paintings
           </h5>
-        </div>    
+        </div>     */}
         <div className='album-flex-container'>
           {albumsSortedByLastUpdated.map(this.renderAlbum)}
          

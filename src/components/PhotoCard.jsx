@@ -74,7 +74,7 @@ class PhotoCard extends Component {
     const { images } = this.state
     const currentImageId = this.props.match.params.id
     images.forEach((image, i) => {
-      if(image.id == currentImageId){
+      if(Number(image.id) === Number(currentImageId)){
         const imageToNaviagateTo = images[i + destination]
         return this.props.history.push(`/${this.props.album.id}/${imageToNaviagateTo.id}`)
       }
@@ -108,12 +108,12 @@ class PhotoCard extends Component {
             
             <Image id={publicId} 
                 className='full-image'
-                width='90%'
+                width='65%'
                 style={this.rotateStyle(angle)} 
                 publicId={publicId}
                 alt={name ? name : 'Painting By Stephen Rawls'}
                 >
-              <Transformation quality="60"/>
+              <Transformation quality="50"/>
             </Image>
             <div onClick={() => this.navigate(1)} >
               <Icon 

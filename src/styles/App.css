@@ -94,15 +94,3 @@
   width: 100%;
   padding: 2rem 5rem;
 }
-
-.close-modal-container {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.close-modal {
-  background-color: #777;
-  color: white;
-  padding: 0 .5rem;
-  border-radius: 3px;
-}

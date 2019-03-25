@@ -1,0 +1,68 @@
+.modal-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60%;
+  margin-right:-50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(255, 255, 255);
+}
+
+.modal-container:focus {
+  outline: 0;
+}
+
+.modal-container-entering {
+  opacity: 0;
+}
+
+.modal-container-entered {
+  animation: fadeIn .3s;
+  animation-direction: forwards;
+}
+
+.modal-container-exiting {
+  animation: fadeOut .3s;
+  animation-direction: forwards;
+}
+
+.modal-container-exited {
+  opacity: 0;
+  transform: translate(-50%, -500%);
+}
+
+.close-modal-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close-modal {
+  background-color: #777;
+  color: white;
+  padding: 0 .5rem;
+  border-radius: 3px;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.ReactModal__Overlay {
+  background-color: rgb(150,150,150);
+  z-index: 1;
+}

@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "cloudinary-react": "^1.0.6",
+    "material-icons-react": "^1.0.4",
     "react": "^16.8.5",
     "react-beautiful-dnd": "^9.0.2",
     "react-dom": "^16.8.5",
@@ -16,7 +17,9 @@
     "react-scripts": "1.1.5",
     "react-transition-group": "^2.7.0",
     "redux": "^4.0.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "rmdi": "^1.0.1",
+    "styled-components": "^4.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

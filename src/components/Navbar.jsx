@@ -1,6 +1,9 @@
 import React, { PureComponent, Fragment } from 'react'
-import { Icon } from 'react-materialize'
 import { Link, withRouter } from 'react-router-dom'
+import AccountCircle from 'rmdi/lib/AccountCircle'
+import ExitToApp from 'rmdi/lib/ExitToApp'
+import ViewModule from 'rmdi/lib/ViewModule'
+import MailOutline from 'rmdi/lib/MailOutline'
 
 const navBorderStyles = {
   display: "block",
@@ -40,13 +43,13 @@ class Navbar extends PureComponent {
       return (
         <Link style={iconStyle} to='/' 
               onClick={() => localStorage.removeItem('token')}>
-          <Icon >exit_to_app</Icon>
+          <ExitToApp />
         </Link>
       )
     } else {
       return (
           <Link style={iconStyle} to='/contact'>
-            <Icon >mail_outline</Icon>
+            <MailOutline />
           </Link>
       )
     }
@@ -55,7 +58,7 @@ class Navbar extends PureComponent {
   renderInfo(){
     return (
       <Link style={iconStyle} to='/about'>
-          <Icon >account_circle</Icon>
+          <AccountCircle/>
       </Link>
     )
   }
@@ -86,7 +89,7 @@ class Navbar extends PureComponent {
           {this.renderBackArrow()}
           {this.renderInfo()}
           <Link style={iconStyle} to='/collections'>
-              <Icon >view_module</Icon>
+              <ViewModule />
           </Link>
           {this.renderMailOrLogout()}
         </div>

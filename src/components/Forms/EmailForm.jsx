@@ -1,8 +1,8 @@
-import React, { Component, Fragment } from 'react'
-import { Row, Col, Input, Button, Icon } from 'react-materialize'
+import React, { Component } from 'react'
 import Nav from '../Nav'
 import { sendEmail } from '../../actions'
 import { connect } from 'react-redux'
+import MailOutline from 'rmdi/lib/MailOutline'
 
 class EmailForm extends Component {
 
@@ -37,45 +37,34 @@ class EmailForm extends Component {
   }
 
   renderContactForm = () => (
-    <Fragment>
-      <Row>
-        <Col s={3} />
-        <Input
-          s={6}
+    <div style={{padding: '3rem 10rem'}}>
+        <input
+          placeholder={'Your name'}
           value={this.state.name}
           onChange={(e) => this.setState({ name: e.target.value })}
-          label={'Your Name'} />
-      </Row>
-      <Row>
-        <Col s={3} />
-        <Input
-          s={6}
-          label="Your Email"
+          />
+        <input
+          placeholder="Your Email"
           type='email'
-          validate
           value={this.state.email}
           onChange={(e) => this.setState({ email: e.target.value })}
         />
-      </Row>
-      <Row>
-        <Col s={3} />
-        <Input label={'Message'}
-          s={6}
+        <textarea
+          className='materialize-textarea'
           onChange={(e) => this.setState({ emailContent: e.target.value })}
           placeholder='Write your message here...'
           type='textarea' />
-      </Row>
-    </Fragment>
+    </div>
   )
 
   renderError = () => (
     <div className='flex-center'>
       <h5 style={{ fontWeight: 400 }}>
         There was an error sending your message. Please try again.
-        <Button className='#03a9f4 light-blue'
+        <button className='btn #03a9f4 light-blue'
           onClick={() => this.setState({ error: false, messageSent: false })}
         >TRY AGAIN
-        </Button>
+        </button>
       </h5>
     </div>
   )
@@ -91,15 +80,14 @@ class EmailForm extends Component {
         </div>}
         {this.state.error && this.renderError()}
         <div className='flex-center'>
-          {!messageSent && <Button className='#03a9f4 light-blue'
-            onClick={() => {
-              const { emailContent, email, name } = this.state
-              this.props.sendEmail({ emailContent, email, name, messageSent: true, message: '' })
-            }
-            }> <Icon>
-              email
-                </Icon>
-          </Button>
+          {!messageSent && 
+            <button className='btn #03a9f4 light-blue'
+              onClick={() => {
+                const { emailContent, email, name } = this.state
+                this.props.sendEmail({ emailContent, email, name, messageSent: true, message: '' })
+                }
+              }><MailOutline mt={'20%'}/>
+            </button>
           }
         </div>
       </div>

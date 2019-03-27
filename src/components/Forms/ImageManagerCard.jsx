@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Image } from 'cloudinary-react'
-import { Button, Icon } from 'react-materialize'
 import ImageForm from './ImageForm'
 import { updateAlbum, updateHomeImage } from '../../actions'
 import { withRouter } from 'react-router-dom'
 import { fieldConfig } from '../../utils/Constants'
+import RotateRight from 'rmdi/lib/RotateRight'
+import RotateLeft from 'rmdi/lib/RotateLeft'
+import Edit from 'rmdi/lib/Edit'
 
 class ImageManagerCard extends Component {
 
@@ -53,18 +55,14 @@ class ImageManagerCard extends Component {
   renderRotateIcons = () => {
     return (
       <div className='flex-space-between'>
-        <Button className='#03a9f4 light-blue' 
+        <button className='btn #03a9f4 light-blue flex-align' 
                 onClick={() => this.handleRotation(-90)}>
-          <Icon>
-            rotate_left
-          </Icon>
-        </Button>
-        <Button className='#03a9f4 light-blue'
+          <RotateLeft />
+        </button>
+        <button className='btn #03a9f4 light-blue flex-align'
                 onClick={() => this.handleRotation(90)}>
-          <Icon>
-            rotate_right
-          </Icon>
-        </Button>   
+          <RotateRight />
+        </button>   
       </div>
     )
   }
@@ -109,22 +107,20 @@ class ImageManagerCard extends Component {
         
           {editMode ? '' :   
       <div className='flex-space-between'>
-        <Button className='#03a9f4 light-blue'
+        <button className='#03a9f4 light-blue btn flex-align'
                 onClick={() => this.toggleEditMode(true)}>
-          <Icon>
-            edit
-          </Icon>
-        </Button>
-        <Button className='#03a9f4 light-blue'
+          <Edit />
+        </button>
+        <button className='#03a9f4 light-blue btn'
                 onClick={() => {
                   this.props.updateHomeImage(publicId)}}
           >
           HOMEPAGE IMAGE
-        </Button>
-        <Button className='#03a9f4 light-blue'
+        </button>
+        <button className='#03a9f4 light-blue btn'
                 onClick={(e) => this.handleUpdateKeyImage(publicId)}>
           KEY IMAGE
-        </Button>
+        </button>
       </div> 
     }
       </div>

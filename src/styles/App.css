@@ -19,6 +19,11 @@
   justify-content: center;
 }
 
+.flex-align {
+  display: flex;
+  align-items: center;
+}
+
 .flex-space-between {
   display: flex;
   justify-content: space-between;

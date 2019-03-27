@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { Row, Input, Icon, Button } from 'react-materialize'
 import { withRouter } from 'react-router-dom'
+import EnhancedEncryption from 'rmdi/lib/EnhancedEncryption'
+import AccountCircle from 'rmdi/lib/AccountCircle'
+// TODO : migrate to redux...
 import axios from 'axios'
 const SERVER = process.env.REACT_APP_SERVER
 
@@ -53,11 +55,11 @@ class Login extends Component {
       this.props.closeModal()
     }, 1500)
     return (
-      <Row>
+      <div>
         <div className='flex-center'>
           {this.renderMessageContent()}
         </div>
-      </Row>
+      </div>
     )
   }
 
@@ -82,32 +84,31 @@ class Login extends Component {
             X
           </button>
         </div>
-        
-        <Row>
-          <Input 
-                s={6} 
-                label="Email" 
-                type='email' 
-                validate 
-                value={this.state.email}
-                defaultValue=''
-                onChange={(e) => this.setState({ email: e.target.value})}>
-            <Icon>account_circle</Icon>
-          </Input>
-          <Input  s={6} 
-                  label="Password" 
-                  validate 
-                  type='password'
-                  value={this.state.password}
-                  onChange={(e) => this.setState({password: e.target.value})}>
-            <Icon>enhanced_encryption</Icon>
-          </Input>
-        </Row>
-        <Row>
-          <div className='flex-center'>
-            <Button onClick={this.handleLogin}>SUBMIT</Button>
+        <div className='flex-space-between'>
+          <div className='flex-space-between flex-align' style={{width: '100%'}}>
+            <AccountCircle size={40}/>
+            <input
+                  style={{marginTop: '1rem'}}
+                  placeholder="Email" 
+                  type='email' 
+                  value={this.state.email}
+                  onChange={(e) => this.setState({ email: e.target.value})} />
           </div>
-        </Row>
+          <div className='flex-space-between flex-align' style={{width: '100%'}}>
+            <EnhancedEncryption size={40}/>
+            <input
+                    style={{marginTop: '1rem'}}
+                    placeholder="Password" 
+                    type='password'
+                    value={this.state.password}
+                    onChange={(e) => this.setState({password: e.target.value})}/>
+          </div>
+        </div>
+        <div>
+          <div className='flex-center'>
+            <button className='btn' onClick={this.handleLogin}>SUBMIT</button>
+          </div>
+        </div>
       </div>
     )
   }

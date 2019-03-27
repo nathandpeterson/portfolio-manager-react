@@ -28,3 +28,5 @@ I used letsencrypt for a SSL cert and goDaddy for domain name.
 Getting everything right on Nginx and SSL was not fun, but it seems to be working.
 
 Check out the live site [here.](https://stephenrawls.com)
+
+Run `node build.js` for build analyzer.

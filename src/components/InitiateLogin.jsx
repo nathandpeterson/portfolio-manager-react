@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from 'react'
-import { Transition } from "react-transition-group";
+import { Transition } from "react-transition-group"
 import Modal from 'react-modal'
 import Login from './Login'
 import Nav from './Nav'

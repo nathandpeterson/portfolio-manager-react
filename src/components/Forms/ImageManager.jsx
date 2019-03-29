@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Nav from '../Nav'
 import { connect } from 'react-redux'
-import { Button } from 'react-materialize'
 import { Preloader } from '../../shared'
 import { fetchOneAlbum, getInformation } from '../../actions'
 import ImageForm from './ImageForm'
@@ -64,11 +63,11 @@ class ImageManager extends Component {
         <Nav />
           {images ? this.renderImages() : this.renderSpinner()}
         <div className='flex-center'>
-          <Button   className='#03a9f4 light-blue'
+          <button   className='btn #03a9f4 light-blue'
                     onClick={() => {
                       this.setState({addingNewImage: !this.state.addingNewImage})
                                   }}>Add an image to the COLLECTION
-          </Button>
+          </button>
         </div>
         {this.state.addingNewImage ?
           <ImageForm

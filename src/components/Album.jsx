@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Image, Transformation } from 'cloudinary-react'
-import { Preloader } from 'react-materialize'
+import { Preloader } from '../shared'
 import Nav from './Nav'
 import { Link, withRouter } from 'react-router-dom'
 import { fetchOneAlbum } from '../actions'
@@ -76,7 +76,7 @@ class Album extends Component {
   render() {
     if(!this.props.album.id) return (
     <div className='flex-center'>
-      <Preloader size='big'/>
+      <Preloader/>
     </div>
     )
   

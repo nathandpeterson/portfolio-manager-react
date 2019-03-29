@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Nav from '../Nav'
 import { connect } from 'react-redux'
-import { Button, Preloader } from 'react-materialize'
+import { Button } from 'react-materialize'
+import { Preloader } from '../../shared'
 import { fetchOneAlbum, getInformation } from '../../actions'
 import ImageForm from './ImageForm'
 import ImageManagerCard from './ImageManagerCard';
@@ -47,7 +48,7 @@ class ImageManager extends Component {
   renderSpinner = () => {
     return (
       <div className='flex-center'>
-        <Preloader size={'big'} />
+        <Preloader />
       </div>       
     )
   }

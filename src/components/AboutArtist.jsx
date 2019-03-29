@@ -19,6 +19,8 @@ class AboutArtist extends Component {
 
   async componentDidMount(){
     await this.props.fetchInformation()
+    // Stephen has the ability to update his bio blurb.
+    // Set bio to the default if he has not changed it...
     const {about} = this.props.information 
     about ? this.setState({ about }) : this.setState({about: bio})
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Image } from 'cloudinary-react'
-import { Preloader } from 'react-materialize'
+import { Preloader } from '../shared'
 import Nav from './Nav'
 import { fetchOneAlbum, updateSortOrder, saveSortOrder } from '../actions'
 import { withRouter } from 'react-router-dom'
@@ -66,7 +66,7 @@ class SortAlbum extends Component {
   loading = () => {
     return (
       <div className='flex-center'>
-        <Preloader size='big' /> 
+        <Preloader /> 
         LOADING SORTER
         </div>
       )

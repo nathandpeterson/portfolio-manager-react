@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { Image, Transformation } from 'cloudinary-react'
 import Nav from './Nav'
-import { Preloader } from 'react-materialize'
+import { Preloader } from '../shared'
 import { connect } from 'react-redux'
 import { fetchOneAlbum } from '../actions'
 import { fieldConfig } from '../utils/Constants'
@@ -65,7 +65,7 @@ class PhotoCard extends Component {
   loading = () => {
     return (
       <div className='flex-center'>
-        <Preloader size='big' /> 
+        <Preloader /> 
         </div>
       )
   }

@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react'
-import { Input, Row, Button, Collapsible, CollapsibleItem } from 'react-materialize'
 import { uploadImageName, fetchAlbums, fetchOneAlbum, deleteImage } from '../../actions'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -19,7 +18,8 @@ class ImageForm extends Component {
     description: '',
     size: '',
     date: '',
-    message: ''
+    message: '',
+    deleteConfirmation: false
   }
 
   componentDidMount =  async () => {
@@ -39,10 +39,6 @@ class ImageForm extends Component {
     if(this.props.angle !== prevProps.angle){
       this.setState({angle: this.props.angle})
     }
-    // if(this.props.uploadedImage.id !== prevProps.uploadedImage.id){
-    //   this.props.toggleEditMode(false)
-    // }
-  
   }
 
   cleanData = (data) => {
@@ -74,7 +70,7 @@ class ImageForm extends Component {
   }
 
   imageDataConfig = [
-    {displayName: 'Image Name', property: 'name', placeholder: ''},
+    {displayName: 'Image Name', property: 'name', placeholder: 'Title'},
     {displayName: 'Description', property: 'description', placeholder: 'Add text here'},
     {displayName: 'Size', property: 'size', placeholder: 'e.g. 10 X 6'},
     {displayName: 'Date', property: 'date', placeholder: 'e.g. September 2018'},
@@ -82,15 +78,14 @@ class ImageForm extends Component {
 
   renderField = ({displayName, property, placeholder}) => {
     return (
-      <Row key={`imageUploader-${property}`}>
-          <Input 
-                  s={12}
+      <div key={`imageUploader-${property}`}>
+          <input  className='input'
                   value={this.state[property]}
                   autoFocus={displayName === 'Image Name'}
                   onChange={(e) => this.setState({[property]: e.target.value})}
                   placeholder={placeholder}
                   label={displayName}/>
-        </Row>
+        </div>
     )
   }
 
@@ -99,65 +94,50 @@ class ImageForm extends Component {
     return (
       <Fragment>
         <div className='flex-space-between'>
-          <Button onClick={() => toggleEditMode(false)}
-                  className='#03a9f4 light-blue'>
+          <button 
+                  onClick={() => toggleEditMode(false)}
+                  className='btn #03a9f4 light-blue'>
             CANCEL
-          </Button>
+          </button>
           
-          <Button className='#03a9f4 light-blue' 
+          <button className='btn #03a9f4 light-blue' 
                   onClick={() => {
                     const { message, ...cleanedState } = this.state
                     this.props.uploadImage(cleanedState, () => this.success())
-          }}>
-            SAVE
-          </Button>
+          }}> SAVE
+          </button>
         </div>
         <br />
         {this.renderDeleteButton()}
-        {this.renderMoveImageControl()}
-       
       </Fragment>
     )
   }
+  handleDelete(){
+    // TODO: this needs to be removed from the DOM
+    return this.props.deleteImage(this.state.id, () =>  this.setState({deleteConfirmation: false}))
+  }
   
   renderDeleteButton(){
+    const { deleteConfirmation } = this.state
     return (
       <div className='flex-center' >
-          <Collapsible style={{width:'15rem', textAlign: 'center'}}>
-              <CollapsibleItem header='DELETE'>
-                <Button className='red'
-                        onClick={() => this.props.deleteImage(this.state.id, () => console.log('success'))}>
-                  DELETE
-                </Button>
-              </CollapsibleItem>
-          </Collapsible>
+          <div style={{width:'15rem', textAlign: 'center'}}>
+              <div>
+                <button className={`btn ${deleteConfirmation ? "red" : "grey"}`}
+                        onClick={() => {
+                          if (deleteConfirmation) {
+                            this.handleDelete()
+                          } else {
+                            this.setState({deleteConfirmation: true})
+                          }
+                        }
+                      }>
+                  {`${deleteConfirmation ? "REALLY" : ""} DELETE`}
+                </button>
+              </div>
+          </div>
         </div>
     )
-  }
-
-  renderMoveImageControl(){
-
-    const { albums } = this.props
-    const otherAlbums = albums.filter(album => parseInt(album.id,10) !== parseInt(this.state.albumId, 10))
-    if(otherAlbums.length){
-      return (
-        <div>
-          <div>
-            This image is currently associated with {this.props.album.album_name}
-          </div>
-          <Input  s={12} 
-                  type='select' 
-                  label='Move to another collection'
-                  onChange={(e) => this.setState({albumId: e.target.value})}
-                  value={this.props.albumId} 
-                  defaultValue={this.props.albumId}>
-            {otherAlbums.map(({id, album_name}) => {
-              return <option key={`album-select-${id}`} value={id}>{album_name}</option>
-            })}
-          </Input>
-        </div>        
-      )
-    }
   }
 
   render(){
@@ -167,16 +147,14 @@ class ImageForm extends Component {
           <h4>{this.state.message}</h4>
         </div>
         {this.imageDataConfig.map(this.renderField)}
-        <Row>
-          {this.props.exists ? this.renderButtonGroup() : 
-            <Button large 
-                    className='#80deea cyan lighten-1' 
-                    waves='light'
-                    id="upload_widget_opener"
-                    onClick={this.handleClick} >
-              UPLOAD
-            </Button>}
-        </Row>
+        {this.props.exists ? this.renderButtonGroup() : 
+          <button
+                  className='#80deea cyan lighten-1' 
+                  waves='light'
+                  id="upload_widget_opener"
+                  onClick={this.handleClick} >
+            UPLOAD
+          </button>}
       </div>
     )
   }

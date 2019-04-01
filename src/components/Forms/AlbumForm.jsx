@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
-import {  Modal } from 'react-materialize'
+import Modal from 'react-modal'
+import '../../styles/Modal.css'
+import { Transition } from 'react-transition-group'
 import Nav from '../Nav'
 import { saveAlbum, fetchOneAlbum, updateAlbum, deleteAlbum } from '../../actions'
 import { connect } from 'react-redux'
 
+Modal.setAppElement('#root')
+
+const duration = 250
 
 class AlbumForm extends Component {
 
@@ -14,7 +19,8 @@ class AlbumForm extends Component {
       album_name: '',
       album_description: '',
       id: null,
-      message: ''
+      message: '',
+      showModal: false
     }
   }
 
@@ -52,29 +58,44 @@ class AlbumForm extends Component {
     }, 1000);
   }
 
-  renderDeleteButtonWrapper = () => {
-    if(!this.state.id || this.props.album.images.length) { 
-      return <div />
-    } else {
-      return (
-          <Modal 
-            header='Are you sure you want to delete this collection?'
-            trigger={this.renderDeleteButton()}>
+  renderModal = () => (
+    <Transition
+      in={this.state.showModal}
+      timeout={duration}>
+      {state => {
+        return (
+          <Modal  
+            isOpen={this.state.showModal}
+            shouldCloseOnOverlayClick={true}
+            closeTimeoutMS={duration}
+            className={`modal-container modal-container-${state}`}>
+            <div className='close-modal-container'>
+                <button
+                  className='close-modal'
+                  onClick={() => this.setState({showModal:false})}>
+                  X
+                </button>
+              </div>
               <div className='flex-center'>
                 <button 
                   className='btn red'
                   onClick={() => {
+                    this.setState({showModal: false})
                     this.props.deleteAlbum(this.state.id, () => this.props.history.push('/'))}}
                     >DELETE</button>
               </div> 
             </Modal>
-      )
-    }
-  }
+        )}}
+      </Transition>
+    )
 
   renderDeleteButton = () => {
     return (
-      <button large className='btn red'>DELETE</button>
+      <button 
+        onClick={() => this.setState({showModal: true})} 
+        className='btn red'>
+          DELETE
+      </button>
     )
   }
 
@@ -99,7 +120,8 @@ class AlbumForm extends Component {
                     onChange={(e) => this.setState({album_description: e.target.value})}
                     placeholder='You are not required to write a description.'  
                      />
-            {this.renderDeleteButtonWrapper()}
+            {this.renderDeleteButton()}
+            {this.renderModal()}
             <button 
               className='btn #03a9f4 light-blue  waves-light waves-effect'
               id="upload_widget_opener"

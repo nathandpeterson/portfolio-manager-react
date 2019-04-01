@@ -22,7 +22,6 @@ class Homepage extends PureComponent {
 
   render(){
     const { homepage_image } = this.props.information
-    //if(!homepage_image) return this.renderSpinner()
     return (
       <div>
       <Nav/>

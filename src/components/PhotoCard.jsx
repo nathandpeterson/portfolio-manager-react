@@ -6,8 +6,9 @@ import { connect } from 'react-redux'
 import { fetchOneAlbum } from '../actions'
 import { fieldConfig } from '../utils/Constants'
 import { withRouter } from 'react-router-dom'
-import { Icon } from 'react-materialize'
 import './PhotoCard.css'
+import { ReactComponent as ChevronLeft } from '../images/ChevronLeft.svg'
+import { ReactComponent as ChevronRight } from '../images/ChevronRight.svg'
 
 class PhotoCard extends Component {
 
@@ -99,11 +100,10 @@ class PhotoCard extends Component {
           <Nav />
           <div className={'photo-card flex-center image-container ' + this.marginForRotation(angle)}>
             <div onClick={() => this.navigate(-1)} >
-              <Icon 
-                medium
+              <div
                 className={`nav-button back-button ${isFirst ? 'nav-button-inactive' : ''}`}>
-                chevron_left
-              </Icon>
+                <ChevronLeft  />
+              </div>
             </div>
             
             <Image id={publicId} 
@@ -116,11 +116,10 @@ class PhotoCard extends Component {
               <Transformation quality="50"/>
             </Image>
             <div onClick={() => this.navigate(1)} >
-              <Icon 
-                medium
+              <div 
                 className={`nav-button forward-button ${isLast ? 'nav-button-inactive' : ''}`}>
-                chevron_right
-              </Icon>
+                <ChevronRight />
+              </div>
             </div>
             
           </div>

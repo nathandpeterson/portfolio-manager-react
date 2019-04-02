@@ -1,9 +1,10 @@
 import React, { PureComponent, Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import AccountCircle from 'rmdi/lib/AccountCircle'
-import ExitToApp from 'rmdi/lib/ExitToApp'
-import ViewModule from 'rmdi/lib/ViewModule'
-import MailOutline from 'rmdi/lib/MailOutline'
+import {ReactComponent as MailOutline} from '../images/EmailOutline.svg'
+import {ReactComponent as ViewModule} from '../images/ViewModule.svg'
+import {ReactComponent as AccountCircle} from '../images/AccountCircle.svg'
+import {ReactComponent as ExitToApp} from '../images/ExitToApp.svg'
+import { ICON_COLOR } from '../utils/Constants'
 
 const navBorderStyles = {
   display: "block",
@@ -22,7 +23,6 @@ const navStyle = {
 
 const iconStyle = {
   padding: '0 1rem',
-  color: '#707070',
   display: 'flex',
   alignItems: 'center'
 }
@@ -43,13 +43,13 @@ class Navbar extends PureComponent {
       return (
         <Link style={iconStyle} to='/' 
               onClick={() => localStorage.removeItem('token')}>
-          <ExitToApp />
+          <ExitToApp fill={ICON_COLOR} />
         </Link>
       )
     } else {
       return (
           <Link style={iconStyle} to='/contact'>
-            <MailOutline />
+            <MailOutline fill={ICON_COLOR} />
           </Link>
       )
     }
@@ -58,7 +58,7 @@ class Navbar extends PureComponent {
   renderInfo(){
     return (
       <Link style={iconStyle} to='/about'>
-          <AccountCircle/>
+          <AccountCircle fill={ICON_COLOR} />
       </Link>
     )
   }
@@ -85,11 +85,11 @@ class Navbar extends PureComponent {
     return (
       <Fragment>
         <hr style={navBorderStyles}/>
-        <div style={navStyle}>
+        <div className='nav-icon-container' style={navStyle}>
           {this.renderBackArrow()}
           {this.renderInfo()}
           <Link style={iconStyle} to='/collections'>
-              <ViewModule />
+              <ViewModule fill={ICON_COLOR} />
           </Link>
           {this.renderMailOrLogout()}
         </div>

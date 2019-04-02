@@ -5,9 +5,10 @@ import ImageForm from './ImageForm'
 import { updateAlbum, updateHomeImage } from '../../actions'
 import { withRouter } from 'react-router-dom'
 import { fieldConfig } from '../../utils/Constants'
-import RotateRight from 'rmdi/lib/RotateRight'
-import RotateLeft from 'rmdi/lib/RotateLeft'
-import Edit from 'rmdi/lib/Edit'
+import {ReactComponent as RotateRight} from '../../images/RotateRight.svg'
+import {ReactComponent as RotateLeft} from '../../images/RotateLeft.svg'
+import {ReactComponent as Edit} from '../../images/SquareEditOutline.svg'
+
 
 class ImageManagerCard extends Component {
 

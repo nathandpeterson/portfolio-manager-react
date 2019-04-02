@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import EnhancedEncryption from 'rmdi/lib/EnhancedEncryption'
-import AccountCircle from 'rmdi/lib/AccountCircle'
+import {ReactComponent as LockPlus} from '../images/LockPlus.svg'
+import {ReactComponent as AccountCircle} from '../images/AccountCircle.svg'
+import { ICON_COLOR } from '../utils/Constants'
 // TODO : migrate to redux...
 import axios from 'axios'
 const SERVER = process.env.REACT_APP_SERVER
@@ -86,7 +87,7 @@ class Login extends Component {
         </div>
         <div className='flex-space-between'>
           <div className='flex-space-between flex-align' style={{width: '100%'}}>
-            <AccountCircle size={40}/>
+            <AccountCircle fill={ICON_COLOR} size={40}/>
             <input
                   style={{marginTop: '1rem'}}
                   placeholder="Email" 
@@ -95,7 +96,7 @@ class Login extends Component {
                   onChange={(e) => this.setState({ email: e.target.value})} />
           </div>
           <div className='flex-space-between flex-align' style={{width: '100%'}}>
-            <EnhancedEncryption size={40}/>
+            <LockPlus fill={ICON_COLOR} size={40}/>
             <input
                     style={{marginTop: '1rem'}}
                     placeholder="Password" 

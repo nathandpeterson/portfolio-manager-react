@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Nav from '../Nav'
 import { sendEmail } from '../../actions'
 import { connect } from 'react-redux'
-import MailOutline from 'rmdi/lib/MailOutline'
+import { ReactComponent as MailOutline } from '../../images/EmailOutline.svg'
 
 class EmailForm extends Component {
 

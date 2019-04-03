@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import {ReactComponent as LockPlus} from '../images/LockPlus.svg'
 import {ReactComponent as AccountCircle} from '../images/AccountCircle.svg'
-import { ICON_COLOR } from '../utils/Constants'
+import { ICON_COLOR_GRAY as ICON_COLOR } from '../utils/Constants'
+import '../styles/materialize-src/sass/materialize.scss'
 // TODO : migrate to redux...
 import axios from 'axios'
 const SERVER = process.env.REACT_APP_SERVER
@@ -88,26 +89,33 @@ class Login extends Component {
         <div className='flex-space-between'>
           <div className='flex-space-between flex-align' style={{width: '100%'}}>
             <AccountCircle fill={ICON_COLOR} size={40}/>
-            <input
-                  style={{marginTop: '1rem'}}
-                  placeholder="Email" 
-                  type='email' 
-                  value={this.state.email}
-                  onChange={(e) => this.setState({ email: e.target.value})} />
+            <div className='input-field'>
+              <input
+                    type='email'
+                    id='email_input' 
+                    value={this.state.email}
+                    onChange={(e) => this.setState({ email: e.target.value})} />
+              <label for="email_input">Email</label>
+            </div>
+            
           </div>
           <div className='flex-space-between flex-align' style={{width: '100%'}}>
             <LockPlus fill={ICON_COLOR} size={40}/>
-            <input
-                    style={{marginTop: '1rem'}}
-                    placeholder="Password" 
-                    type='password'
-                    value={this.state.password}
-                    onChange={(e) => this.setState({password: e.target.value})}/>
+            <div className='input-field'>
+              <input
+                      id={'password_input'}                    
+                      type='password'
+                      value={this.state.password}
+                      onChange={(e) => this.setState({password: e.target.value})}/>
+              <label for="password_input">Password</label>
+            </div>
           </div>
         </div>
         <div>
           <div className='flex-center'>
-            <button className='btn' onClick={this.handleLogin}>SUBMIT</button>
+            <button 
+              className='btn #03a9f4 light-blue waves-light waves-effect' 
+              onClick={this.handleLogin}>SUBMIT</button>
           </div>
         </div>
       </div>

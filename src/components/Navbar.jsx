@@ -4,7 +4,7 @@ import {ReactComponent as MailOutline} from '../images/EmailOutline.svg'
 import {ReactComponent as ViewModule} from '../images/ViewModule.svg'
 import {ReactComponent as AccountCircle} from '../images/AccountCircle.svg'
 import {ReactComponent as ExitToApp} from '../images/ExitToApp.svg'
-import { ICON_COLOR } from '../utils/Constants'
+import { ICON_COLOR_GRAY as ICON_COLOR } from '../utils/Constants'
 
 const navBorderStyles = {
   display: "block",

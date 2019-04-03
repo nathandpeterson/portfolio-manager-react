@@ -21,4 +21,5 @@ export const fieldConfig = [
   {label: 'DESCRIPTION', fieldName: 'description'},
 ]
 
-export const ICON_COLOR =  '#707070'
+export const ICON_COLOR_GRAY =  '#707070'
+export const ICON_COLOR_WHITE = '#FFFFFF'

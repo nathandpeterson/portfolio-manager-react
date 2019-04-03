@@ -8,7 +8,7 @@ import { fieldConfig } from '../../utils/Constants'
 import {ReactComponent as RotateRight} from '../../images/RotateRight.svg'
 import {ReactComponent as RotateLeft} from '../../images/RotateLeft.svg'
 import {ReactComponent as Edit} from '../../images/SquareEditOutline.svg'
-
+import { ICON_COLOR_WHITE as ICON_COLOR } from '../../utils/Constants'
 
 class ImageManagerCard extends Component {
 
@@ -58,11 +58,11 @@ class ImageManagerCard extends Component {
       <div className='flex-space-between'>
         <button className='btn #03a9f4 light-blue flex-align' 
                 onClick={() => this.handleRotation(-90)}>
-          <RotateLeft />
+          <RotateLeft fill={ICON_COLOR}/>
         </button>
         <button className='btn #03a9f4 light-blue flex-align'
                 onClick={() => this.handleRotation(90)}>
-          <RotateRight />
+          <RotateRight fill={ICON_COLOR}/>
         </button>   
       </div>
     )
@@ -107,10 +107,10 @@ class ImageManagerCard extends Component {
           </div>
         
           {editMode ? '' :   
-      <div className='flex-space-between'>
+      <div className='flex-space-between flex-align'>
         <button className='#03a9f4 light-blue btn flex-align'
                 onClick={() => this.toggleEditMode(true)}>
-          <Edit />
+          <Edit fill={ICON_COLOR}/>
         </button>
         <button className='#03a9f4 light-blue btn'
                 onClick={() => {

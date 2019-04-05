@@ -13,6 +13,7 @@ import EmailForm from './components/Forms/EmailForm'
 import Homepage from './components/Homepage'
 import AboutArtist from './components/AboutArtist'
 import SortAlbum from './components/SortAlbum'
+import './styles/materialize-src/sass/materialize.scss'
 
 const cloud_name = process.env.REACT_APP_CLOUD_NAME
 

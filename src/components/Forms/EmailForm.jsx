@@ -3,6 +3,7 @@ import Nav from '../Nav'
 import { sendEmail } from '../../actions'
 import { connect } from 'react-redux'
 import { ReactComponent as MailOutline } from '../../images/EmailOutline.svg'
+import '../../styles/materialize-src/sass/materialize.scss'
 
 class EmailForm extends Component {
 

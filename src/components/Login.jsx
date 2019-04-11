@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import {ReactComponent as LockPlus} from '../images/LockPlus.svg'
 import {ReactComponent as AccountCircle} from '../images/AccountCircle.svg'
 import { ICON_COLOR_GRAY as ICON_COLOR } from '../utils/Constants'
+import '../styles/materialize-src/sass/materialize.scss'
 // TODO : migrate to redux...
 import axios from 'axios'
 const SERVER = process.env.REACT_APP_SERVER

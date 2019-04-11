@@ -108,7 +108,7 @@ class PhotoCard extends Component {
             
             <Image id={publicId} 
                 className='full-image'
-                width='65%'
+                width='55%'
                 style={this.rotateStyle(angle)} 
                 publicId={publicId}
                 alt={name ? name : 'Painting By Stephen Rawls'}

@@ -5,6 +5,7 @@ import { Transition } from 'react-transition-group'
 import Nav from '../Nav'
 import { saveAlbum, fetchOneAlbum, updateAlbum, deleteAlbum } from '../../actions'
 import { connect } from 'react-redux'
+import '../../styles/materialize-src/sass/materialize.scss'
 
 Modal.setAppElement('#root')
 

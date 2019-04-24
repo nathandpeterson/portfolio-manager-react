@@ -43,14 +43,14 @@ class ImageForm extends Component {
   }
 
   cleanData = (data) => {
-    const { image_id, album_id, updated_at, created_at, ...cleanedData } = data
+    const { image_id, album_id, updated_at, created_at, deleteConfirmation, ...cleanedData } = data
     return {...cleanedData, albumId: album_id}
   }
 
   handleUpload = (cloudinaryResultArray) => {
     if(cloudinaryResultArray){
       cloudinaryResultArray.forEach(result => {
-        const { message, ...cleanedState } = this.state
+        const { message, deleteConfirmation, ...cleanedState } = this.state
         this.props.uploadImage({...cleanedState, publicId: result.public_id})
       })
     }
@@ -103,7 +103,7 @@ class ImageForm extends Component {
           
           <button className='btn #03a9f4 light-blue' 
                   onClick={() => {
-                    const { message, ...cleanedState } = this.state
+                    const { message, deleteConfirmation, ...cleanedState } = this.state
                     this.props.uploadImage(cleanedState, () => this.success())
           }}> SAVE
           </button>

@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react'
 import { uploadImageName, fetchAlbums, fetchOneAlbum, deleteImage } from '../../actions'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import '../../styles/materialize-src/sass/materialize.scss'
 
 const cloud_name = process.env.REACT_APP_CLOUD_NAME
 const upload_preset = process.env.REACT_APP_UPLOAD_PRESET

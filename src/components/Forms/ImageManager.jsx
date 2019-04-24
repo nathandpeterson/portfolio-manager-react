@@ -5,7 +5,6 @@ import { Preloader } from '../../shared'
 import { fetchOneAlbum, getInformation } from '../../actions'
 import ImageForm from './ImageForm'
 import ImageManagerCard from './ImageManagerCard'
-import '../../styles/materialize-src/sass/materialize.scss'
 
 class ImageManager extends Component {
 

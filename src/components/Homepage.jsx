@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Image, Transformation } from 'cloudinary-react'
 import Nav from './Nav'
@@ -6,7 +6,11 @@ import { getInformation } from '../actions'
 import { Preloader } from '../shared'
 import { withRouter } from 'react-router-dom'
 
-class Homepage extends PureComponent {
+class Homepage extends Component {
+
+  state = {
+    exiting: false
+  }
 
   async componentDidMount(){
     await this.props.fetchInformation()
@@ -18,19 +22,28 @@ class Homepage extends PureComponent {
         <Preloader />
       </div>
   )}
+
+  handleExit = () => {
+    this.setState({ exiting: true })
+    setTimeout(() => {
+      this.setState({ exiting: false })
+      this.props.history.push('/collections')
+    }, 400)
+  }
   
 
   render(){
     const { homepage_image } = this.props.information
+    const { exiting } = this.state
     return (
       <div>
       <Nav/>
       <div  className='flex-center' 
             style={{marginTop: '3rem'}} 
-            onClick={() => this.props.history.push('/collections')}>
+            onClick={this.handleExit}>
         {homepage_image ?
           <Image
-              className='full-image'  
+              className={`full-image ${exiting ? 'big-exit' : ''}`}  
               width='500px'
               alt={'Painting by Stephen Rawls'}
               style={{alignSelf: 'center'}}

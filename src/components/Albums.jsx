@@ -91,7 +91,7 @@ class Albums extends Component {
             Click to view paintings
           </h5>
         </div>     */}
-        <div className='album-flex-container'>
+        <div className='album-flex-container albums-enter'>
           {albumsSortedByLastUpdated.map(this.renderAlbum)}
          
         </div>

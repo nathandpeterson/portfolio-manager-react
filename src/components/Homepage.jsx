@@ -39,24 +39,20 @@ class Homepage extends Component {
       <div>
       <Nav/>
       <div  className='flex-center' 
-            style={{marginTop: '3rem'}} 
+            style={{marginTop: '1rem'}} 
             onClick={this.handleExit}>
         {homepage_image ?
           <Image
               className={`full-image ${exiting ? 'big-exit' : ''}`}  
-              width='500px'
+              height='500px'
               alt={'Painting by Stephen Rawls'}
               style={{alignSelf: 'center'}}
               publicId={homepage_image}>
-              <Transformation width="500" height="auto" dpr="auto" />
+              <Transformation height="500" width="auto" dpr="auto" />
               <Transformation quality="60" />
           </Image> :
           this.renderSpinner()
         }
-      </div>
-      <div  className='flex-center animated fadeIn heading-secondary'
-            onClick={() => this.props.history.push('/collections')}>
-          Click to view paintings
       </div>
     </div>
     )

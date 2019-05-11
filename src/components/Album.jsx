@@ -1,36 +1,48 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Image, Transformation } from 'cloudinary-react'
 import { Preloader } from '../shared'
 import Nav from './Nav'
 import { Link, withRouter } from 'react-router-dom'
-import { fetchOneAlbum } from '../actions'
+import { fetchOneAlbum, fetchAlbums } from '../actions'
 import { connect } from 'react-redux'
+import axios from 'axios'
 
-class Album extends Component {
+const SERVER = process.env.REACT_APP_SERVER
 
-  componentDidMount = async () => {
-    const { id } = this.props.match.params
-    await this.props.fetchOneAlbum(id)
-  }
+const Album = ({ match, history, albums }) => {
 
-  renderManageButton(){
+  const [currentAlbums, setAllAlbums] = useState(null)
+
+  useEffect(() => {
+    async function fetchData(id){
+      const { data } = await axios.get(`${SERVER}/albums`)
+      setAllAlbums(data)
+    }
+    if(!albums || !albums.length){
+     fetchData(match.params.id)
+    } else {
+      setAllAlbums(albums)
+    }
+  }, [])
+
+  function renderManageButton () {
     const token = localStorage.getItem('token')
     if(!token) {
       return <div />
     } else {
-      const { id } = this.props.match.params
+      const { id } = match.params
       return (
-        <div className='flex-space-around' style={{marginTop: '2rem'}}>
+        <div className='flex-space-around' style={{marginTop: '1rem'}}>
           <button className='btn #03a9f4 light-blue waves-light waves-effect'
-                  onClick={() => this.props.history.push(`/collections/${id}/manageImages`)}>
+                  onClick={() => history.push(`/collections/${id}/manageImages`)}>
             EDIT COLLECTION IMAGES
           </button>
           <button className='btn #03a9f4 light-blue waves-light waves-effect'
-                   onClick={() => this.props.history.push(`/collections/${id}/sortImages`)}>
+                   onClick={() => history.push(`/collections/${id}/sortImages`)}>
             SORT IMAGES
           </button>
           <button className='btn #03a9f4 light-blue waves-light waves-effect'
-                  onClick={() => this.props.history.push(`/collections/${id}/manageCollection`)}
+                  onClick={() => history.push(`/collections/${id}/manageCollection`)}
           >
           EDIT COLLECTION INFORMATION
           </button>
@@ -39,14 +51,17 @@ class Album extends Component {
     }
   }
 
-  handleRotation = angle => {
+  function handleRotation (angle){
     const angleStyle = angle ? 
       {transform: `rotate(${angle}deg)`} : {}
       return angleStyle
   }
 
-  renderImages(){
-    const { album, album : { images } } = this.props
+  function renderImages(){
+    const thisAlbum = currentAlbums.find(albumInState => {
+      return albumInState.id === Number(match.params.id)
+    })
+    const { images } = thisAlbum
     const sortedImages = images.sort((a, b) => a.sortOrder - b.sortOrder)
     return (
         <div className='album-flex-container'>
@@ -54,14 +69,13 @@ class Album extends Component {
           const { publicId, id, angle, name } = image
           return (
             <div key={publicId} style={{ padding: '2.5rem .5rem' }}>
-              <Link to={`/${album.id}/${id}`} >
+              <Link to={`/${thisAlbum.id}/${id}`} >
                 <Image 
                   publicId={publicId} 
                   width='auto' 
                   height='180px' 
-                  style={this.handleRotation(angle)}
-                  alt={name ? name : 'Painting by Stephen Rawls'}
-                  >
+                  style={handleRotation(angle)}
+                  alt={name ? name : 'Painting by Stephen Rawls'}>
                   <Transformation height="180" width="auto" />
                   <Transformation quality="30" />
                 </Image>
@@ -70,11 +84,10 @@ class Album extends Component {
             )}
           )}
         </div>
-    )
-  }
+      )
+    }
 
-  render() {
-    if(!this.props.album.id) return (
+    if(!currentAlbums || !currentAlbums.length) return (
     <div className='flex-center'>
       <Preloader/>
     </div>
@@ -85,20 +98,20 @@ class Album extends Component {
         <div >
           <Nav />
         </div>
-        {this.renderManageButton()}
-        {this.renderImages()}
+        {renderManageButton()}
+        {renderImages()}
       </div>
     )
-  }
 }
 
 const mapStateToProps = state => {
-  return { album: state.album }
+  return { album: state.album, albums: state.albums }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchOneAlbum: (id) => { dispatch(fetchOneAlbum(id)) }
+    fetchOneAlbum: (id) => { dispatch(fetchOneAlbum(id)) },
+    fetchAlbums: () => dispatch(fetchAlbums())
   }
 }
 

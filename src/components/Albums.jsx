@@ -26,31 +26,34 @@ class Albums extends Component {
     return { angle: 0, name: '' }
   }
 
+  handleClick = (id) => {
+    console.log('clicking', Date.now())
+    this.props.history.push(`/collections/${id}`)
+  }
+
   renderAlbum = ({id, album_name, key_image_id, images, album_description }) => {
     const { angle, name } = this.getDataForKeyAlbumImage(images, key_image_id)
 
     return (
-      <Link to={`/collections/${id}`}
-            key={`albums-${id}`} 
-            onClick={() => this.props.fetchOneAlbum(id)
-            }>
-        <div key={`album-${id}`} className='album-card animated fadeIn'>
-          <Image 
-            style={this.handleRotation(angle)} 
-            publicId={key_image_id} width='450px'
-            alt={name ? name : 'Painting By Stephen Rawls'}
-          >
-            <Transformation quality="30" />
-            <Transformation width='450' height="auto" />
-          </Image>
-          <div>
-            {album_name}
-          </div>
-          <div>
-            {album_description}
-          </div>
+      <div 
+        key={`album-${id}`} 
+        className='album-card'
+        onClick={() =>this.handleClick(id)}>
+        <Image 
+          style={this.handleRotation(angle)} 
+          publicId={key_image_id} width='450px'
+          alt={name ? name : 'Painting By Stephen Rawls'}
+        >
+          <Transformation quality="30" />
+          <Transformation width='450' height="auto" />
+        </Image>
+        <div>
+          {album_name}
         </div>
-      </Link>   
+        <div>
+          {album_description}
+        </div>
+      </div>
     )
   }
 
@@ -76,7 +79,7 @@ class Albums extends Component {
     
     const { albums } = this.props
     const albumsSortedByLastUpdated = this.sortByUpdate(albums)
-   
+    
     return (
       <div>
         <Nav />

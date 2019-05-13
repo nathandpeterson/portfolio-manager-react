@@ -27,7 +27,6 @@ class Albums extends Component {
   }
 
   handleClick = (id) => {
-    console.log('clicking', Date.now())
     this.props.history.push(`/collections/${id}`)
   }
 
@@ -44,7 +43,7 @@ class Albums extends Component {
           publicId={key_image_id} width='450px'
           alt={name ? name : 'Painting By Stephen Rawls'}
         >
-          <Transformation quality="30" />
+          <Transformation quality="25" />
           <Transformation width='450' height="auto" />
         </Image>
         <div>

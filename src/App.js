@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { CloudinaryContext } from 'cloudinary-react'
 import './styles/App.css'
+import './styles/Album.scss'
 import { MetaHeaders } from './metaheaders/MetaHeaders'
 import 'materialize-css/dist/css/materialize.min.css'
 import { Router } from './components/Router'

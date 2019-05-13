@@ -137,3 +137,12 @@
     transform: translateY(0%);
   }
 }
+
+.album-image-thumbnail-text {
+  display: flex;
+  justify-content: center;
+  transform: translateY(-150px);
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+}

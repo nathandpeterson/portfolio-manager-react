@@ -58,40 +58,46 @@ const Album = ({ match, history, albums }) => {
   }
 
   function renderImages(){
+    if(!currentAlbums || !currentAlbums.length) return (
+      <div className='flex-center marginDown'>
+        <Preloader/>
+      </div>
+    )
     const thisAlbum = currentAlbums.find(albumInState => {
       return albumInState.id === Number(match.params.id)
     })
     const { images } = thisAlbum
     const sortedImages = images.sort((a, b) => a.sortOrder - b.sortOrder)
     return (
-        <div className='album-flex-container'>
+        <div className='album-grid-container'>
         {sortedImages && sortedImages.map((image) => {
           const { publicId, id, angle, name } = image
           return (
-            <div key={publicId} style={{ padding: '2.5rem .5rem' }}>
+            <div 
+              key={publicId} 
+              className={'album-image-thumbnail'}
+            >
               <Link to={`/${thisAlbum.id}/${id}`} >
                 <Image 
                   publicId={publicId} 
-                  width='auto' 
-                  height='180px' 
+                  width='325px' 
+                  height='auto' 
                   style={handleRotation(angle)}
                   alt={name ? name : 'Painting by Stephen Rawls'}>
-                  <Transformation height="180" width="auto" />
-                  <Transformation quality="30" />
+                  <Transformation height="auto" width="325" />
+                  <Transformation quality="10" />
                 </Image>
               </Link>
+              <div onClick={() => history.push(`/${thisAlbum.id}/${id}`)}
+                className={'album-image-thumbnail-text'}> 
+                  {name} 
+              </div>
             </div>
             )}
           )}
         </div>
       )
     }
-
-    if(!currentAlbums || !currentAlbums.length) return (
-    <div className='flex-center'>
-      <Preloader/>
-    </div>
-    )
   
     return (
       <div>

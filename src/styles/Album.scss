@@ -1,0 +1,43 @@
+.album-grid-container {
+  margin: 2rem;
+  display: grid;
+  grid-template-columns:repeat(auto-fill, 325px);
+  grid-column-gap: 10px;
+  grid-row-gap: 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+.album-image-thumbnail-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #303030;
+  font-size: 18px;
+  font-weight: 600;
+  opacity: 0;
+  transition: 1.5s all;
+}
+
+.album-image-thumbnail {
+  position: relative;
+
+  &:hover {
+    transform: scale(1.12);
+    z-index: 10;
+    transform-origin: center;
+    transition: 1s all;
+
+    .album-image-thumbnail-text {
+      opacity: 1;
+    }
+  }
+  
+  & > *:hover {
+    filter: opacity(50%);
+    transition: 1s all;
+    cursor: pointer;
+  }
+}
+

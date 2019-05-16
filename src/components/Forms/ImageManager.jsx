@@ -8,7 +8,7 @@ import ImageManagerCard from './ImageManagerCard'
 
 class ImageManager extends Component {
 
-  constructor(){
+  constructor() {
     super()
 
     this.state = {
@@ -21,7 +21,7 @@ class ImageManager extends Component {
 
   async componentDidMount() {
     const { id } = this.props.match.params
-    if(this.props.album.id !== id){
+    if (this.props.album.id !== id) {
       await this.props.fetchOneAlbum(id)
     }
     await this.props.fetchInformation()
@@ -30,16 +30,16 @@ class ImageManager extends Component {
   renderImages = () => {
     const { images } = this.props.album
     const sortedImages = images.sort((a, b) => a.sortOrder - b.sortOrder)
-    if(!images) return <div />
+    if (!images) return <div />
     return (
       <div className='album-card'>
         {sortedImages.map(imageData => {
           return <ImageManagerCard
-                    key={imageData.id} 
-                    imageData={imageData} 
-                    albumData={this.props.album} />
+            key={imageData.id}
+            imageData={imageData}
+            albumData={this.props.album} />
         }
-      )}
+        )}
       </div>
     )
   }
@@ -48,47 +48,50 @@ class ImageManager extends Component {
     return (
       <div className='flex-center'>
         <Preloader />
-      </div>       
+      </div>
     )
   }
+  toggleForm = () => {
+    this.setState({ addingNewImage: !this.state.addingNewImage })
+  }
 
-  render(){
-    if(!this.props.album.id) {
+  render() {
+    if (!this.props.album.id) {
       return this.renderSpinner()
     }
     const { albumId, images } = this.props.album
-  
+
     return (
       <div>
         <Nav />
-          {images ? this.renderImages() : this.renderSpinner()}
+        {this.state.addingNewImage && <ImageForm
+          exists={false}
+          albumId={albumId}
+          updateAlbumState={this.updateAlbumState}
+          toggleForm={this.toggleForm}
+          />
+        }
         <div className='flex-center'>
-          <button   className='btn #03a9f4 light-blue'
-                    onClick={() => {
-                      this.setState({addingNewImage: !this.state.addingNewImage})
-                                  }}>Add an image to the COLLECTION
+          <button className='btn #03a9f4 light-blue'
+            onClick={this.toggleForm}>Add an image to the COLLECTION
           </button>
         </div>
-        {this.state.addingNewImage ?
-          <ImageForm
-            exists={false} 
-            albumId={albumId} 
-            updateAlbumState={this.updateAlbumState} />
-          : ''
-        }
+        {images ? this.renderImages() : this.renderSpinner()}
+
       </div>
     )
   }
 }
 
 const mapDispatchToProps = dispatch => (
-  { fetchOneAlbum: (id) => { dispatch(fetchOneAlbum(id)) },
-    fetchInformation: () => dispatch(getInformation()) 
+  {
+    fetchOneAlbum: (id) => { dispatch(fetchOneAlbum(id)) },
+    fetchInformation: () => dispatch(getInformation())
   }
 )
 
 const mapStateToProps = state => (
-  { album: state.album }
+  { album : state.album }
 )
 
 export default connect(mapStateToProps, mapDispatchToProps)(ImageManager)

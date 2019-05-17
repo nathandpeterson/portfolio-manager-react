@@ -102,6 +102,7 @@ class ImageManagerCard extends Component {
                         editMode={editMode}
                         toggleEditMode={this.toggleEditMode}
                         angle={this.state.angle}
+                        setModalMessage={this.props.setModalMessage}
                         imageData={this.props.imageData}/> : 
             fieldConfig.map(field => this.renderImageData(field, this.props.imageData))}
           </div>

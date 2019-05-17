@@ -13,13 +13,13 @@ const AlbumReducer = (album = {}, action) => {
     }
     case DELETE_IMAGE : {
       const { id } = action.payload
-      const filteredImages = album.images.filter(image => image.id !== id)
+      const filteredImages = album.images.filter(image => Number(image.id) !== Number(id))
       const albumCopy = { ...album }
       albumCopy.images = filteredImages
       return {...albumCopy}
     }
     case UPLOAD_IMAGE_NAME: {
-      const newImages = [...album.images].filter(image => image.id !== action.payload.id)
+      const newImages = [...album.images].filter(image => Number(image.id) !== Number(action.payload.id))
       const imagesWithPayload = [...newImages, action.payload]
       const newAlbum = {...album, images: imagesWithPayload}
       return newAlbum

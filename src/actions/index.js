@@ -58,27 +58,24 @@ export const updateHomeImage = (imageId, cb) => {
 export const uploadImageName = (imageData, cb) => {
   const token = localStorage.getItem('token')
   const { id } = imageData
+ 
   const postURL = id ? `${SERVER}/images/${id}` : `${SERVER}/images`
-  return async (dispatch, getState) => {
-    const { data } = await axios.post(postURL, 
-      {...imageData}, {headers: { ...HEADERS, token }} )
-    
+  return async (dispatch) => {
+    let { data } = await axios.post(postURL, 
+      {...imageData}, 
+      {headers: { ...HEADERS, token }}
+      )
+    // when updating an existing image, server responds with correct data
+    // when adding a new image, imageData is nested as the imageData key on response
+    if(data.imageData) {
+      data = imageData
+    }
     dispatch({
       type: UPLOAD_IMAGE_NAME,
       payload : data
     })
-    const { uploadImage, album } = getState()
-    if(uploadImage.id){
-      const imageCopy = [...album.images]
-      const imagesWithoutUpdatedImage = imageCopy.filter(image => image.id !== uploadImage.id)
-      const newAlbum = {...album}
-      newAlbum.images = [...imagesWithoutUpdatedImage, uploadImage]
-      dispatch({
-        type: UPDATE_ALBUM,
-        payload: newAlbum
-      })
-    }
-    cb ? cb() : console.log('no callback')
+
+    cb ? cb('Success!') : console.log('no callback')
   }
 }
 
@@ -91,7 +88,7 @@ export const deleteImage = (imageId, cb) => {
     type: DELETE_IMAGE,
     payload : data
   })
-  cb ? cb() : console.log('no callback')
+  cb ? cb('Image Successfully Deleted') : console.log('no callback')
   }
 }
 

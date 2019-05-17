@@ -5,6 +5,10 @@ import { Preloader } from '../../shared'
 import { fetchOneAlbum, getInformation } from '../../actions'
 import ImageForm from './ImageForm'
 import ImageManagerCard from './ImageManagerCard'
+import Modal from 'react-modal'
+import { Transition } from "react-transition-group"
+
+Modal.setAppElement('#root')
 
 class ImageManager extends Component {
 
@@ -15,7 +19,7 @@ class ImageManager extends Component {
       images: [],
       albumId: '',
       addingNewImage: false,
-      hasChanged: false
+      message: ''
     }
   }
 
@@ -24,7 +28,6 @@ class ImageManager extends Component {
     if (this.props.album.id !== id) {
       await this.props.fetchOneAlbum(id)
     }
-    await this.props.fetchInformation()
   }
 
   renderImages = () => {
@@ -37,22 +40,32 @@ class ImageManager extends Component {
           return <ImageManagerCard
             key={imageData.id}
             imageData={imageData}
-            albumData={this.props.album} />
+            albumData={this.props.album}
+            setModalMessage={this.setModalMessage}
+            toggleEditMode={this.toggleEditMode}
+            />
         }
         )}
       </div>
     )
   }
 
-  renderSpinner = () => {
-    return (
-      <div className='flex-center'>
-        <Preloader />
-      </div>
+  renderSpinner = () => (
+    <div className='flex-center'>
+      <Preloader />
+    </div>
     )
+
+
+  setModalMessage = (message) => {
+    this.setState({ message })
+    setTimeout(() => {
+      this.setState({ message: '', addingNewImage: false })
+    }, 700);
   }
-  toggleForm = () => {
-    this.setState({ addingNewImage: !this.state.addingNewImage })
+
+  toggleEditMode = (boolean) => {
+    this.setState({addingNewImage: boolean})
   }
 
   render() {
@@ -64,20 +77,42 @@ class ImageManager extends Component {
     return (
       <div>
         <Nav />
-        {this.state.addingNewImage && <ImageForm
-          exists={false}
-          albumId={albumId}
-          updateAlbumState={this.updateAlbumState}
-          toggleForm={this.toggleForm}
-          />
+        {this.state.addingNewImage && 
+          <ImageForm
+            exists={false}
+            albumId={albumId}
+            updateAlbumState={this.updateAlbumState}
+            setModalMessage={this.setModalMessage}
+            toggleEditMode={this.toggleEditMode}
+            />
         }
         <div className='flex-center'>
           <button className='btn #03a9f4 light-blue'
-            onClick={this.toggleForm}>Add an image to the COLLECTION
+            onClick={() => this.setState({addingNewImage: !this.state.addingNewImage})}>
+            Add an image to the COLLECTION
           </button>
         </div>
         {images ? this.renderImages() : this.renderSpinner()}
 
+        <Transition
+          in={this.state.message}
+          timeout={500}>
+          {state => {
+            return (
+              <Modal
+                contentLabel={''}
+                isOpen={this.state.message}
+                closeTimeoutMS={500}
+                className={`modal-container modal-container-${state}`}
+              >
+                <div className='flex-center header'>
+                  <h4>{this.state.message}</h4>
+                </div>
+              </Modal>
+            )
+          }
+          }
+        </Transition>
       </div>
     )
   }

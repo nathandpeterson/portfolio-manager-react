@@ -2,15 +2,10 @@ import React, { Component, Fragment } from 'react'
 import { uploadImageName, fetchAlbums, fetchOneAlbum, deleteImage } from '../../actions'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import Modal from 'react-modal'
-import { Transition } from "react-transition-group"
-
-Modal.setAppElement('#root')
 
 class ImageForm extends Component {
   constructor() {
     super()
-
     this.state = this.initialState
   }
 
@@ -19,7 +14,6 @@ class ImageForm extends Component {
     description: '',
     size: '',
     date: '',
-    message: '',
     deleteConfirmation: false
   }
 
@@ -50,34 +44,25 @@ class ImageForm extends Component {
   handleUpload = (cloudinaryResultArray, cb) => {
     if (cloudinaryResultArray) {
       cloudinaryResultArray.forEach(result => {
-        const { message, deleteConfirmation, ...cleanedState } = this.state
+        const { deleteConfirmation, ...cleanedState } = this.state
         this.props.uploadImage({ ...cleanedState, publicId: result.public_id }, cb)
       })
     }
   }
 
   handleClick = () => {
-
     const cloud_name = process.env.REACT_APP_CLOUD_NAME
     const upload_preset = process.env.REACT_APP_UPLOAD_PRESET
 
     window.cloudinary.openUploadWidget({ cloud_name, upload_preset },
       (error, result) => {
         if (result) {
-          return this.handleUpload(result, this.success)
+          return this.handleUpload(result, this.props.setModalMessage)
+        } else {
+          this.props.setModalMessage('Error')
+          console.log('error', error)
         }
-
       })
-  }
-
-  success = () => {
-    this.setState({ message: 'Success!' })
-    setTimeout(() => {
-      if (this.props.toggleEditMode) {
-        this.props.toggleEditMode(false)
-      }
-      this.setState({ message: '' })
-    }, 1000);
   }
 
   imageDataConfig = [
@@ -113,8 +98,8 @@ class ImageForm extends Component {
 
           <button className='btn #03a9f4 light-blue'
             onClick={() => {
-              const { message, deleteConfirmation, ...cleanedState } = this.state
-              this.props.uploadImage(cleanedState, this.success)
+              const { deleteConfirmation, ...cleanedState } = this.state
+              this.props.uploadImage(cleanedState, this.props.setModalMessage)
             }}> SAVE
           </button>
         </div>
@@ -123,15 +108,8 @@ class ImageForm extends Component {
       </Fragment>
     )
   }
-  handleDelete() {
-    return this.props.deleteImage(this.state.id, () => this.deleteSuccess())
-  }
-
-  deleteSuccess() {
-    this.setState({ deleteConfirmation: false, message: 'Success' })
-    setTimeout(() => {
-      this.setState({ message: '' })
-    }, 700);
+  handleDelete(cb) {
+    return this.props.deleteImage(this.state.id, cb)
   }
 
   renderDeleteButton() {
@@ -143,7 +121,7 @@ class ImageForm extends Component {
             <button className={`btn ${deleteConfirmation ? "red" : "grey"}`}
               onClick={() => {
                 if (deleteConfirmation) {
-                  this.handleDelete()
+                  this.handleDelete(this.props.setModalMessage)
                 } else {
                   this.setState({ deleteConfirmation: true })
                 }
@@ -173,31 +151,12 @@ class ImageForm extends Component {
           <button
            className='btn grey'
            waves='light'
-           onClick={this.props.toggleForm}
+           onClick={() => this.props.toggleEditMode(false)}
            >
             CANCEL
           </button>
         </Fragment>
         }
-        <Transition
-          in={this.state.message}
-          timeout={500}>
-          {state => {
-            return (
-              <Modal
-                contentLabel={'Log in'}
-                isOpen={this.state.message}
-                closeTimeoutMS={500}
-                className={`modal-container modal-container-${state}`}
-              >
-                <div className='flex-center header'>
-                  <h4>{this.state.message}</h4>
-                </div>
-              </Modal>
-            )
-          }
-          }
-        </Transition>
       </div>
     )
   }
@@ -207,7 +166,7 @@ const mapDispatchToProps = dispatch => (
   {
     uploadImage: (data, cb) => dispatch(uploadImageName(data, cb)),
     fetchAlbums: () => dispatch(fetchAlbums()),
-    fetchOneAlbum: (id) => { dispatch(fetchOneAlbum(id)) },
+    fetchOneAlbum: (id) => dispatch(fetchOneAlbum(id)),
     deleteImage: (id, cb) => dispatch(deleteImage(id, cb))
   }
 )

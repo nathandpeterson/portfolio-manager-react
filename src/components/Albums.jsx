@@ -88,11 +88,6 @@ class Albums extends Component {
             Collections
           </h4>
         </div>
-        {/* <div className='flex-center'>
-          <h5 className='heading-secondary animated pulse'>
-            Click to view paintings
-          </h5>
-        </div>     */}
         <div className='album-flex-container albums-enter'>
           {albumsSortedByLastUpdated.map(this.renderAlbum)}
          

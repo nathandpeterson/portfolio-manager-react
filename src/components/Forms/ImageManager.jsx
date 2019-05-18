@@ -32,7 +32,7 @@ class ImageManager extends Component {
 
   renderImages = () => {
     const { images } = this.props.album
-    const sortedImages = images.sort((a, b) => a.sortOrder - b.sortOrder)
+    const sortedImages = images.sort((a, b) => a.sortPosition - b.sortPosition)
     if (!images) return <div />
     return (
       <div className='album-card'>

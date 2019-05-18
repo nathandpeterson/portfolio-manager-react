@@ -67,7 +67,8 @@ const Album = ({ match, history, albums }) => {
       return albumInState.id === Number(match.params.id)
     })
     const { images } = thisAlbum
-    const sortedImages = images.sort((a, b) => a.sortOrder - b.sortOrder)
+    const sortedImages = images.sort((a, b) => a.sortPosition - b.sortPosition)
+   
     return (
         <div className='album-grid-container'>
         {sortedImages && sortedImages.map((image) => {

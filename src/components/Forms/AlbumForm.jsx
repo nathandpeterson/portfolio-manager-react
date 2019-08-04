@@ -46,7 +46,7 @@ class AlbumForm extends Component {
       this.setState({message: 'SAVING'})
       await this.props.handleUpload({album_name, album_description}, this.success())
     } else {
-      const {message, ...albumData} = this.state
+      const {message, showModal, ...albumData} = this.state
       await this.props.updateAlbum(albumData, this.success())
     }
   }

@@ -48,9 +48,9 @@ class Navbar extends PureComponent {
       )
     } else {
       return (
-          <Link style={iconStyle} to='/contact'>
+          <a target="_blank" href={`mailto:s2rawls@gmail.com`} style={iconStyle}>
             <MailOutline fill={ICON_COLOR} />
-          </Link>
+          </a>
       )
     }
   }

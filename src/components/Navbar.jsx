@@ -48,7 +48,7 @@ class Navbar extends PureComponent {
       )
     } else {
       return (
-          <a target="_blank" href={`mailto:s2rawls@gmail.com`} style={iconStyle}>
+          <a target="_blank" href={`mailto:s2rawls@gmail.com`} rel="noopener noreferrer" style={iconStyle}>
             <MailOutline fill={ICON_COLOR} />
           </a>
       )

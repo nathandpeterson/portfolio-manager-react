@@ -25,9 +25,10 @@ class PhotoCard extends Component {
 
   componentDidUpdate(prevProps) {
     if(this.props.album !== prevProps.album){
-      const { images } = this.props.album
+      const { images } = this.props.album;
+      const sortedImages = images.sort((a, b) => a.sortPosition - b.sortPosition)
       const {isFirst, isLast} = this.isFirstOrLastInAlbum(this.props.album.images, this.props.match.params.id)
-      this.setState({images, isFirst, isLast})
+      this.setState({images: sortedImages, isFirst, isLast})
     }
   }
 
@@ -94,7 +95,7 @@ class PhotoCard extends Component {
     const { album: { images } , match : { params : { id } } } = this.props
     const selectedImage = images.find(image => parseInt(image.id, 10) === parseInt(id, 10))
     const { publicId, angle, name } = selectedImage
-    const { isFirst, isLast } = this.isFirstOrLastInAlbum(images, id)
+    const { isFirst, isLast } = this.isFirstOrLastInAlbum(images, id);
     return (
       <div key={publicId}>
           <Nav />

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Nav from './Nav'
 import { Image, Transformation } from 'cloudinary-react'
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { fetchAlbums, fetchOneAlbum } from '../actions'
 import { connect } from 'react-redux'
 

@@ -41,8 +41,10 @@
   }
 
   .nav-button-inactive {
-    color: #ddd;
     cursor: default;
     pointer-events: none;
+  }
+  .nav-button-inactive svg {
+      fill: #ddd;
   }
 } 

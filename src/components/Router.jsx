@@ -1,6 +1,5 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import PhotoCard from './PhotoCard'
 import Albums from './Albums'
 import Album from './Album'
 import AlbumForm from './Forms/AlbumForm'
@@ -10,6 +9,7 @@ import EmailForm from './Forms/EmailForm'
 import Homepage from './Homepage'
 import AboutArtist from './AboutArtist'
 import SortAlbum from './SortAlbum'
+import { FullPhoto } from './FullPhoto';
 
 export const Router = () => (
   <BrowserRouter>
@@ -37,7 +37,7 @@ export const Router = () => (
             <Route
                 exact
                 path="/:albumId/:id"
-                component={PhotoCard} />
+                component={FullPhoto} />
             <Route
                 exact
                 path="/collections/:id/manageCollection"

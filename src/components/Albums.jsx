@@ -58,7 +58,7 @@ class Albums extends Component {
 
   renderAddAlbumButton = () => (
     <div className='flex-center'>
-      <button     large
+      <button
         className='btn #03a9f4 light-blue waves-effect waves-light' 
         waves='light' 
         onClick={() => this.props.history.push('/collections/new')}>

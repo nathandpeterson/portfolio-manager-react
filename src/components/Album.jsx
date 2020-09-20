@@ -89,8 +89,7 @@ const Album = ({ match, history, albums }) => {
                   <Transformation quality="10" />
                 </Image>
               </Link>
-              <div onClick={() => history.push(`/${thisAlbum.id}/${id}`)}
-                className={'album-image-thumbnail-text'}> 
+              <div className={'album-image-thumbnail-text'}> 
                   {name} 
               </div>
             </div>

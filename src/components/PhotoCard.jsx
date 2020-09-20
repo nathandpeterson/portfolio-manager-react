@@ -99,23 +99,31 @@ class PhotoCard extends Component {
     return (
       <div key={publicId}>
           <Nav />
-          <div className={'photo-card flex-center image-container ' + this.marginForRotation(angle)}>
+          <div
+            className={'photo-card image-container ' + this.marginForRotation(angle)}
+            style={{ display: 'grid', gridTemplateColumns: '10% 80% 10%' }}
+          >
             <div onClick={() => this.navigate(-1)} >
               <div
                 className={`nav-button back-button ${isFirst ? 'nav-button-inactive' : ''}`}>
                 <ChevronLeft  />
               </div>
             </div>
-            
-            <Image id={publicId} 
-                className='full-image'
-                height='400'
-                style={this.rotateStyle(angle)} 
-                publicId={publicId}
-                alt={name ? name : 'Painting By Stephen Rawls'}
-                >
-              <Transformation quality="50"/>
-            </Image>
+            <div>
+              <Image id={publicId} 
+                  className='full-image'
+                  style={this.rotateStyle(angle)} 
+                  publicId={publicId}
+                  dpr="auto"
+                  responsive
+                  width="auto"
+                  crop="scale"
+                  responsiveUseBreakpoints="true"
+                  alt={name ? name : 'Painting By Stephen Rawls'}
+                  >
+                <Transformation quality="auto" fetchFormat="auto"/>
+              </Image>
+            </div>
             <div onClick={() => this.navigate(1)} >
               <div 
                 className={`nav-button forward-button ${isLast ? 'nav-button-inactive' : ''}`}>

@@ -5,10 +5,11 @@ import { useMeasure } from 'react-use';
 import { useUpdateWindowSize } from '../contexts/WindowSize';
 import { useWindowDimensions } from '../hooks/useWindowDimensions';
 
-const Nav = () => {
+const Nav = ({ history }) => {
   const [ref, navDimensions] = useMeasure();
   const windowDimensions = useWindowDimensions();
   const updateWindowSize = useUpdateWindowSize();
+
   updateWindowSize({
       navbarHeight: navDimensions.height,
       totalHeight: windowDimensions.height,
@@ -20,7 +21,7 @@ const Nav = () => {
     <div ref={ref}>
       <div className='flex-center'>
         <h4 className='heading'
-          onClick={() => this.props.history.push('/')}>
+          onClick={() => history.push('/')}>
           STEPHEN RAWLS
       </h4>
       </div>

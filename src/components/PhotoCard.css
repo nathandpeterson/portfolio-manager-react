@@ -5,46 +5,19 @@
 .back-button {
   position: absolute;
   top: 40%;
-  left: 10%;
   cursor: pointer;
+  left:-1%;
 }
 
 .nav-button > svg {
-  fill: #f5f5f5;
   width: 50px;
   height: 50px;
+  fill: #666;
 }
 
 .forward-button {
   position: absolute;
   top: 40%;
-  right: 10%;
   cursor: pointer;
+  right: -1%;
 }
-
-.nav-button {
-  color: rgba(256, 256, 256, .6);
-}
-
-
-@media(min-width: 550px){
-  .nav-button svg {
-    fill: #666;
-  }
-
-  .back-button {
-    left:-1%;
-  }
-
-  .forward-button {
-    right: -1%;
-  }
-
-  .nav-button-inactive {
-    cursor: default;
-    pointer-events: none;
-  }
-  .nav-button-inactive svg {
-      fill: #ddd;
-  }
-} 

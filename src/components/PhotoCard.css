@@ -9,10 +9,10 @@
   left:-1%;
 }
 
-.nav-button > svg {
-  width: 50px;
-  height: 50px;
-  fill: #666;
+.nav-button svg {
+    width: 50px;
+    height: 50px;
+    fill: #666;
 }
 
 .forward-button {

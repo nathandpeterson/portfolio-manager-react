@@ -2,6 +2,7 @@ import React from 'react'
 import { Image, Transformation } from 'cloudinary-react';
 import { useWindowSize } from '../contexts/WindowSize';
 import { renderPrevious, renderNext, renderText } from './FullPhotoHelpers';
+import './PhotoCard.css'
 
 export function PhotoCard({ publicId, name, angle, previousUrl, nextUrl, ...imageData }){
   const windowSize = useWindowSize();

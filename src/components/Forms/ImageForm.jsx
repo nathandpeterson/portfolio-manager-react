@@ -6,7 +6,8 @@ import { withRouter } from 'react-router-dom'
 class ImageForm extends Component {
   constructor() {
     super()
-    this.state = this.initialState
+    this.state = this.initialState;
+    this.widget = null;
   }
 
   initialState = {
@@ -28,6 +29,17 @@ class ImageForm extends Component {
     } else {
       this.setState({ albumId: album.id })
     }
+    this.widget = window.cloudinary.createUploadWidget({
+      cloudName: process.env.REACT_APP_CLOUD_NAME,
+      uploadPreset: process.env.REACT_APP_UPLOAD_PRESET
+    }, (error, result) => {
+      if (result && result.event && result.event === 'success') {
+        return this.handleUpload(result, this.props.setModalMessage)
+      }
+      if (error) {
+        this.props.setModalMessage('Error');
+      }
+    })
   }
 
   componentDidUpdate(prevProps) {
@@ -41,28 +53,16 @@ class ImageForm extends Component {
     return { ...cleanedData, albumId: album_id }
   }
 
-  handleUpload = (cloudinaryResultArray, cb) => {
-    if (cloudinaryResultArray) {
-      cloudinaryResultArray.forEach(result => {
-        const { deleteConfirmation, ...cleanedState } = this.state
-        this.props.uploadImage({ ...cleanedState, publicId: result.public_id }, cb)
-      })
-    }
+  handleUpload = (cloudinaryResponse, cb) => {
+    if (cloudinaryResponse.info) {
+      const { public_id } = cloudinaryResponse.info;
+      const { deleteConfirmation, ...cleanedState } = this.state
+      this.props.uploadImage({ ...cleanedState, publicId: public_id }, cb)
+    };
   }
 
   handleClick = () => {
-    const cloud_name = process.env.REACT_APP_CLOUD_NAME
-    const upload_preset = process.env.REACT_APP_UPLOAD_PRESET
-
-    window.cloudinary.openUploadWidget({ cloud_name, upload_preset },
-      (error, result) => {
-        if (result) {
-          return this.handleUpload(result, this.props.setModalMessage)
-        } else {
-          this.props.setModalMessage('Error')
-          console.log('error', error)
-        }
-      })
+    this.widget.open();
   }
 
   imageDataConfig = [
